@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="David Warton" />
+
+<meta name="date" content="2022-05-30" />
+
+<title>Chapter 6 – Mixed effect models – Exercise solutions and Code Boxes</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Chapter 6 – Mixed effect models – Exercise solutions and Code Boxes</h1>
+<h4 class="author">David Warton</h4>
+<h4 class="date">2022-05-30</h4>
+
+
+
+<div id="exercise-6.1-effects-of-water-pollution-on-subtidal-marine-micro-invertebrates" class="section level2">
+<h2>Exercise 6.1: Effects of water pollution on subtidal marine micro-invertebrates</h2>
+<p><em>What factors are there? Fixed or random?</em></p>
+<p>He samples in seven estuaries along the New South Wales coast (three of which are “Pristine”, four are “Modified”), and in each estuary, he takes 4-7 samples and counts the creepy crawlies therein.</p>
+<p><em>Modification</em> is a factor, taking levels “Pristine” and “Modified”</p>
+<p><em>Estuary</em> is a factor, taking seven levels. If these were sampled randomly, and we want to make inferences across all estuaries on the New South Wales coast, it oculd be treated as a random factor.</p>
+<p>The 4-7 samples at each estuary are the replicates, so they shouldn’t be added to the model, variation in replicates will enter through the error term.</p>
+</div>
+<div id="code-for-fig-6.1" class="section level2">
+<h2>code for Fig 6.1</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecostats)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(estuaries)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Total<span class="sc">~</span>Estuary,<span class="at">data=</span>estuaries,<span class="at">col=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Modified&quot;</span>,<span class="st">&quot;Pristine&quot;</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>),<span class="at">pch=</span><span class="dv">15</span>,<span class="at">pt.cex=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="code-box-6.1-fitting-a-linear-mixed-model-to-the-estuary-data-of-exercise-6.1" class="section level2">
+<h2>Code Box 6.1: Fitting a linear mixed model to the estuary data of Exercise 6.1</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecostats)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(estuaries)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ft_estu <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Mod<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Estuary),<span class="at">data=</span>estuaries)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_estu)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Linear mixed model fit by REML [&#39;lmerMod&#39;]</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formula: Total ~ Mod + (1 | Estuary)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Data: estuaries</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; REML criterion at convergence: 314.4</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -2.2393 -0.7569  0.1553  0.7372  1.8962 </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Groups   Name        Variance Std.Dev.</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Estuary  (Intercept)  10.68    3.268  </span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Residual             123.72   11.123  </span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of obs: 42, groups:  Estuary, 7</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fixed effects:</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   39.053      3.237  12.065</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ModPristine  -11.243      4.287  -2.622</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation of Fixed Effects:</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             (Intr)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ModPristine -0.755</span></span></code></pre></div>
+<p>There is some evidence of an effect of <code>Mod</code>, since the estimated coefficient is more than double its standard error (so a 95% confidence interval would not cover zero). The effect appears to be a decrease in total abundance in pristine estuaries.</p>
+</div>
+<div id="code-box-6.2-residual-plots-from-a-mixed-model-for-exercise-6.1" class="section level2">
+<h2>Code Box 6.2: Residual plots from a mixed model for Exercise 6.1</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ft_estu <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Mod<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Estuary),<span class="at">data=</span>estuaries)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.smooth</span>(<span class="fu">residuals</span>(ft_estu)<span class="sc">~</span><span class="fu">fitted</span>(ft_estu),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Fitted values&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.smooth</span>(<span class="fu">residuals</span>(ft_estu)<span class="sc">~</span><span class="fu">predict</span>(ft_estu,<span class="at">re.form=</span><span class="cn">NA</span>),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Fitted values (no random effects)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="code-box-6.3-using-anova-to-compare-mixed-effects-models-for-the-estuary-data" class="section level2">
+<h2>Code Box 6.3: Using <code>anova</code> to compare mixed effects models for the estuary data</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ft_estu <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Mod<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Estuary),<span class="at">data=</span>estuaries,<span class="at">REML=</span>F)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ft_estuInt <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>(<span class="dv">1</span><span class="sc">|</span>Estuary),<span class="at">data=</span>estuaries,<span class="at">REML=</span>F)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ft_estuInt,ft_estu)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Data: estuaries</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estuInt: Total ~ (1 | Estuary)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estu: Total ~ Mod + (1 | Estuary)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)  </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estuInt    3 334.18 339.39 -164.09   328.18                       </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estu       4 330.14 337.09 -161.07   322.14 6.0396  1    0.01399 *</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>There is some evidence of an effect of modification.</p>
+</div>
+<div id="code-box-6.4-confidence-intervals-for-parameters-from-a-mixed-effects-model-for-the-estuary-data" class="section level2">
+<h2>Code Box 6.4: Confidence intervals for parameters from a mixed effects model for the estuary data</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(ft_estu)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Computing profile confidence intervals ...</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  2.5 %    97.5 %</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .sig01        0.000000  7.613337</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .sigma        8.944066 14.084450</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  32.815440 45.246159</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ModPristine -19.461059 -2.994392</span></span></code></pre></div>
+</div>
+<div id="code-box-6.5-prediction-intervals-for-random-effects-terms-in-a-mixed-effects-model" class="section level2">
+<h2>Code Box 6.5: Prediction intervals for random effects terms in a mixed effects model</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rft<span class="ot">=</span><span class="fu">ranef</span>(ft_estu,<span class="at">condVar=</span>T)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(rft)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $Estuary</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="exercise-6.2-fitting-random-effects-with-different-variances" class="section level2">
+<h2>Exercise 6.2: Fitting random effects with different variances</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>estuaries<span class="sc">$</span>isMod <span class="ot">=</span> <span class="fu">as.numeric</span>(estuaries<span class="sc">$</span>Mod<span class="sc">==</span><span class="st">&quot;Modified&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>estuaries<span class="sc">$</span>isPri <span class="ot">=</span> <span class="fu">as.numeric</span>(estuaries<span class="sc">$</span>Mod<span class="sc">!=</span><span class="st">&quot;Modified&quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ft_estuDiff <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Mod<span class="sc">+</span>(<span class="dv">0</span><span class="sc">+</span>isMod<span class="sc">|</span>Estuary)<span class="sc">+</span>(<span class="dv">0</span><span class="sc">+</span>isPri<span class="sc">|</span>Estuary),<span class="at">data=</span>estuaries,<span class="at">REML=</span>F)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; boundary (singular) fit: see help(&#39;isSingular&#39;)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_estuDiff)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formula: Total ~ Mod + (0 + isMod | Estuary) + (0 + isPri | Estuary)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Data: estuaries</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      AIC      BIC   logLik deviance df.resid </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    331.7    340.4   -160.8    321.7       37 </span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -2.2790 -0.7211  0.2024  0.6807  1.9407 </span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Groups    Name  Variance Std.Dev.</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Estuary   isMod   0.00    0.000  </span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Estuary.1 isPri  11.39    3.375  </span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Residual        118.84   10.901  </span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of obs: 42, groups:  Estuary, 7</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fixed effects:</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   39.111      2.569   15.22</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ModPristine  -11.303      3.806   -2.97</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation of Fixed Effects:</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             (Intr)</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ModPristine -0.675</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; optimizer (nloptwrap) convergence code: 0 (OK)</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; boundary (singular) fit: see help(&#39;isSingular&#39;)</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(ft_estu,ft_estuDiff)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             df      BIC</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estu      4 337.0880</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estuDiff  5 340.3501</span></span></code></pre></div>
+<p>BIC suggests that we didn’t need a different variance term for each level of <code>Mod</code>. (It also estimated the cross-estuary variance to be zero for modified estuaries, leading to a warning in the output.)</p>
+</div>
+<div id="exercise-6.3-bird-exclusion-and-biological-control" class="section level2">
+<h2>Exercise 6.3: Bird exclusion and biological control</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(aphidsBACI)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(aphidsBACI)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    16 obs. of  5 variables:</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Plot     : Factor w/ 8 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5 6 7 8 1 2 ...</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Treatment: Factor w/ 2 levels &quot;excluded&quot;,&quot;present&quot;: 2 2 2 2 1 1 1 1 2 2 ...</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Time     : Factor w/ 2 levels &quot;X18.06.&quot;,&quot;X15.07.&quot;: 1 1 1 1 1 1 1 1 2 2 ...</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ counts   : int  78 71 122 271 119 152 120 202 60 48 ...</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ logcount : num  4.37 4.28 4.81 5.61 4.79 ...</span></span></code></pre></div>
+<p>OK so we are looking for a <code>Treatment:Time</code> interaction, but to account for repeated measures of each plot, we want a random effect for <code>Plot</code> in the model.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ft_aphids<span class="ot">=</span><span class="fu">lmer</span>(logcount<span class="sc">~</span>Treatment<span class="sc">*</span>Time<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Plot),<span class="at">data=</span>aphidsBACI)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; boundary (singular) fit: see help(&#39;isSingular&#39;)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ft_aphidNull<span class="ot">=</span><span class="fu">lmer</span>(logcount<span class="sc">~</span>Time<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Plot),<span class="at">data=</span>aphidsBACI)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; boundary (singular) fit: see help(&#39;isSingular&#39;)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ft_aphidNull,ft_aphids)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; refitting model(s) with ML (instead of REML)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Data: aphidsBACI</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_aphidNull: logcount ~ Time + (1 | Plot)</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_aphids: logcount ~ Treatment * Time + (1 | Plot)</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              npar    AIC    BIC   logLik deviance  Chisq Df Pr(&gt;Chisq)  </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_aphidNull    4 28.204 31.294 -10.1020   20.204                       </span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_aphids       6 26.974 31.609  -7.4868   14.973 5.2304  2    0.07315 .</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>Which gives us marginal evidence of an effect of bird exclusion of aphid counts.</p>
+<p>Compare this to what we got when adding <code>Plot</code> as a fixed effect:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lm_aphids<span class="ot">=</span><span class="fu">lm</span>(logcount<span class="sc">~</span>Plot<span class="sc">+</span>Treatment<span class="sc">*</span>Time,<span class="at">data=</span>aphidsBACI)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_aphids)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of Variance Table</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Response: logcount</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                Df Sum Sq Mean Sq F value   Pr(&gt;F)   </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plot            7 0.8986  0.1284  0.4603 0.833357   </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time            1 5.4675  5.4675 19.6038 0.004434 **</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Treatment:Time  1 0.7397  0.7397  2.6522 0.154527   </span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals       6 1.6734  0.2789                    </span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>Interestingly, this <span class="math inline">\(P\)</span>-value is a lot smaller.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_aphids)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = logcount ~ Plot + Treatment * Time, data = aphidsBACI)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.5527 -0.1929  0.0000  0.1929  0.5527 </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients: (1 not defined because of singularities)</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                    4.6097     0.4175  11.041 3.28e-05 ***</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plot2                         -0.1559     0.5281  -0.295  0.77776    </span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plot3                          0.3378     0.5281   0.640  0.54600    </span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plot4                          0.4433     0.5281   0.839  0.43336    </span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plot5                          0.2127     0.5904   0.360  0.73105    </span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plot6                          0.3530     0.5904   0.598  0.57179    </span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plot7                          0.6593     0.5904   1.117  0.30685    </span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plot8                          0.2631     0.5904   0.446  0.67154    </span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Treatmentpresent                   NA         NA      NA       NA    </span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TimeX15.07.                   -1.5992     0.3734  -4.282  0.00519 ** </span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Treatmentpresent:TimeX15.07.   0.8601     0.5281   1.629  0.15453    </span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.5281 on 6 degrees of freedom</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.8094, Adjusted R-squared:  0.5235 </span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 2.831 on 9 and 6 DF,  p-value: 0.1091</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_aphids)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Linear mixed model fit by REML [&#39;lmerMod&#39;]</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formula: logcount ~ Treatment * Time + (1 | Plot)</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Data: aphidsBACI</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; REML criterion at convergence: 20.2</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -1.2314 -0.4755 -0.2367  0.3187  1.8824 </span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Groups   Name        Variance Std.Dev.</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Plot     (Intercept) 0.000    0.0000  </span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Residual             0.199    0.4461  </span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of obs: 16, groups:  Plot, 8</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fixed effects:</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                              Estimate Std. Error t value</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                    4.9817     0.2231  22.334</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Treatmentpresent              -0.2157     0.3155  -0.684</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TimeX15.07.                   -1.5992     0.3155  -5.069</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Treatmentpresent:TimeX15.07.   0.8601     0.4461   1.928</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation of Fixed Effects:</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             (Intr) Trtmnt TX15.0</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Trtmntprsnt -0.707              </span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TimeX15.07. -0.707  0.500       </span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tr:TX15.07.  0.500 -0.707 -0.707</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; optimizer (nloptwrap) convergence code: 0 (OK)</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; boundary (singular) fit: see help(&#39;isSingular&#39;)</span></span></code></pre></div>
+<p>We get the same point estimate for the <code>Treatment:Time</code> effect, but the standard error is slightly smaller in the random effects model.</p>
+</div>
+<div id="exercise-6.4-estuary-data-in-different-zones" class="section level2">
+<h2>Exercise 6.4: Estuary data in different zones</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(estuaryZone)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cols<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;lightblue&quot;</span>,<span class="st">&quot;pink&quot;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Total<span class="sc">~</span><span class="fu">interaction</span>(Estuary,Zone),<span class="at">data=</span>estuaryZone,<span class="at">col=</span>cols[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">4</span>)])</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Mod-Inner&quot;</span>,<span class="st">&quot;Prist-Inner&quot;</span>,<span class="st">&quot;Mod-Outer&quot;</span>,<span class="st">&quot;Pris-Outer&quot;</span>),<span class="at">col=</span>cols,<span class="at">pch=</span><span class="dv">15</span>,<span class="at">pt.cex=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>It looks like there is an effect of Modification, not sure if there is an interaction (the effect seems more striking in Outer than Inner zones)</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lme_MZ <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Zone<span class="sc">*</span>Mod <span class="sc">+</span> (Zone<span class="sc">|</span>Estuary), <span class="at">data=</span>estuaryZone )</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; boundary (singular) fit: see help(&#39;isSingular&#39;)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.smooth</span>(<span class="fu">residuals</span>(lme_MZ)<span class="sc">~</span><span class="fu">fitted</span>(lme_MZ),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Fitted values&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.smooth</span>(<span class="fu">residuals</span>(lme_MZ)<span class="sc">~</span><span class="fu">predict</span>(lme_MZ,<span class="at">re.form=</span><span class="cn">NA</span>),</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Fitted values (no random effects)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>There is a suggestion of less total abundance as fitted values increase, which is super-weird. But it’s not too alarming…</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lme_MplusZ <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Zone<span class="sc">+</span>Mod <span class="sc">+</span> (Zone<span class="sc">|</span>Estuary), <span class="at">data=</span>estuaryZone )</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; boundary (singular) fit: see help(&#39;isSingular&#39;)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lme_MplusZ,lme_MZ)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; refitting model(s) with ML (instead of REML)</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Data: estuaryZone</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ: Total ~ Zone + Mod + (Zone | Estuary)</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MZ: Total ~ Zone * Mod + (Zone | Estuary)</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ    7 595.91 612.31 -290.95   581.91                     </span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MZ        8 597.14 615.89 -290.57   581.14 0.7618  1     0.3828</span></span></code></pre></div>
+<p>No evidence of an interaction between Zone and Modification. Testing for a <code>Mod</code> main effect:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lme_Z <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Zone <span class="sc">+</span> (Zone<span class="sc">|</span>Estuary), <span class="at">data=</span>estuaryZone )</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lme_Z,lme_MplusZ)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; refitting model(s) with ML (instead of REML)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Data: estuaryZone</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_Z: Total ~ Zone + (Zone | Estuary)</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ: Total ~ Zone + Mod + (Zone | Estuary)</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    </span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_Z         6 608.43 622.50 -298.22   596.43                         </span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ    7 595.91 612.31 -290.95   581.91 14.529  1   0.000138 ***</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>There is strong evidence that total abundance is different between Modified and Pristine estuaries. The boxplot suggests abundance is higher in Modified estuaries, and looking at the data, this appears to be mostly due to high counts of <code>Balanus.variegatus</code>, especially in outer modified zones.</p>
+</div>
+<div id="code-box-6.6-using-the-parametric-bootstrap-to-compute-the-standard-error-of-the-mod-fixed-effect-in-exercise-6.1." class="section level2">
+<h2>Code Box 6.6: Using the parametric bootstrap to compute the standard error of the <code>Mod</code> fixed effect in Exercise 6.1.</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nBoot<span class="ot">=</span><span class="dv">500</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>bStat<span class="ot">=</span><span class="fu">rep</span>(<span class="cn">NA</span>,nBoot)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ft_estu <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Mod<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Estuary),<span class="at">data=</span>estuaries)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(iBoot <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nBoot)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>   estuaries<span class="sc">$</span>TotalSim<span class="ot">=</span><span class="fu">unlist</span>(<span class="fu">simulate</span>(ft_estu))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>   ft_i <span class="ot">=</span> <span class="fu">lmer</span>(TotalSim<span class="sc">~</span>Mod<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Estuary),<span class="at">data=</span>estuaries)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>   bStat[iBoot] <span class="ot">=</span> <span class="fu">fixef</span>(ft_i)[<span class="dv">2</span>]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(bStat) <span class="co">#standard error of Mod effect</span></span></code></pre></div>
+<p>And if we compare this to the standard error from <code>summary</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_estu)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formula: Total ~ Mod + (1 | Estuary)</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Data: estuaries</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      AIC      BIC   logLik deviance df.resid </span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    330.1    337.1   -161.1    322.1       38 </span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -2.3014 -0.7496  0.1157  0.7458  1.8486 </span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Groups   Name        Variance Std.Dev.</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Estuary  (Intercept)   2.757   1.66   </span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Residual             122.860  11.08   </span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of obs: 42, groups:  Estuary, 7</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fixed effects:</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   39.092      2.786  14.034</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ModPristine  -11.268      3.687  -3.056</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation of Fixed Effects:</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             (Intr)</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ModPristine -0.756</span></span></code></pre></div>
+<p>we see the estimated standard error is 3.6869832, which is pretty close to the value we got by simulation.</p>
+</div>
+<div id="code-box-6.7-a-parametric-bootstrap-to-test-for-an-effect-of-estuary-in-exercise-6.1." class="section level2">
+<h2>Code Box 6.7: A parametric bootstrap to test for an effect of Estuary in Exercise 6.1.</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ft_noestu <span class="ot">=</span> <span class="fu">lm</span>(Total<span class="sc">~</span>Mod,<span class="at">data=</span>estuaries)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecostats)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anovaPB</span>(ft_noestu,ft_estu,<span class="at">n.sim=</span><span class="dv">99</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error : $ operator not defined for this S4 class</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in Ops.factor(1, Estuary): &#39;|&#39; not meaningful for factors</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           df deviance        LRT Pr(&gt;LRT)</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_noestu  3 322.1963         NA       NA</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estu    4 322.1373 0.05902372      0.2</span></span></code></pre></div>
+<p>So we have no evidence of an <code>Estuary</code> effect.</p>
+</div>
+<div id="exercise-6.6-accurate-inferences-about-the-estuary-data" class="section level2">
+<h2>Exercise 6.6: Accurate inferences about the estuary data</h2>
+<p><em>Use the parametric bootstrap to get a formal test for a <code>zone:mod</code> interaction.</em></p>
+<p>We can just run the old analysis and change from <code>anova</code> to <code>anovaPB</code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lme_MZ <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Zone<span class="sc">*</span>Mod <span class="sc">+</span> (Zone<span class="sc">|</span>Estuary), <span class="at">data=</span>estuaryZone, <span class="at">REML=</span><span class="cn">FALSE</span> )</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>lme_MplusZ <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Zone<span class="sc">+</span>Mod <span class="sc">+</span> (Zone<span class="sc">|</span>Estuary), <span class="at">data=</span>estuaryZone, <span class="at">REML=</span><span class="cn">FALSE</span> )</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anovaPB</span>(lme_MplusZ,lme_MZ,<span class="at">n.sim=</span><span class="dv">99</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in Ops.factor(Zone, Estuary): &#39;|&#39; not meaningful for factors</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Data: estuaryZone</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; objectNull: Total ~ Zone + Mod + (Zone | Estuary)</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; object: Total ~ Zone * Mod + (Zone | Estuary)</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik deviance  Chisq Pr(&gt;Chisq)</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; objectNull    7 595.91 612.31 -290.95   581.91                  </span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; object        8 597.14 615.89 -290.57   581.14 0.7618       0.42</span></span></code></pre></div>
+<p>There is no evidence of an interaction.</p>
+<p>(Ignore the warnings in the output – this is random stuff that was thrown up in bootstrap resamples that didn’t get a good fit.)</p>
+<p><em>How do results compare to those from when you were using the <code>anova</code> function?</em></p>
+<p>Results are similar to what we saw before. The only thing that is different is the <span class="math inline">\(P\)</span>-value, but it is very similar (suggesting there was no need for a parametric bootstrap here!).</p>
+<p><em>This would all have been so much easier if there wasn’t a random effect in the model… do we really need <code>Estuary</code> in there?</em></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lme_MZ <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Zone<span class="sc">*</span>Mod <span class="sc">+</span> (Zone<span class="sc">|</span>Estuary), <span class="at">data=</span>estuaryZone, <span class="at">REML=</span><span class="cn">FALSE</span> )</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>lme_MZnoest <span class="ot">=</span> <span class="fu">lm</span>(Total<span class="sc">~</span>Zone<span class="sc">+</span>Mod, <span class="at">data=</span>estuaryZone)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anovaPB</span>(lme_MZnoest,lme_MZ,<span class="at">n.sim=</span><span class="dv">99</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error : $ operator not defined for this S4 class</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in Ops.factor(Zone, Estuary): &#39;|&#39; not meaningful for factors</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             df deviance      LRT Pr(&gt;LRT)</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MZnoest  4 582.8273       NA       NA</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MZ       8 581.1436 1.683641     0.31</span></span></code></pre></div>
+<p>We have no evidence of an <code>Estuary</code> effect either!</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

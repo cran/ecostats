@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="David Warton" />
+
+<meta name="date" content="2022-05-30" />
+
+<title>Chapter 16 – Understanding variation in environmental response across taxa – Exercise solutions and Code Boxes</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Chapter 16 – Understanding variation in environmental response across taxa – Exercise solutions and Code Boxes</h1>
+<h4 class="author">David Warton</h4>
+<h4 class="date">2022-05-30</h4>
+
+
+
+<div id="exercise-16.1-understanding-how-spiders-vary-in-environmental-response" class="section level2">
+<h2>Exercise 16.1: Understanding how spiders vary in environmental response</h2>
+<p><em>Consider again Petrus’s hunting spider data of Exercise 15.2. He established (e.g. in Code Box 15.7) that different species respond differently to environmental gradients, especially so for soil dryness, herb layer and reflectance. He would like to know what the main types of environmental response were, across species.</em></p>
+<p><em>What approach should he use to answer this question?</em></p>
+<p>He wants to understand <em>how</em> taxa vary in environmental response, so he could use a Species Archetype Model to classify species according to type of environmental response.</p>
+</div>
+<div id="code-box-16.1-fitting-a-species-archetype-model-to-petruss-spider-data" class="section level2">
+<h2>Code Box 16.1: Fitting a Species Archetype Model to Petrus’s spider data</h2>
+<p>Run the below lines to install <code>ecomix</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;skiptoniam/ecomix&quot;</span>)</span></code></pre></div>
+<p>Code to fit <code>ecomix</code> will only be run if it is installed (the if statement is included because CRAN policies require vignettes to be able to be run only using packages that can be installed from CRAN)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>is_ecomix_installed <span class="ot">=</span> <span class="fu">requireNamespace</span>(<span class="st">&quot;ecomix&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvabund)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(spider)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>SpiderDF<span class="ot">=</span>spider<span class="sc">$</span>x</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>SpiderDF<span class="sc">$</span>abund<span class="ot">=</span><span class="fu">as.matrix</span>(spider<span class="sc">$</span>abund)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>spiderFormula <span class="ot">=</span> abund <span class="sc">~</span> soil.dry <span class="sc">+</span> bare.sand <span class="sc">+</span> fallen.leaves <span class="sc">+</span> moss <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>herb.layer <span class="sc">+</span> reflection</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(is_ecomix_installed)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  ft_Mix <span class="ot">=</span> ecomix<span class="sc">::</span><span class="fu">species_mix</span>(spiderFormula, <span class="at">data=</span>SpiderDF, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">nArchetypes=</span><span class="dv">2</span>, <span class="at">control=</span><span class="fu">list</span>(<span class="at">init_method=</span><span class="st">&#39;kmeans&#39;</span>,<span class="at">ecm_refit=</span><span class="dv">5</span>, <span class="at">ecm_steps=</span><span class="dv">2</span>) )</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coef</span>(ft_Mix)<span class="sc">$</span>beta</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SAM modelling</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There are 2 archetypes to group the species into</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There are 28 site observations for 12 species</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The model for the archetype (grouping) is ~soil.dry + bare.sand + fallen.leaves + moss + herb.layer + reflection</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The model for the species is ~1</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; You are implementing a negative.binomial Species Archetype Model.</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Using ECM algorithm to find starting values; using 5 refits</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 1 of 5</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -1041.731 | Ratio loglik 0</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -834.997 | Ratio loglik 0.801548</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 2 of 5</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -1041.731 | Ratio loglik 0</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -834.997 | Ratio loglik 0.801548</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 3 of 5</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -1041.731 | Ratio loglik 0</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -834.997 | Ratio loglik 0.801548</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 4 of 5</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -1041.731 | Ratio loglik 0</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -834.997 | Ratio loglik 0.801548</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 5 of 5</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -1041.731 | Ratio loglik 0</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -834.997 | Ratio loglik 0.801548</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 834.997322 </span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  10 value 822.933991</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  20 value 818.054221</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  30 value 816.602567</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  40 value 812.844421</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  50 value 793.214165</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  60 value 791.057454</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  70 value 786.683339</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  80 value 778.413169</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  90 value 777.956005</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 777.933344 </span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              soil.dry   bare.sand fallen.leaves       moss herb.layer</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Archetype1  1.5629184 -0.05470042    -0.2784744 -0.1449658  0.7081518</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Archetype2 -0.1069941  0.22420728    -0.2855582  0.4186874  0.5894873</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            reflection</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Archetype1 -0.4730736</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Archetype2  0.4759734</span></span></code></pre></div>
+<p><em>Which predictors vary the most across archetypes (hence across taxa)? Is this what you saw in Code Box 15.7?</em></p>
+<p><code>soil.dry</code> had the biggest change, jumping from <code>2.15</code> to <code>0.10</code>. The next biggest changes were in <code>herb.layer</code> and <code>reflection</code>. This is pretty much what was happening in Code Box 15.7 as well.</p>
+</div>
+<div id="code-box-16.2-minding-your-ps-and-qs-for-petruss-species-archetype-model" class="section level2">
+<h2>Code Box 16.2: Minding your P’s and Q’s for Petrus’s Species Archetype Model</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(is_ecomix_installed)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(ft_Mix, <span class="at">type=</span><span class="st">&quot;link&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Infinite residuals removed from residual plots: 82 in total.</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><em>Do model assumptions seem reasonable here?</em></p>
+<p>This generally looks good, no fan-shape in residual vs fits plot, points close(ish) to a straight line on normal quanitle plot.</p>
+</div>
+<div id="exercise-16.2-archetypal-revegetation-response" class="section level2">
+<h2>Exercise 16.2: Archetypal revegetation response</h2>
+<p><em>Consider again Anthony’s revegetation study. We would like to better characterise how different invertebrate orders respond to the revegetation treatment. Fit a Species Archetype Model with two archetypes.</em></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecostats)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(reveg)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>revegDF<span class="ot">=</span><span class="fu">data.frame</span>(reveg)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>revegDF<span class="sc">$</span>abundMat<span class="ot">=</span><span class="fu">as.matrix</span>(reveg<span class="sc">$</span>abund)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(is_ecomix_installed)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ft_revegMix <span class="ot">=</span> ecomix<span class="sc">::</span><span class="fu">species_mix</span>(abundMat<span class="sc">~</span>treatment, <span class="at">data=</span>revegDF, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">nArchetypes=</span><span class="dv">2</span>, <span class="at">control=</span><span class="fu">list</span>(<span class="at">init_method=</span><span class="st">&#39;kmeans&#39;</span>,<span class="at">ecm_refit=</span><span class="dv">5</span>, <span class="at">ecm_steps=</span><span class="dv">2</span>) )</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coef</span>(ft_revegMix)<span class="sc">$</span>beta</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SAM modelling</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There are 2 archetypes to group the species into</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There are 10 site observations for 24 species</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The model for the archetype (grouping) is ~treatment</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The model for the species is ~1</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; You are implementing a negative.binomial Species Archetype Model.</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Using ECM algorithm to find starting values; using 5 refits</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 1 of 5</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -932.547 | Ratio loglik 0</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -745.016 | Ratio loglik 0.798905</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 2 of 5</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -932.547 | Ratio loglik 0</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -745.016 | Ratio loglik 0.798905</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 3 of 5</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -932.547 | Ratio loglik 0</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -745.016 | Ratio loglik 0.798905</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 4 of 5</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -932.547 | Ratio loglik 0</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -745.016 | Ratio loglik 0.798905</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ECM restart 5 of 5</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialising starting values</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initial groups parameter estimates by K-means clustering</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 1 | New loglik -932.547 | Ratio loglik 0</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Iteration: 2 | New loglik -745.016 | Ratio loglik 0.798905</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 745.015688 </span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 745.015688 </span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            treatmentImpact</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Archetype1        1.441362</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Archetype2        5.350399</span></span></code></pre></div>
+<p><em>Explain what the main two types of response to revegetation were, across invertebrate taxa.</em></p>
+<p>Oh that’s odd – the estimated trend is almost identical for these two groups.</p>
+<p><em>Look at the posterior probabilities for each Order, identify a few taxa that characterise each response type, and plot the raw data for these taxa. Does the Species Archetype Model seem to capture the main trends in response to revegetation treatment?</em></p>
+<p>This doesn’t seem worthwhile when there are no differences in response across these archetypes!!</p>
+</div>
+<div id="code-box-16.3-choosing-the-number-of-archetypes-for-petruss-spider-data" class="section level2">
+<h2>Code Box 16.3: Choosing the number of archetypes for Petrus’s spider data</h2>
+<p><em>This code chunk has not been run, as it takes a minute or so to complete</em></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(is_ecomix_installed)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  nClust<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">3</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  bics <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(nClust))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(iClust <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(nClust))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    fti_Mix <span class="ot">=</span> ecomix<span class="sc">::</span><span class="fu">species_mix</span>(spiderFormula, <span class="at">data=</span>SpiderDF,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">nArchetypes=</span>nClust[iClust],</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">control=</span><span class="fu">list</span>(<span class="at">init_method=</span><span class="st">&#39;kmeans&#39;</span>,<span class="at">ecm_refit=</span><span class="dv">5</span>, <span class="at">ecm_steps=</span><span class="dv">2</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    bics[iClust] <span class="ot">=</span> <span class="fu">BIC</span>(fti_Mix)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(bics<span class="sc">~</span>nClust, <span class="at">ylab=</span><span class="st">&quot;BIC&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;# archetypes&quot;</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>How many archetypes would you use?</em></p>
+<p>I guess I’d go for four archetypes, that looks like the winner here.</p>
+<p><em>Note that repeat runs didn’t always give the same BIC. Why did this happen?</em></p>
+<p>As in Maths Box 16.1, mixture model likelihoods can be messy with multiple maxima. Hence it’s a good idea to run multiple times and keep the best solution.</p>
+</div>
+<div id="exercise-16.3-how-many-revegetation-archetypes" class="section level2">
+<h2>Exercise 16.3: How many revegetation archetypes?</h2>
+<p><em>Consider again a Species Archetype Model for Anthony’s revegetation data. In Exercise 16.2 we assumed there were only two archetypes. How many archetypes should be used for Anthony’s data? Answer this question using the model selection technique of your choice.</em></p>
+<p>OK I’m going for BIC as above.</p>
+<p><em>This code chunk has not been run, as it takes a minute or so to complete</em></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(is_ecomix_installed)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  nClust<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">3</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  bics <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(nClust))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(iClust <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(nClust))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    fti_Mix <span class="ot">=</span> ecomix<span class="sc">::</span><span class="fu">species_mix</span>(abundMat<span class="sc">~</span>treatment, <span class="at">data=</span>revegDF, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">nArchetypes=</span>nClust[iClust])</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    bics[iClust] <span class="ot">=</span> <span class="fu">BIC</span>(fti_Mix)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(bics<span class="sc">~</span>nClust, <span class="at">ylab=</span><span class="st">&quot;BIC&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;# archetypes&quot;</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Well it looks like there should be two archetypes (presumably, one of these is increasing with revegetation, the other not).</p>
+</div>
+<div id="exercise-16.4-understanding-why-spiders-vary-in-environmental-response" class="section level2">
+<h2>Exercise 16.4: Understanding why spiders vary in environmental response</h2>
+<p><em>Consider again Petrus’s hunting spider data of Exercise 15.2… He wants to know the extent to which species traits explain interspecific variation in environmental response. What approach should he use to answer this question?</em></p>
+<p>He wants to know <em>why</em> species vary in their environmental response, so a good idea would be to include predictors on species (species traits) and to use a fourth corner model to understand the extent to which interspecific variation in environmental response can be explained by these traits.</p>
+</div>
+<div id="code-box-16.4-a-fourth-corner-model-for-spider-data-using-traitglm" class="section level2">
+<h2>Code Box 16.4: A fourth corner model for spider data using traitglm</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gllvm)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;gllvm&#39;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:VGAM&#39;:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     AICc, nobs, predict, vcov</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats4&#39;:</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     nobs, vcov</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:vegan&#39;:</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ordiplot</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:mvabund&#39;:</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     coefplot</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     nobs, predict, simulate, vcov</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(spider)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> spider<span class="sc">$</span>x[,<span class="fu">c</span>(<span class="st">&quot;soil.dry&quot;</span>,<span class="st">&quot;herb.layer&quot;</span>)]</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>ft_trait <span class="ot">=</span> <span class="fu">gllvm</span>(spider<span class="sc">$</span>abund, X, spider<span class="sc">$</span>trait, <span class="at">randomX=</span><span class="sc">~</span>soil.dry<span class="sc">+</span>herb.layer, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(ft_trait)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;log Lik.&#39; -711.2905 (df=60)</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">max</span>( <span class="fu">abs</span>(ft_trait<span class="sc">$</span>fourth.corner) )</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>colort <span class="ot">=</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;white&quot;</span>,<span class="st">&quot;red&quot;</span>))</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plot<span class="fl">.4</span>th <span class="ot">=</span> <span class="fu">levelplot</span>(ft_trait<span class="sc">$</span>fourth.corner, <span class="at">col.regions=</span><span class="fu">colort</span>(<span class="dv">100</span>),</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">at=</span><span class="fu">seq</span>(<span class="sc">-</span>a, a, <span class="at">length=</span><span class="dv">100</span>), <span class="at">scales =</span> <span class="fu">list</span>( <span class="at">x=</span><span class="fu">list</span>(<span class="at">rot =</span> <span class="dv">45</span>)) )</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot<span class="fl">.4</span>th)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(ft_trait)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="exercise-16.5-heloises-ants" class="section level2">
+<h2>Exercise 16.5: Heloise’s ants</h2>
+<p><em>Heloise collected counts of 41 species of ants at 30 sites across south-eastern Australia, stored as <code>antTraits</code> in the <code>mvabund</code> package. She also recorded five environmental variables at each site, and five functional traits for each species. She would like to know if these traits explain why ant species differ in environmental response. Fit a fourth corner model to this dataset.</em></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(antTraits)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>envMat <span class="ot">=</span> <span class="fu">as.matrix</span>(antTraits<span class="sc">$</span>env)</span></code></pre></div>
+<p><em>The below code chunk takes about a minute to run so it has not been evaluated here to shorten vignette compilation time</em></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ft_anttrait <span class="ot">=</span> <span class="fu">gllvm</span>(antTraits<span class="sc">$</span>abund, envMat, antTraits<span class="sc">$</span>traits, <span class="at">randomX=</span><span class="sc">~</span>envMat, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">starting.val=</span><span class="st">&quot;zero&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(ft_anttrait)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">max</span>( <span class="fu">abs</span>(ft_anttrait<span class="sc">$</span>fourth.corner) )</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>colort <span class="ot">=</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;white&quot;</span>,<span class="st">&quot;red&quot;</span>))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plot_4th <span class="ot">=</span> <span class="fu">levelplot</span>(<span class="fu">t</span>(<span class="fu">as.matrix</span>(ft_anttrait<span class="sc">$</span>fourth.corner)),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.regions=</span><span class="fu">colort</span>(<span class="dv">100</span>), <span class="at">at=</span><span class="fu">seq</span>(<span class="sc">-</span>a, a, <span class="at">length=</span><span class="dv">100</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">scales =</span> <span class="fu">list</span>( <span class="at">x=</span> <span class="fu">list</span>(<span class="at">rot =</span> <span class="dv">45</span>)) )</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot_4th)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(ft_anttrait)</span></code></pre></div>
+<p>This doesn’t always produce a <code>coefplot</code> because of infinite values – this is symptomatic of non-convergence. Make sure you end up with a <code>logLik</code> value of about <code>-2300</code> or better, if this doesn’t happen then re-run. I ended up using <code>starting.val=&quot;zero&quot;</code> which usually gave better fits (it doesn’t always but did this time around).</p>
+<p><em>What are the key traits that capture why (and how) ants differ in environment response?</em></p>
+<p>A big one seems to be <code>Canopy.cover:polymorphism</code>. <code>Canopy.cover:Pilosity</code> also seemed to be very negative in most runs, but with a fairly large standard error.</p>
+<p><em>Don’t forget to check your P’s and Q’s!</em></p>
+<p><em>The below code chunk has not been evaluated because it is a function of the previous one</em></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="fl">1.75</span>,<span class="fl">0.75</span>,<span class="dv">0</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ft_anttrait, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div>
+<p>This looks good to me. The points on the normal quantile plot don’t all stay in the envelope (which is pointwise not global, so is tighter than it should be), but the violations we have are not of the alarming kind – residuals are smaller in magnitude than expected, rather than too large. This is often symptomatic of overfitting rather than lack-of-fit – the model does have a lot of parameters in it!</p>
+</div>
+<div id="code-box-16.5-a-fourth-corner-interaction-plot-for-petruss-spider-data" class="section level2">
+<h2>Code Box 16.5: A fourth corner interaction plot for Petrus’s spider data</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nVars <span class="ot">=</span> <span class="fu">dim</span>(spider<span class="sc">$</span>abund)[<span class="dv">2</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>newTraits <span class="ot">=</span> spider<span class="sc">$</span>trait</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set factors not of interest here to be a constant value</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>newTraits<span class="sc">$</span>length<span class="ot">=</span> <span class="fu">mean</span>(spider<span class="sc">$</span>trait<span class="sc">$</span>length) <span class="co">#set length to its mean</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>newTraits<span class="sc">$</span>colour<span class="ot">=</span><span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">levels</span>(spider<span class="sc">$</span>trait<span class="sc">$</span>colour)[<span class="dv">1</span>],nVars),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">levels=</span><span class="fu">levels</span>(spider<span class="sc">$</span>trait<span class="sc">$</span>colour)) <span class="co">#set to first level of factor</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set starting rows of ’marks’ to take all possible values</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>nMarks <span class="ot">=</span> <span class="fu">nlevels</span>(spider<span class="sc">$</span>trait<span class="sc">$</span>marks)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>newTraits<span class="sc">$</span>marks[<span class="dv">1</span><span class="sc">:</span>nMarks]<span class="ot">=</span><span class="fu">levels</span>(spider<span class="sc">$</span>trait<span class="sc">$</span>marks)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new env dataset where the only thing that varies is soil:</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>newEnv <span class="ot">=</span> spider<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="fu">c</span>(<span class="st">&quot;soil.dry&quot;</span>,<span class="st">&quot;herb.layer&quot;</span>)]</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>newEnv[,<span class="st">&quot;soil.dry&quot;</span>]<span class="ot">=</span><span class="fu">range</span>(<span class="fu">scale</span>(spider<span class="sc">$</span>x[,<span class="st">&quot;soil.dry&quot;</span>]))</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>newEnv[,<span class="st">&quot;herb.layer&quot;</span>]<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#make predictions and plot:</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>newPreds <span class="ot">=</span> <span class="fu">predict</span>(ft_trait,<span class="at">newX=</span>newEnv,<span class="at">newTR=</span>newTraits,<span class="at">type=</span><span class="st">&quot;response&quot;</span>, <span class="at">level=</span><span class="dv">0</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(newEnv[,<span class="dv">1</span>], newPreds[,<span class="dv">1</span><span class="sc">:</span>nMarks],<span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">log=</span><span class="st">&quot;y&quot;</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="fu">levels</span>(newTraits<span class="sc">$</span>marks),<span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span>nMarks,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span>nMarks)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="exercise-16.6-a-fourth-corner-interaction-plot-for-heloises-ants" class="section level2">
+<h2>Exercise 16.6: A fourth corner interaction plot for Heloise’s ants</h2>
+<p><em>Recall that fourth corner model you fitted to Heloise’s data in Exercise 16.5. For an interaction of your choice, construct a plot to visualise how the environment-abundance association changes for different values of the functional trait.</em></p>
+<p>I’m going with <code>Canopy.cover:Polymorphism</code>, as the one with the biggest (and only significant) interaction term:</p>
+<p><em>The below code chunk has not been evaluated because it is a function of the previous one</em></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nVars <span class="ot">=</span> <span class="fu">dim</span>(antTraits<span class="sc">$</span>abund)[<span class="dv">2</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>newTraits <span class="ot">=</span> antTraits<span class="sc">$</span>traits</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#set length vars to their mean</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>newTraits<span class="sc">$</span>Femur.length<span class="ot">=</span> <span class="fu">mean</span>(antTraits<span class="sc">$</span>traits<span class="sc">$</span>Femur.length) </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>newTraits<span class="sc">$</span>Webers.length<span class="ot">=</span> <span class="fu">mean</span>(antTraits<span class="sc">$</span>traits<span class="sc">$</span>Webers.length)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># set factors not of interest here to be a constant value</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>newTraits<span class="sc">$</span>No.spines<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">0</span>,nVars)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>newTraits<span class="sc">$</span>Pilosity <span class="ot">=</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">levels</span>(antTraits<span class="sc">$</span>traits<span class="sc">$</span>Pilosity)[<span class="dv">1</span>],nVars),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># set first few levels of Polymorphism to all possible values</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="at">levels=</span><span class="fu">levels</span>(antTraits<span class="sc">$</span>traits<span class="sc">$</span>Pilosity)) <span class="co">#set to first level of factor</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>nPoly <span class="ot">=</span> <span class="fu">nlevels</span>(antTraits<span class="sc">$</span>traits<span class="sc">$</span>Polymorphism)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>newTraits<span class="sc">$</span>Polymorphism[<span class="dv">1</span><span class="sc">:</span>nPoly]<span class="ot">=</span><span class="fu">levels</span>(antTraits<span class="sc">$</span>traits<span class="sc">$</span>Polymorphism)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new env dataset where the only thing that varies is Canopy.cover:</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>newEnv <span class="ot">=</span> antTraits<span class="sc">$</span>env</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>newEnv<span class="sc">$</span>Canopy.cover<span class="ot">=</span><span class="fu">range</span>(<span class="fu">scale</span>(newEnv<span class="sc">$</span>Canopy.cover))</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>newEnv<span class="sc">$</span>Bare.ground <span class="ot">=</span> <span class="fu">mean</span>(newEnv<span class="sc">$</span>Bare.ground)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>newEnv<span class="sc">$</span>Shrub.cover <span class="ot">=</span> <span class="fu">mean</span>(newEnv<span class="sc">$</span>Shrub.cover)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>newEnv<span class="sc">$</span>Volume.lying.CWD <span class="ot">=</span> <span class="fu">mean</span>(newEnv<span class="sc">$</span>Volume.lying.CWD)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>newEnv<span class="sc">$</span>Feral.mammal.dung <span class="ot">=</span> <span class="fu">mean</span>(newEnv<span class="sc">$</span>Feral.mammal.dung)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>newEnv<span class="ot">=</span><span class="fu">as.matrix</span>(newEnv)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">#make predictions and plot:</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>newPreds <span class="ot">=</span> <span class="fu">predict</span>(ft_anttrait,<span class="at">newX=</span>newEnv,<span class="at">newTR=</span>newTraits,<span class="at">type=</span><span class="st">&quot;response&quot;</span>, <span class="at">level=</span><span class="dv">0</span>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(newEnv[,<span class="st">&quot;Canopy.cover&quot;</span>], newPreds[,<span class="dv">1</span><span class="sc">:</span>nPoly],<span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Mean abundance&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Canopy cover&quot;</span>, <span class="at">log=</span><span class="st">&quot;y&quot;</span>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="fu">levels</span>(newTraits<span class="sc">$</span>Polymorphism),<span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span>nPoly,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span>nPoly)</span></code></pre></div>
+<p>We can see there that when there is no polymorphism, abundance is relatively high with low canopy cover.</p>
+</div>
+<div id="code-box-16.6-quantifying-how-effectively-traits-explain-𝛽-diversity" class="section level2">
+<h2>Code Box 16.6: Quantifying how effectively traits explain 𝛽-diversity</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ft_spp <span class="ot">=</span> <span class="fu">gllvm</span>(spider<span class="sc">$</span>abund, X, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ft_trait <span class="ot">=</span> <span class="fu">gllvm</span>(spider<span class="sc">$</span>abund, X, spider<span class="sc">$</span>trait, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ft_main <span class="ot">=</span> <span class="fu">gllvm</span>(spider<span class="sc">$</span>abund, X, spider<span class="sc">$</span>trait, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">formula=</span><span class="sc">~</span>soil.dry<span class="sc">+</span>herb.layer)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>an_spider4th <span class="ot">=</span> <span class="fu">anova</span>(ft_main, ft_trait, ft_spp)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model  1 :  ~ soil.dry + herb.layer </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model  2 :  y ~ soil.dry + herb.layer + (soil.dry + herb.layer):(length + colour + marks) </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model  3 :  y ~ X</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>an_spider4th</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Resid.Df        D Df.diff     P.value</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      287  0.00000       0            </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      279 40.12996       8 3.02999e-06</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      265 76.84430      14 1.08408e-10</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>an_spider4th<span class="sc">$</span>D[<span class="dv">2</span>]<span class="sc">/</span><span class="fu">sum</span>(an_spider4th<span class="sc">$</span>D)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3430666</span></span></code></pre></div>
+</div>
+<div id="exercise-16.7-variation-explained-by-traits-for-heloises-ants" class="section level2">
+<h2>Exercise 16.7: Variation explained by traits for Heloise’s ants</h2>
+<p><em>Consider again Heloise’s ant data. What proportion of the variation in environmental response is explained by the measured species traits?</em></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ft_antspp <span class="ot">=</span> <span class="fu">gllvm</span>(antTraits<span class="sc">$</span>abund, envMat, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ft_anttrait <span class="ot">=</span> <span class="fu">gllvm</span>(antTraits<span class="sc">$</span>abund, envMat, antTraits<span class="sc">$</span>traits, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mainFormula<span class="ot">=</span><span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(<span class="fu">colnames</span>(envMat),<span class="at">collapse=</span><span class="st">&quot;+&quot;</span>)))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>ft_antmain <span class="ot">=</span> <span class="fu">gllvm</span>(antTraits<span class="sc">$</span>abund, envMat, antTraits<span class="sc">$</span>traits, <span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">formula=</span>mainFormula)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>an_ant4th <span class="ot">=</span> <span class="fu">anova</span>(ft_antmain, ft_anttrait, ft_antspp)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in anova.gllvm(ft_antmain, ft_anttrait, ft_antspp): This test was not designed for tests with a df.diff larger than 20 so the P-value should be treated as approximate.</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model  1 :  ~ Bare.ground + Canopy.cover + Shrub.cover + Volume.lying.CWD + Feral.mammal.dung </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model  2 :  y ~ Bare.ground + Canopy.cover + Shrub.cover + Volume.lying.CWD + Feral.mammal.dung + (Bare.ground + Canopy.cover + Shrub.cover + Volume.lying.CWD + Feral.mammal.dung):(Femur.length + No.spines + Pilosity + Polymorphism + Webers.length) </span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model  3 :  y ~ X</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>an_ant4th</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Resid.Df         D Df.diff     P.value</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1062   0.00000       0            </span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     1022  75.73793      40  0.00054876</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      862 264.75042     160 3.67093e-07</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>an_ant4th<span class="sc">$</span>D[<span class="dv">2</span>]<span class="sc">/</span><span class="fu">sum</span>(an_ant4th<span class="sc">$</span>D)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.2224391</span></span></code></pre></div>
+<p>So it looks like about a quarter of interspecific variation can be explained by traits, which is not super, especially considering that the trait model uses a quarter as many parameters. This suggests we are not really onto a winner here…</p>
+<p>#remove this chunk once gllvm has been updated on CRAN:</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

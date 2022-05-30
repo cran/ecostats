@@ -28,6 +28,8 @@
 #' 
 #' @author David Warton <david.warton@@unsw.edu.au>
 #' 
+#' @references Warton DI (2022) Eco-Stats - Data Analysis in Ecology, from \emph{t}-tests to multivariate abundances. Springer, ISBN 978-3-030-88442-0
+#'
 #' @seealso \code{\link{cresiduals}}, \code{\link{lm}}, \code{\link{plotenvelope}}, \code{\link{predict.lm}}
 #' @examples
 #' data(iris)
@@ -36,6 +38,7 @@
 #' # predict each response conditionally on the values of all other responses:
 #' cpredict(iris.mlm)
 #' 
+#' @import stats
 #' @export
 cpredict = function(object, standardize=TRUE, ...)
 {
