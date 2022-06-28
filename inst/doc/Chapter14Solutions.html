@@ -12,11 +12,23 @@
 
 <meta name="author" content="David Warton" />
 
-<meta name="date" content="2022-05-30" />
+<meta name="date" content="2022-06-28" />
 
 <title>Chapter 14 – Multivariate abundances – inference about environmental associations – Exercise solutions and Code Boxes</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -128,7 +140,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -140,32 +332,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<h1 class="title toc-ignore">Chapter 14 – Multivariate abundances – inference about environmental associations – Exercise solutions and Code Boxes</h1>
+<h1 class="title toc-ignore">Chapter 14 – Multivariate abundances –
+inference about environmental associations – Exercise solutions and Code
+Boxes</h1>
 <h4 class="author">David Warton</h4>
-<h4 class="date">2022-05-30</h4>
+<h4 class="date">2022-06-28</h4>
 
 
 
 <div id="exercise-14.1-revegetation-and-invertebrate-counts" class="section level2">
 <h2>Exercise 14.1: Revegetation and invertebrate counts</h2>
-<p><em>In Anthony’s revegetation study (Exercise 10.3), he classified anything that fell into his pitfall traps to Order, and thus counted the abundance of each of 24 invertebrate Orders across ten sites. He wants to know: Is there evidence of a change in invertebrate communities due to revegetation efforts?</em></p>
-<p><em>What type of response variable(s) does he have? How should Anthony analyse his data?</em></p>
-<p>He has a multivariate abundance dataset, with 24 correlated counts of invertebrates in different Orders. He needs to use some GLM approach that can handle correlation and many responses, like <code>manyglm</code> from the <code>mvabund</code> package.</p>
+<p><em>In Anthony’s revegetation study (Exercise 10.3), he classified
+anything that fell into his pitfall traps to Order, and thus counted the
+abundance of each of 24 invertebrate Orders across ten sites. He wants
+to know: Is there evidence of a change in invertebrate communities due
+to revegetation efforts?</em></p>
+<p><em>What type of response variable(s) does he have? How should
+Anthony analyse his data?</em></p>
+<p>He has a multivariate abundance dataset, with 24 correlated counts of
+invertebrates in different Orders. He needs to use some GLM approach
+that can handle correlation and many responses, like
+<code>manyglm</code> from the <code>mvabund</code> package.</p>
 </div>
 <div id="exercise-14.2-invertebrates-settling-on-seaweed" class="section level2">
 <h2>Exercise 14.2: Invertebrates settling on seaweed</h2>
-<p><em>In Exercise 1.13, David and Alistair looked at invertebrate epifauna settling on algal beds (seaweed) with different levels of isolation (0, 2, or 10 metre buffer) from each other, at two sampling times (5 and 10 weeks). They observed presence/absence patterns of 16 different types of invertebrate (across 10 replicates). They would like to know if there is any evidence of a difference in invertebrate presence/absence patterns with Distance of Isolation.</em></p>
+<p><em>In Exercise 1.13, David and Alistair looked at invertebrate
+epifauna settling on algal beds (seaweed) with different levels of
+isolation (0, 2, or 10 metre buffer) from each other, at two sampling
+times (5 and 10 weeks). They observed presence/absence patterns of 16
+different types of invertebrate (across 10 replicates). They would like
+to know if there is any evidence of a difference in invertebrate
+presence/absence patterns with Distance of Isolation.</em></p>
 <p><em>How should they analyse the data?</em></p>
-<p>They have a multivariate abundance dataset, with 16 correlated presence/absence measurements of invertebrates. They need to use some GLM approach that can handle correlation and many responses, like <code>manyglm</code> from the <code>mvabund</code> package.</p>
+<p>They have a multivariate abundance dataset, with 16 correlated
+presence/absence measurements of invertebrates. They need to use some
+GLM approach that can handle correlation and many responses, like
+<code>manyglm</code> from the <code>mvabund</code> package.</p>
 </div>
 <div id="exercise-14.3-do-offshore-wind-farms-affect-fish-communities" class="section level2">
 <h2>Exercise 14.3: Do offshore wind farms affect fish communities?</h2>
-<p><em>As in Exercise 10.2, Lena studied the effects of an offshore wind farm on fish communities, by collecting paired data before and after wind farm construction, at 36 stations in each of three zones (wind farm, North, or South). She counted how many fish were caught at each station, classified into 16 different taxa. Lena wants to know if there is any evidence of a change in fish communities at wind farm stations, as compared to others, following construction of the wind farm.</em></p>
+<p><em>As in Exercise 10.2, Lena studied the effects of an offshore wind
+farm on fish communities, by collecting paired data before and after
+wind farm construction, at 36 stations in each of three zones (wind
+farm, North, or South). She counted how many fish were caught at each
+station, classified into 16 different taxa. Lena wants to know if there
+is any evidence of a change in fish communities at wind farm stations,
+as compared to others, following construction of the wind farm.</em></p>
 <p><em>How should she analyse the data?</em></p>
-<p>She has a multivariate abundance dataset, with 16 correlated counts of different fish species. She needs to use some GLM approach that can handle correlation and many responses, like <code>manyglm</code> from the <code>mvabund</code> package.</p>
+<p>She has a multivariate abundance dataset, with 16 correlated counts
+of different fish species. She needs to use some GLM approach that can
+handle correlation and many responses, like <code>manyglm</code> from
+the <code>mvabund</code> package.</p>
 </div>
 <div id="code-box-14.1-using-mvabund-to-test-for-an-effect-of-revegetation-in-exercise-12.2" class="section level2">
-<h2>Code Box 14.1: Using mvabund to test for an effect of revegetation in Exercise 12.2</h2>
+<h2>Code Box 14.1: Using mvabund to test for an effect of revegetation
+in Exercise 12.2</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecostats)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvabund)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(reveg)</span>
@@ -173,7 +394,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ft_reveg<span class="ot">=</span><span class="fu">manyglm</span>(abundMV<span class="sc">~</span>treatment<span class="sc">+</span><span class="fu">offset</span>(<span class="fu">log</span>(pitfalls)),</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">data=</span>reveg) <span class="co"># offset included as in Exercise 10.9</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ft_reveg)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 5 sec</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 6 sec</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model: abundMV ~ treatment + offset(log(pitfalls))</span></span>
@@ -181,7 +402,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate test:</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Res.Df Df.diff   Dev Pr(&gt;Dev)  </span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)      9                         </span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment        8       1 78.25    0.021 *</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment        8       1 78.25    0.025 *</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
@@ -189,10 +410,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  P-value calculated using 999 iterations via PIT-trap resampling.</span></span></code></pre></div>
 </div>
 <div id="exercise-14.4-testing-for-an-effect-of-isolation-on-invertebrates-in-seaweed" class="section level2">
-<h2>Exercise 14.4: Testing for an effect of isolation on invertebrates in seaweed</h2>
-<p><em>Consider the <code>seaweed</code> dataset from David’s and Alistair’s study of invertebrate epifauna settling on algal beds with different levels of isolation (0, 2 or 10 metre buffer) at different sampling times (5 and 10 weeks), with varying seaweed biomass in each patch.</em></p>
-<p><em>What sort of model is appropriate for this dataset? Fit this model and call it <code>ft_epiAlt</code> and run <code>anova(ft_epiAlt)</code>. (This might take a couple of minutes to run.)</em></p>
-<p>Previous experience suggests anything beyond second-order interactions does not seem to matter – you could fit more but it would take longer. Because of the warning that this will take a long time to run I will set <code>nBoot=99</code> for a quicker, rough answer:</p>
+<h2>Exercise 14.4: Testing for an effect of isolation on invertebrates
+in seaweed</h2>
+<p><em>Consider the <code>seaweed</code> dataset from David’s and
+Alistair’s study of invertebrate epifauna settling on algal beds with
+different levels of isolation (0, 2 or 10 metre buffer) at different
+sampling times (5 and 10 weeks), with varying seaweed biomass in each
+patch.</em></p>
+<p><em>What sort of model is appropriate for this dataset? Fit this
+model and call it <code>ft_epiAlt</code> and run
+<code>anova(ft_epiAlt)</code>. (This might take a couple of minutes to
+run.)</em></p>
+<p>Previous experience suggests anything beyond second-order
+interactions does not seem to matter – you could fit more but it would
+take longer. Because of the warning that this will take a long time to
+run I will set <code>nBoot=99</code> for a quicker, rough answer:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(seaweed)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>seaweed<span class="sc">$</span>Dist <span class="ot">=</span> <span class="fu">as.factor</span>(seaweed<span class="sc">$</span>Dist)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set up presence-absence response:</span></span>
@@ -208,22 +440,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model: PA ~ (Wmass + Size + Time) * Dist</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate test:</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Res.Df Df.diff   Dev Pr(&gt;Dev)  </span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)     56                         </span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Wmass           55       1  6.66     0.96  </span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Size            54       1 36.98     0.03 *</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time            53       1 32.35     0.03 *</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dist            51       2 28.26     0.74  </span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Wmass:Dist      49       2 33.29     0.20  </span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Size:Dist       47       2 26.77     0.14  </span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time:Dist       45       2 32.56     0.11  </span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Res.Df Df.diff   Dev Pr(&gt;Dev)   </span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)     56                          </span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Wmass           55       1  6.66     0.91   </span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Size            54       1 36.98     0.01 **</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time            53       1 32.35     0.02 * </span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dist            51       2 28.26     0.73   </span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Wmass:Dist      49       2 33.29     0.19   </span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Size:Dist       47       2 26.77     0.05 * </span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time:Dist       45       2 32.56     0.08 . </span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Test statistics calculated assuming uncorrelated response (for faster computation) </span></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  P-value calculated using 99 iterations via PIT-trap resampling.</span></span></code></pre></div>
-<p><em>Now fit a model under the null hypothesis that there is no effect of Distance of isolation, and call it <code>ft_epiNull</code>. Run <code>anova(ft_epiNull, ft_epiAlt)</code>. This second anova took much less time to fit – why? Is there evidence of an effect of distance of isolation on presence/absence patterns in the invertebrate community?</em></p>
-<p>To see if there is an effect of <code>Dist</code> I guess we could remove it from the model entirely and see if that does anything:</p>
+<p><em>Now fit a model under the null hypothesis that there is no effect
+of Distance of isolation, and call it <code>ft_epiNull</code>. Run
+<code>anova(ft_epiNull, ft_epiAlt)</code>. This second anova took much
+less time to fit – why? Is there evidence of an effect of distance of
+isolation on presence/absence patterns in the invertebrate
+community?</em></p>
+<p>To see if there is an effect of <code>Dist</code> I guess we could
+remove it from the model entirely and see if that does anything:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ft_epiNull <span class="ot">=</span> <span class="fu">manyglm</span>(PA<span class="sc">~</span>Wmass<span class="sc">+</span>Size<span class="sc">+</span>Time,<span class="at">family=</span><span class="st">&quot;cloglog&quot;</span>, <span class="at">data=</span>seaweed)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ft_epiNull, ft_epiAlt, <span class="at">nBoot=</span><span class="dv">99</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 2 sec</span></span>
@@ -235,28 +473,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate test:</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            Res.Df Df.diff   Dev Pr(&gt;Dev)</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_epiNull     53                       </span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_epiAlt      45       8 115.2      0.3</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_epiAlt      45       8 115.2     0.47</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Test statistics calculated assuming uncorrelated response (for faster computation) </span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  P-value calculated using 99 iterations via PIT-trap resampling.</span></span></code></pre></div>
-<p><em>This second <code>anova</code> took much less time to fit – why?</em></p>
-<p>Because it only has to test one hypothesis, not seven, so took about a seventh of the time!</p>
-<p><em>Is there evidence of an effect of distance of isolation on presence/absence patterns in the invertebrate community?</em></p>
+<p><em>This second <code>anova</code> took much less time to fit –
+why?</em></p>
+<p>Because it only has to test one hypothesis, not seven, so took about
+a seventh of the time!</p>
+<p><em>Is there evidence of an effect of distance of isolation on
+presence/absence patterns in the invertebrate community?</em></p>
 <p>No :(</p>
 </div>
 <div id="code-box-14.2-checking-assumptions-for-the-revegetation-model-of-code-box-14.1" class="section level2">
-<h2>Code Box 14.2: Checking assumptions for the revegetation model of Code Box 14.1</h2>
+<h2>Code Box 14.2: Checking assumptions for the revegetation model of
+Code Box 14.1</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="fl">1.75</span>,<span class="fl">0.75</span>,<span class="dv">0</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ft_reveg<span class="ot">=</span><span class="fu">manyglm</span>(abundMV<span class="sc">~</span>treatment,<span class="at">offset=</span><span class="fu">log</span>(pitfalls),<span class="at">family=</span><span class="st">&quot;negative.binomial&quot;</span>, <span class="at">data=</span>reveg)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_reveg, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_reveg, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in matrix(NA, nPred, n.sim): object &#39;n.sim&#39; not found</span></span></code></pre></div>
+<p><em>What do you reckon?</em></p>
+<p>Assumptions seem reasonable here.</p>
 </div>
 <div id="code-box-14.3-checking-mean-variance-assumptions-for-a-poisson-revegetation-model" class="section level2">
-<h2>Code Box 14.3: Checking mean-variance assumptions for a Poisson revegetation model</h2>
+<h2>Code Box 14.3: Checking mean-variance assumptions for a Poisson
+revegetation model</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ft_revegP<span class="ot">=</span><span class="fu">manyglm</span>(abundMV<span class="sc">~</span>treatment, <span class="at">offset=</span><span class="fu">log</span>(pitfalls), <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>reveg)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="fl">1.75</span>,<span class="fl">0.75</span>,<span class="dv">0</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_revegP, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">sim.method=</span><span class="st">&quot;stand.norm&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAE8CAMAAACRnyIzAAABEVBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZmYAZpAAZrYLDgQil+Yo4uUpltIv2dE6AAA6ADo6AGY6OgA6Ojo6OmY6OpA6ZmY6ZpA6ZrY6kLY6kNtHPIth0E9iyUtmAABmADpmAGZmOgBmOjpmOmZmOpBmZmZmkJBmkLZmkNtmtrZmtttmtv9rjiOQOgCQOjqQOmaQZjqQZmaQtpCQttuQ29uQ2/+ZnJGenp62ZgC2Zjq2kDq2kGa2ttu225C229u22/+2/7a2/9u2///DGKzNC7zTWWTbkDrbkGbbtmbbtpDbtrbb25Db27bb/7bb/9vb///fU2vnwRLs6/Pw8+n1xxD/tmb/25D/27b/29v//7b//9v///9++tbNAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAgAElEQVR4nO2dDWPctn3GKTXalKOjJJvX1mTkuM3Wro7TrqtEdW9JbUbrlqailTtlEr//BxleSYAE8UKCRwL8Py1zPh4IEo/wI14IAkkNAoFmU7L0BYBAMcsfYI+XCdIHV53dT29O34qfqt+0MSavh4Kx/U9vTvBJHy7O7uziXYceL9FFWl1pG+h/XiGH/9Ucuhtt87cJwhlJP+Ikf93d209g88cf0lDSZ/bGJ2DnqoROAoxGRoL9z69qsikOv01eNP+1iXcdQn/Yc0fADsnP757+LXk9HBQ5pAYMOfnj5cmV9EPHzlXq6c0Hb3/s0+MKGPNF9dPM3ngGrL456RZhTBMAw3q4OCeb6nBSdrFyzCbedQgB1vmjDokHon7oDuEOqfPfrVwZ6Nq5Sg2Q4wiYLqkzezMHYD9+lSQ/RVn+d0nyM2rFw0Xy01enb3Fa6PdXTaFMQ9U1D/ii2SGWYH96kyQnnybJ6VsWOY+S/o5OSigT4m3OJV3NioSrJuf0CtGlPf8a7fjJp6f/efG3v0tO/vlVcoLKKSE5+IgDLaNRXuga+Xj5AToKZRHk0J94CcadqruZiJ6PBF79fQi59DOSBpzSn8mW9BKIxLyUgze+tFYTv4RDZ/PGM2C4NEdX/DX+RNfMLhun4XDRZnoU9I7/m4bCERzQx+3JVbtDrCLyEoxHzqMkp8a1Q5z7xHiFT+FqvKV2utDF3pz8gVzh6dc/kk9ynzj9+uHi5DePr2Sb8BGNTy+6RuJD8Sd2iFcRecLpuUg1iP9AzxdECYYSnZz86o78af+MEy79heUEkk/upRSc+yJa/Xgcb3x3cqA7CrnRElJ+8ps7ki68RypV6v/9l08TmiQaikaAbuiYhHYHjpEewgHjkfMoScADas3QumkbLz+XfDUrEkruw8Xf8itk1PCbSM8mfEQfMB6CfxcB4wmn5xIa8vx8YQBW//kC54EDvzm2lsgJpLTwtHWCc19Eq9uK96ze+C3BbnGxfJvQzr9HVjyTUkoC7PHVya/+wu8Zr5quxxtUQULFULNDVYLxyHmU7NSn3+CwUrxNCSlejbfUThf26wbXRAg3KsDE5OAj+lVEHkIFGE84PRerQfG/RkCA1U//ftFWagRLVAnkaesE576IVsst23oub/wChuquL3g+QPrL72gro1uC4ftLm0YcigQ/JH9H7kd8hwowHrlUgqGM+o/01tPGK5VgzdV4S+10Yb9QQ1JTgsk2UT8e/v4Pb2j1RgwxWII15xIyUWAlWE2wObTNiO5f9oBKuO/VJRgPri/BZvXGcxvsgba0viZ3g5Mr3GfB22CsYMchcJXullcRSSgSA8ITpbXdIQKGY6cbjZxHSc+NPMZoivHyc8lX4y2100X8uknEhkEPsDY55JBD8vO/3rSV5jaE0CaT2mDKTCS0U5ZLva1QCu/av/cL0RJVAkUvheDcF/HnI3njvRcRJYk9G8T9dj+9E3sR6wP7/CMK8DvaSU1D0ShIAd3ukJ6D/TE5/Rpv/MGj0ItI6tHkn0K8zbmkq/GW2ulqbkht11a3DSYmhwg/aP7Jp2dfd40Ujjj9r6YXsX1EK2WipqcN27lU6q313xe0ak+6Be8kS6QEkuriC7kXsQnOfRGtVgLm3xtLwJJNaYSNmxL4o5eUckuD3D0NV2MykP+rWK/AH70AMIMgA+kF/ugFgBkEGUgv8EcvAMwgyEB6gT96AWAGQQbSC/zRCwAzCDKQXuCPXgCYQZCB9AJ/9NoGYGma1kVRoH/t9/sqz/NUTENZlt0D2l2byEBJklQVMqlsVVVVjYyi3tXEOOEAaiY5dMTZpl/wkeUr/8QKGM4hBdn2FfIIuSM6VLJNkLBrCxkoSeoqSdOqJIiR3FGh5CO6kFE18Q/T1RJWsK3ehj/e8g8A1t+1hQwEgOkFgBkEgOk1M2BPX8lvBgXnDwBmErTB9JqtDcbG3cqv3IfnD7TB5tMmAJsgQ2LxW0FNCaYa/xq7ADCDADC9jIm9PflD6FXEKQLADALA9DInVpxDz/KQiASAGQSA6QX+6AWAGQQZSC/wRy8DYI+fv8VzN8kzpW7XoJ7AHwBMLzNgBzxbxPM7bbCIZQQM/DnCIeHKDNjtC3qj1gWLWEbAwJ8jHBKuTIBdnn33a/TxBdyhlQJ/ADC9jJ0cDxcnVw8fX5mCRStTYsGfYxwSrpx6ETf/JN4UFvyZ6ZBwBd30BkEG0gv80QsAMwgykF7gj17GTo4oRkNP0CZGi08QAKaXqQR7fNlf5We7BvUF/hzlkHBlrCIe+uvdbtcghcCfYxwSrqANZhBkIL3AH70AMIMgA+kF/ugFgBkEGUgv8EcvAMwgyEB6gT96AWAGQQbSC/zRCwAzCDKQXuCPXgCYQZCB9AJ/9ALADIIMpBf4oxcAZhBkIL3AH6Uy/g8AzCDIQHqBP31lWdb8GwAzCDKQXuBPVyJeAJhRkIH0An9kSXTVAJhRkIH0An9EZV2+ADCTIAPpBf606uMFgBkFGUgv8KeRAi8AzCjIQHqBP1xKvgAwkyAD6QX+MGXq3QCYQZCB9AJ/qLKB/QCYQZCB9AJ/iLKhHwAwgyAD6QX+1EPNLyIAzCDIQHqBP7Wm/ALAjIIMpBf4o+ULADMJMpBe4I+WLwDMJMhAeoE/mfZXAMwgyEB6bd4fTQcHFgBm0OYzkEGb9yfT/wyAGbT5DGTQ1v3JDL8DYAZtPQOZtHV/MsPvAJhBW89AJm3Nn6qqxK+ZKTwAZtDWMpCrNuZPxTamzHgAAGbQxjKQszbmz36/FwAz9CBiAWAGbSwDOWtb/uyxUC2RLXSfkf+WZdkN1+4CwAzaVgZy17b8IYDVaVrRRGT4PyXbBJVlQxgAZtC2MpC7tuUPASzP8yrFicjIvmmAHcga3ydXhmDxypBY8Ocoh6xFBDAEV24ArN1lAOzpzWv88fD8ThssYukTC/5sEDDUBsvTuu1C7LfB7Euwx8/fCh+DwSKWPrHgzwYBS9MUA5YNB7MHjN+hP4EMpBT4sy3AMGEVaoOJBZhK9r2IDxfQxtAJ/DnKIasRedBcVYm+BBPk1IuYMI27tjDlkljwZ65D1iNEV5rUaMvswkM3vUFby0Cu2p4/AJhXbS8DuWl7/lTtg2YLmXoRL2ml5xQa8UqBP9sDjLTBbAswYwn2+PKqty90g5xkSCz4c5RDVqfMNqCxing4u+vuisEga5kSC/4c45DVKbMNCG0wgzaagaxlHEp28vsLuQYdgz+ZdUgAzCAATC/Dg/ivrh4uXsc3lCyzDgmAGQSA6WUcSvb027d8KFk8zwkz65AAmEEAmF5WQ8kev4ASrPfF8pjYBYDpZRpK9vEVaojFNpQssw8KgBkEgOm1SX8y+6AAmEGbzEAO2qI/aZpahwXADNpiBnLR1vzBg30zxJhteADMoK1lIFdtzB/8ukqaJQkAppVDV/EWMtCUnvMt+COIAJbQzUpbBCzPc/tExJ+BnOzoKX5/JGHAyBvNANigcpSAHADjcrOjp+j96aiqkFlJbl3mA2AGRZ+BADCzpG5DAMwgXCHKoQ3G5WZHT9H7U9Muw5awCTfobQBGGx22ij8DOdnRU/z+dAHLxrfhNwKYk7aQgaZoC/5IgGU5qjGOrAEBYH1tIQNN0Sb8EdtgGZ4UMYfnYL60iQw0QZvxpygK8gmAiVIs3eSo6DPQRIui94epYFtGG60AGJFi4QtXxZ6BploUtz/t3UcADAb7NgLAjALANBLMEQFzEQBmUNQZqAbAtBLNoW2wzDWKyADDC3yKgjaYSXtogw2rX4JlrlHEBdiebR4VdQby4Fjc/vTaYBn5MvZtDACsr7gzEABmKxGwpN7qSA4AzFUAmKRuE0OQ0AbbLmA6g0YqrgzU11THovJn6HaD++UJYBn5umHA/CuqDDSDovJnADD81ItWETO6Y7NtsBkUVQaaQVH5YwuYgwAwg6LKQDOom1i+YhrSa8tDViR1hbkBLHOPcYuAVVVlHzhywJy8UCkZ+LflIWGIt8Ey90M3CFjFNjvFDZibFyopADuco2JsqPiqg/Kno8z9EADMIABMrz5gT19d3Z7LCxYNHxKUshHHAGAGAWB69QF7/PztzQu2YJHxkDDEhs9nIw7dIGDQBhM0Qxvs6bffvLyKqgTjUwZkI45VA6avRQdn0BQpEwv+NFK1wZKz7xVrwysPCUJpSoqwbMyxSsAMtejgDJoiVWI37s8PSM2XLfQishIsY1/H14D4F0MtOjiDRLnWiVSJjccfVzd+4Gr2dAHjz8FOI2qDySXYhDZ8U4I1tWici26T5Oxu8JjA5NyqV5Zgsfjj4sYPkprd2yvBkGFJNXGoVFOLRhnocF4HvEp893XCqnK8aavbYHH4U2F3jG78oFLzqwKw29hKMNaLmOF/4uyT1JWvwb4oA92+qMNdJb73QryXEqxV0P5UZUW2YSnZMgH2+PLq5jW+7QwpFH86yvB/SP7Bt+gJgIm16MfLs+9+HfAq8X3Appdg0fhToeKrGpwvYBguE2D4phPXczAs+j4YAczr6yoPFydXZKl4fbCVau4SLGh/MFwDgOnp0gP29NXV4Tw6wPBAxILnn8mvq+hr0SEZ1JvSBRVg0xd/iMOfPFdNeGNky9gGO5z99U3yYvi8ofgjiQE2rRe66abX16JXb9But9P8mrPNTspu+sD9ocIuyT7YsWUEzKRA/JGFX1UpRhw39BxMV4teu0E7tg3IA2Bh+0O1y+lG5ICWETDaRo2qFxGLz03vqKGRHLpa9NoNmh2wwP2hmg0wokNsVUSvgBlq0Ws3yACYhwX4wvaHCtUP88Yl74BF2MlR+2uDuRyzRunbYG6KdzS96JJ3wB4+iROwab3QTRtMX4sO0qCxUrbBovPHJ2DUndiqiF4BIxquRQdp0FgNJjYqf7yXYDqF5A9/kJHxB81YfpYvCr0R70mDiY3KH3+AxTWaviwZYRnbQfiqax8L8A3XogMyaLoGExuVP15LsJvX+JXU4ZMF5E8zEihjO3D1cDpghlp0QAbVk1+KH26DBe6P5ItPwEjRHkkv4kyAuRyzdmFHRj7CIIq1FxF70hLmE7CnN7gEO4tiTo5eFZHclya2wYy16JUZpE8uykRFNW6UC5F+NL3lIesTmUpzHsCIQRq+gvCHq8sX1vjnqM0XfS16XQaRAnt4dLN/wOqw/FEqRZ6kcwFmUgD+dJUJ1aA8dyFsaCxiOL1kCLAk1VxUVfGH8KM0MBYxHH9USlJUP0wFT/wB9vj5N8GPRZQGKpC2ala3mWjCULtmLKK+Fr0ug0yA1ezm42MsGVNQ/qhUpMgNsWINJZggaagdfbLsGTBDLXplBtE2mHhR6A7Uc2BsMaZMbFD+9FXsdnLD1RWvL7/8kh+qACz0uen7gCG3BMCmVxFdjlmF5DdMpXHiXF4B837IUbUr6mQ3un6I4PrS9EZz2HPT9wBLM9xqbWpAUzs5jLXoFRmkTOvMgIXkj1LYNAEwZ7iwmqOVz8ECn5u+2wYjgEl77OPyVoJNnuR8jNTVYSVgPttg/g85pvJdXqD/8a/ucBkAk+amf7hIzrsdQiv3py/5ybKHiUdHzL0+fZmOMcr3+72qCFO0wcZKmRtCnpu+Qp7thILfkq0v5V3N4ao2WDs3Pe4OOpy+DRwwuUfIx8y+7nOvLwOYblV4KtW0Lk5S9iIGPDd9ukeO7O356rNlBEwQe6DxTZDzRnJ1puPwANiIudePB5hYQd6j5sTAotWUsGaoy2gNPAcLdW76skTFV9l6NgYuE2CodP/NV6wEI5+Pv/gk5BKsO9/N9DaYYYWnRdtgUhePZlV4BljdmRfRWcoSbIQ/61CZlnu8sa/j4DIAhqqFN6/bNhiuSR9OYwLMSQNtMO0KT4saxAGjBRlbFZ50YLSIC4Ch+oh/wNbsj05JUe5K7pkGLwNcBsBw+f466F5EQbgClHkbLB7CczAGmFSQkS54sZLK22AJqyK6DH/uKKJexBLhtUvbOvMQWya4bEqwWEbT4y3r7PTQTS/Uok3HHF206JIBw6oUHfEl7eRweoGno6GRHKv1Z1DInh2+31DbxhVcNoCRcS6aoYhr9UclFWA+ehHFWrThmIWkKMFwLbEd8Ew+WRPMN2AB+NNXUaYF3rBr0+AyAUb0f9GWYJ56ETW16FUYJHYmkhIMIVaJwzExZKgJlswAWAj+dJUXSZIXxLWpcOkBe7jA73rfhDyaXhAq8bPOLl8l2LpHiycoqzTXQYdB9cc75/wxmOc2WAD+dJXvUP0wKdIOXbZNLnvAkDePL//wJpYqIu7j6O700wbT1KLXYJA8ey9tfbWvxNXalwrGG8S1fn+62iVVUVxPLrjMgNFFdTWzIq7TH7WUfRxu0vQiDtaiWbAJxcJ07VDlbzc4QwJ7oUAN2IQiXpLJn/WILOL92bfPPvQDlxkwzZRS9Qr9GRQBzOOkSeyLqRZNg01p2EzXDveJtXP8yP2HTRtMKbdFLhW5wc6ftQi3T6+//ejbjz585gkuM2DaAmxl/qjE79msF9rzczBjLXoNgNF+jQq1xFL8gq78qH1gDDDrXJxagln6sw7tEV0ffXt9/dGzj55NaHJtCzBpqF1W+pvTpXkSr69Fc8CyLM2y7N5dYy9WEO4PK3gJRgFry6WBEVSs1ji1BLP0ZxX69vrZ9fU1Buxbb2wZAAtuZt9+E0McalfV8wCmq0WzY1AxgWDJWo1AbTRwBfobFvUOv3qBDMJfhIJpYAwwB6w2lmDCJQ0AZuHP0vrhh/fv31+/R4B9pILLfR4OK8AstBJ/mBQ1MRGwrCr9TZokAKYr5GmwPcqGe4kTH6zZ4kariIykBP07EQomPWC9XkTtRQwAZvZnUWEGvn3/7P2z62cYrmsVGjjUaMqaOOIArPMKTed1J89tsNGA+WdtmDfaybFHFcU9vaBEKJj0bTAmy7OGBxglAFcNKVzXn/XR6ob2BxivIiINvZG6OsB0s5JlE6NXAWY3c+0eBRkEbBbUaK6nQzhoG4w1tihgFRnZy5f2ZijhO9DoU/UMcvFnCfHs/+7dO9Kf8f4zVIoNodU5ZqslmGJWMlHZxNjHj6ZPUDGROGVaL6zt6EbaYPekqEIFKWa9KlHVr9yV6Ge06z4noUu2OcvVkxE2elab+d+TguvdZ8+uUSNM9cL30IHbBIzdoNU/ZT7iVn+hOpCb9clVP1iCSgYBMJS7HfLveNY4YFj3pLGFAMMSALtHu2no2QEb9me85BxsewAThuvduw/fX7/79llhOzOJL8DspgNYHWD14HVPnnHCBBiZw7au5ZHjDDDce9dkyIptzsocWZMBuyftQPLBaoglDcI0N2Aaf0ZpOCPbhGdNrut37z7bl04tcz+Ake/maTfWB9iQ8EBETpiPWcnUDfr2Q5q0BPeNp02GHA2YIDvWUCML/Ze0wWgJRrvpGWAl/bkR2jPqWjSeWPrjLmNm1gQnTa7P3iG83l0XeVnuy8Tl3jsOLpJmdYQ6G9YPWPO6U9bMOOFlXs3hEkwxaUmKrsIvYIKGUZNKMNwGIwPt0J+TVhG7gI2VxhNLf5xkztSd/vUuXD98iB96XV8XKSq6BjpRp5xfxZYmsdq7zOoBw9P+EQPnBwyPuxtoY6SoDdYC5tgGc1CHNVUbLMGA3SPA7rtVxNHSeWLnj7WcSo+u+CPkD99/+FlB6oVF4TS1s/U1DBypSqyhDF87YLtdM7Fm2wabC7DhY3JUcOQesrK9CGQ7urEHzXsygwsBjLqxK8XXWExPu4bl6skIG+uJbImjdt/v92WOAMOEjZlzdQRZusQGDlgzM3Qm7J2nDaY5Jq95X/jM6iYfPwfLSBssI4CxKmJNSvMuYLJGnHQ2wCaz1Qx+qumNBgGWpsW43DuKLYfETj3kqEL1w7wP2EiNB6xu+sLnh0oUfdBMRkfVImCoZKvZg2ZBUj+rou60EGBT4ZIQyHGXRoqcGD+kZxxclon1cMhcUi8esuOZKJt+hgmAeepOMBIli73KTHvryEgOXoKhVmDbXGOhMV8NYYaV044E2BS2+nAhM9Iy3edom5JvR9JlTKyvQ2bSQI7go4EyD6cYD5j00v6cSMlitxf68J21wYpUHk2PB9kTzMoSb/xQt6UJpcR6OGQSWD24GAI4/bsyZT6M1yi2NIl1P2RFq/M0uzMPp/AE2PHES7C6AQyXYHg0fc0B25ExwGRWKaIsQyEQbgsBNpmsAbjIjaTcpWSbxlc9ii1VYscestDqPPWaAcM3Tw9X4CheQSbdGk0VkY+mJxltxzbUOJEmHs0Qc50qpFkTMpAPsvpvIbfnIcXXDtcPJw/oGUlXHThgvTYYu1Gx3ZmHM4wHjL0qcmxJc9NzwMhFoUoGHV0vAFYOzOwrDhrRn29RwDTrcpE/AK4f7vZLTj4UOGCdkl9+FT7zcYYJgNXqtbnmFps6mxZkzCA+cIABtmNDGXKbmX0NqC0GmPIV//YkxY7ARQox90v0p6DbYN08LLdlMx+nCBYwutGynD5lrwoySGjPgpCf3CYeVbG2CGCmVe/qHKc1QXeSqXXDyQq6F7EHGNtofslq3ws4unXTT21Yj5O0ugoppqgbbG56fFE+ul8y/o9jAzY88ZNwhrRIdzuc1uXzalyA0Rs0rfFkdecxzyhNAGwZccBIFTHHS8CzWaX44g974UGh7/d53A4ZBdfgj8IJ0rzY4W03fqoIbwoOMGkkgroN1gCGc8+IHDT4HDUIwHZNI4xOvsEnHq0KRFunBGOLP0zRsQCzXVGy3uGu0qJKd8Ua+AoOMG31RizBspqtQOyQgUwDFUICjIhPH4UdqZo2WBtk+hLNRwHMPGVhG3lZ7au0wqOilqig9xUcYLvdcK8QK8HwTIC8hmiVgTTDKMIDrO6u0cx6MPhzMKkEq6cu0Tw3YFZz7Qpxl6gAq3bpPl2061BQcIDVugY67SMjQTL83aYNph+nFDhg7NkXlgBYICWY62qtJEUIsBIlei18hQeY2MSQ2mDtc9S6Bcy0xrdxIGBwgA03UrFB3RJstW0wh4msxaj35W5XLdN9O6DgAKuFXmjei0jWOajpTZrlnwwHTgy9ZBYjbcMDTKd98xxMmBZxmmYAzGmWeDnq/b5ZZHklCg0w6TkqA4wuQVxzwEiQDIdNkNvDV2s1lD1KwEaN6h2QZ8BGr4VMlO8Xevo4rOAAoxoAjLqLAMtIKF0bXodXtIDVjUErBGzE2kHdmPNlxn/qFChgUhuMjQTig7X6TYz+SCA9XvECRtS+8r2aKuKotYP6MZNZRyYlx7tCBUyS/Co4npJC6iTrjWU14bUZwFbRTT9yYS5FxCVK2bpaYKEDhgesNsUTx6zXC90BzIxX9IDxWYEWB2zCqneKiDFcAJhH4UzSLEFMJyqrJcBqxdsYNnzFDVjbBlsWsElLSqoiRvXD3eLD5zsKDjDxMQ8DjK6QWqA2WEEfNKMaEPmd5x+xDWbFV+SAtYas+kGzI14+Hpv7V2iA8R4M8gphAxgqu4TB4nlWD7Xh7fCKHTBxCdCpRdgCgA1EW6Z0W5fmBmwg346WNKeL0AYrKlZF3Ot6oW352g5gft/ncTvEH1tEpADbCmD2OdhRHDAEUXMdBK2KdXJonqNa47UZwEa+zyPqaIAZo91KCeaQjcdgJr0RT9U+ByPPxTL1fKTjLixKwJo2WKl8EOY0/cMxALOLdpVNML+AuWThiZihNlgLWCE9CMs8XJw6sdEAxqUEzG0Co/kBs4wVr39WRQzYSLhGUia9FiavnJLRj04pNvZq4gZM2QZbEWAusapL48U13h9UHZsK1XjK5PcumwIMVxEz8q9OO2z0hcQOGNnkkTArAcw11hIlIibA9jVd+9e/bK5B/WKzMAmODNj4a9gCYN2101bQBnOPtCirqogKMLzu7wx4dTL4gKQ2WCM+ZQDrpueATTl/5ICRalVRp6kA2MIlmHt8REW6yhriGkuwfi7va7AEy/gLu+28mt1obRZzVfsTIWBYBRsNw7QgYO5xceE7RLqGWaS6Gu1Pgqd1nIUrdU6XNTA1hzAnB1k8BP2r7MZotRy52p8oAavIdFN4PCfLnxWybgHA3OMRlLNnoevTeMBQyXAEwO4HGGsLMOllr6xmgPGp1+8xYChIGx0AJglnSjIUpuYNMTxbqf3rmF4Ac49DVo4K4LxY3UNmrPH+4IXrjybVNdDrkIbKZ+S/TRusRDcBBBimqyUMAJNEKoQpbYQxwGqXCQWmAuZ+uEJ5gZKwygIshBJMzvNs9Su68Ylr2eIh/BkYXzzkHrXB7ruAeW2DPX7+tr5NkrO7iZ4uJtJKxTlzHsCO5A9ehymPDTC88u9sNA3me3kBx5p0bCR4AUd8TRm9QDKfrbAEeQcwuxOp/FECdjiv64fnd9pgqxWmq6QZs30Yhqyzr20ZATuGP4iuolwlXyZ/Lsli2snpWxKWifyU1s651oek11Wk9eXw6jr0qve7XS51cEptMCup/VECdvuC3qhtPV2VlK+raJcL68oI2BH8SUu6rVGGxD6+vBo4JEV1tSUAu6eQEfESjFxUO+nNvr7faZ4geK0iXp5992v08UW4JRgHrC3BfAJ2FH/SsigCBaw+yNXn9pCFSrB7xDX+YO+m0FmlUHGGKuAZfXpzv8NriuSDEXju5Hi4OLl6+JjehqQiPgw1T2eF4RweATuOP8U6hyESjW6D4RUWdv64cRR57EE5wD1geGbfjHNDJ00i/6SdHLKgF1EpcbyU5YKXRDO9UOikIk1X+ZAZazxgNa2vLaOCbaQULfDWAoYLOcYX2yT5Bww34yd6ury6AxJtZZHY2f0Ze+3H0PgbEKurHVv0tH3AMkXTqpSLMNax6H2oVBSAdYbUW2sVgI289mNoQgnvBxhH7ejGqoi0owUBlhWqwJiulrCcbTZS+xMzYLwUcF3NfgWAkfnEPMfpTUEDRr7QNpgUqHlVDRdg8wPmwdPlxQCjIwUx1C0AAAt0SURBVH0dOiKWb4NVRZJUGwcsM8syJg7YPd7wF/IUWQZsf88H+kuNMABMJxGwdiCaWWsAjG7r1IyAOeFjjZvYBtvhoVIpeYxcCE2rFjBlG8xGan+iBQx3G9J2TICApemKm2CzAOZYKOmiGIplhzzd3e/xajVZRnsR75vOQQGwsVL7Eytg5CbF/o3bYEEBhi69Stdr+Xh/VHNyTCdrKMputKQgQxeQ7VkJJva+T58uRO1PtIDVnSfLAbXB0J0hcXhsd3SN9qf7RrN/tLrqk4ZKrwxfA26DWT3espban80A5qAVAFbHCRiunolZ31vmNqoFDRdVfCSvzeMta6n9iRaw1GXshqzFAXMad3J8TS7BjgyXUv7f/VT7EytgU/Lo0oCtnK8JQ6VQ6bFbji3KFG1sJUVReCZM7U+0gE3Q4oCtXBPGImbZcmMRE7Lt94Sw5N77y9Vqf6IFrO2md9bSgK26j74OcCwiFQPsnlRTySsQfuNX+xMrYPKkN25aGLDVTtfGFdpQKSYGGJ4bgL1m5Dd+tT+bASycbvq0SACwOUSnDNiTNy5JG0y8KIchGwNS+xM1YMKQ9HAeNJM/PQDmW/xKcjp9FJkDVbhAl0GHhjNsAzD20mqAgBURt8GWAoyenNjKJhgj0+QL71mgXQCYq8QqYkiArfdVS6rAAOPXUOx2u4IvAkYAE2ZUp3MiejnPNgELpw1GpmPxF90MGu/PUWf2lXO9PEULnbZNXLKALb7n41SbASzMbvo1v8tMNdqfY8/sK18DK8HozL5JimBXrQni4WybASzISW8K/PzOW2yzKAjA+tdAXldpZ/bFl4PaYGVZdlY1mnzGLQKGKwDepm3zc4haeZGvu4++DgAw9TXQ9cEawGiboUT7y+6yRhPPukHA8LzZ9nNnLwhYjuDKowWsnv6wySGfd0Vn0OZTZycawMYhpvYnWsCkoVIIriQEwJJ03e8yU432J68nP2yyzOOyWB1QnNk30QMGS8iaJL8Phqpdab7+bvokpRe6cq0TsOGTs8UfpO7Z5rFNvw1GNeECNggY7YQNALDaZRWYpbQ+wPQn54DVZKP98SJgA4cBYDp132gO4kEz6dqKGDD+sAnrWHTVzernFDDyRJm2wfBvyrV4xl2i2p9YARP75fGAGGyp7aFLAZZOeQ37iPLmz/xsETHA6PheDJhw99UB5niB6sRGC1grvmTz2js50opuq9ekkRydH+aGC4tVEXfo7LsWMNrHgSuImlVsADALAWCeNeE5mPLgGdki4oDRD7rYKX3QXKo6OaRWGQBmFgDmWb4Bw5qJLSJWRWwB42MRaQWRrzDL1K00AmBGsTaYdfgF22Ah8DULYETe0WJiRRT5yPFKYPxSSiwDYO7sbw4wVy072Hf98tkGU8sHVQNi74PRS7ECzBaxJjgAZhAAplfQ/nDAiEpUtylrXRuMCgDzqqAz0BE03p8VPIUgczPWdMRUhUiq7FbCBsA8CgDTa7Q/U+Yz9yUyfXdNx/xWLivNA2DeBIDpFTZgdGOA9V+41MgXYAcy0vjkyhAsXhkSC/6MPWRtgDkvLuwFsKc3r/HHw/M7bbDQ5G1Ojtn8cbjCZRV0G4y9rsI/nDUdsMfP3wofg8HCErlV+RnsO5c/CbrGMGwOtQrt6U07XyXYJxEBhh80V54Am8ufCt3dg3jO7Gc0/fHlcT68aW2wh4vI2hioaEiT2n5RVkO4efxJ8XCTyAGTnkEdXdL7YJM1ATCVQgaswqUDqoGteixilVboCgGwGSW8D8Z3uXZy9ASA1bQjlgxHtD1gGcCm/7WPpUABk6bOJnLsph/SJMASpumXsZj2+32Vm1/Fb585uiR2tD/oqtAZyVof6OLwP1bQw2anQNtgzSXkngHDculFvKRZ5jSSTg6Sh1HpIBHWf4JPxn3Sfxp6Ecf5g47AJyBcoavZl2m5x//L8f/SfV1W47qNF5CvEn6RInsmwESZSrDHl1e9faEDliZ1LnRyKEZMC7sMibX2hz9qwZ946HaCn20ixioMGiJ644DNlL0NEgGbCXFjFfFwdtfdFTJgFZ5p0iNgtv7sxQ0A6+nogPXaYDNpY50cvJkjPgdTAWZbRVSKHSLdEbWAVf02mPtZF1KggNHl4qQSbB7ZAHY41xwTlngbTOqIUIyidurkUPsjZxkJsG4bzH4U9/oUaBtM0U0/jzYGGH3zx+UAT4BJbbCYFOhQKb8PmjXaGmDOVRFfgMWqUAE71sprG2uDuVdFPLXBolWggPka7GvU5gBzVagZ6FgCf/QCwAyCDKQX+KMXAGYQZCC9DImFN74Hv1geE7sAML3s3peL7I14BwFgBgFgehnGakpvfEcwWNxZAJhBAJhediVYTG/Eu2kUYJvSCE83Jb0Xyje+NyUp5e6ZaezBjqeaNfgMd1S7KL3WGBaIzKtxW8g/AJgvrZYJAMx/cADMb+T+ogTARkcWZv4BwHxptUwAYP6DA2B+I/cXJQA2OrIw8w8A5kurZQIA8x8cAPMbub8oAbDRkYWZf2bIaSAQiAsAA4FmFAAGAs0oAAwEmlEAGAg0oyYARl5IuOnMIa0PfUiS17bRW8eM5RKxY9QOkZov4elNkpwbQ9Xd9f2Usk2zRVS212WVRlttI/+MB+zxEp3k6av+NNLDoR9fXslvMWhkHTOJ3SFix6htdTi3ycm35/x1Dr2IXYYglmm2iMr2uuzSaKmN5J/RgD399hvkte1lsdDP76wvziHBtVPEjlE7yDLz3b4wBqF26WWZZpuorK/LOo1mbSX/TKwiHn5yYVfloaFR0BvLotg+5rp2itgxanvd+qux2YSyTrMlE1bBLNNopW3kn6ltsP+7q2+t85VTOqxjrl0NcoraRTaXoFqbRRXs2IBZXpeLzaYzbiL/jALshrSI+R/OVLVoQ9uWxDesxW1VacFyK+KdoraR3fWSUA8fmy5TNndY1mm2Asx8XUw+jNtS/plaRUQJsb8DubQl7WOuXRupTlG7RGq+CVpfpZkK6zTbAGYXk+ON3qBt5B8P3fR2LI/pZrW/WTp3s/oswBwivcFTNnjqTPDZTW95XV6N20b+gQfNINCMAsBAoBkFgIFAMwoAA4FmFAAGAs2oZQEjk8C+eHj+/Rd3j1+0iwX0h8XJSwnEKDYf7u81CUUWyT6wbzcDA3VJ+O8idk6XfZ7ekI6+2zO6f7EMtDBgz5vkiw5sEbCaPrzUJbT3G91xc043dfiYndNmnwNGq8lJmwbs4e9fJR+8Ss7uDuRWfIu+YFtwfkPbLRkAge/E+GE7CYJfrvD/IGtxEcCQF+d1zZ1AyUR7Tt/i7yjVZ8gFdNs+fctduWMPiNB/2GgE+sM/XPLw6IhoPdNmHzI0A4dYNgMtX0U8o/UYdhe6ef3wyduHC+wQzTHovyT3fMe/oSBeX5tYjwhgH19RWKgTeIjBx1c1+44t+v4lguicu8KLKGpNaxc6kvyMffsuWs+02Qe/glPfvKgXzkCrKMGYQ2RpxBc4m9HxOH+8evgZcfHkivtDgzzMMhp+cbEqYpNMOjIJe8SS/bxtUzFXeoA1P9A9OPyfo/VMn30QQoSiZTPQqgBrRmhShw7n6PNwSm7jOAj6PDBfkENzDIdfVgJgJJkCYOS7ABh3hVYRn/6DllfYIP6DAFi0numzD/rAhdjCGWhNgKHKEGqU4urNJb0F/fKXZDjogdyAUNH/8RUNwgr/2NQC1jpBKWLfeRXxcPZn5grr5LjBbTViELdLAOy7aD3TZx/UOPvFVb10BloHYN9fnqH/N63Uk0/ZLQi/pnCZ/M0lzls3yQe/YG1U3DF9Fl/nWAtY28nxmnpEvj9eNp0cjSv4OOTGP128qIlBzQ8oFhKed3LE6Jkh+zy9wQleOAPBg2YQaEYBYCDQjALAQKAZBYCBQDMKAAOBZtT/A/zzsYAqoCq8AAAAAElFTkSuQmCC" /><!-- --></p>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_revegP, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">sim.method=</span><span class="st">&quot;stand.norm&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in matrix(NA, nPred, n.sim): object &#39;n.sim&#39; not found</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meanvar.plot</span>(reveg<span class="sc">$</span>abundMV<span class="sc">~</span>reveg<span class="sc">$</span>treatment)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; START SECTION 2 </span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Plotting if overlay is TRUE</span></span>
@@ -266,12 +511,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                      be included in the log-plot</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; FINISHED SECTION 2</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="dv">0</span>,<span class="at">b=</span><span class="dv">1</span>,<span class="at">col=</span><span class="st">&quot;darkgreen&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="figure">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAFoCAMAAAAB/V5aAAAA3lBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZAAAZpAAZrY6AAA6ADo6AGY6OgA6OpA6ZpA6ZrY6kJA6kLY6kNtmAABmADpmAGZmOgBmOjpmOmZmZjpmZmZmZrZmkLZmkNtmtttmtv+QOgCQOjqQOmaQZgCQZjqQZmaQZpCQkDqQkGaQtmaQtpCQttuQ29uQ2/+2ZgC2Zjq2kDq2kGa2tma2ttu225C227a22/+2/7a2/9u2///bkDrbkGbbtmbbtpDb25Db27bb/7bb/9vb///fU2v/tmb/25D/27b//7b//9v////Tju3rAAAACXBIWXMAAAsSAAALEgHS3X78AAAPbElEQVR4nO2dC3vbthWGIdd2pXhuNqtJt66tne5+kZJtXVIrWZvaUiz8/z80AAQvokgKVxKH/N6njmuRPKT5+gAQCECMA1KwoS8A2AFhxIAwYkAYMSCMGBBGDAgjBoQRA8KIAWHEgDBiQBgxIIwYEEYMCCMGhBEDwogBYcSAMGJAGDEgjBgQRgwIIwaEEQPCKmxuhr6C04xD2NPy7L78af/61iXIp5eMffHQfbhBaMezmzJGYWvmcsuelkww7z7cILTb2Y0ZSNiWff5Hdn7/fjETv93+Xws2+068uhN/4+crvr87+9uCnb/Nd5UFlbwNxebZ14szuVXveK+FvRdhvnnY32X3PUPvnJ+iDFacdC8u5L/Li4ctu3jz6+XZj+rw2mH61FnoxmvPr/nw7BEYTJjkM/El7vRa/XCj/8Yvslte/NpP4mby3eLi4WCzeE3eJZa9pIRlYeZ1YWqH8hQ6WHFStcNn4hXx6psbfcD86DB1nl+0sIZrz695vMLO3u4W7Lun5Wwl7tRb/kkXajvxXfzSN/xD5kSwnq3EfcnaA3qzviNqx09LdiuF7Razf4jtaueyUMp2Lk+RByte2S3OVnwjT/ZaWPjmQedf7TB9arWt8drLax5rkThX5ZgoelbZXywTd3L/vz/9imUvqlwQt4XJf2/kveEHmxWiHBL3csNuZKit0rgRt+tQmNy5PEUerHhFHaYSj/98x/I7Xj9Mn1oLa7j24ppHLUwWb5Vf+tPy/D8f1Z04u68I299dvJF3tdzsISwP1iRMNOvzw2uH5aeuCKtde3HNExCmihXJhj3nHxYVYXrnjbglt9XNpTD2m4dTRaLcuThFEax4pSgSZaOjJuzoyo6EFXtMSZiuuOUtY6omrwsTVb7MpHJzRdhxo0NWQmyeN/T1zvkpimDFK0WjI2/TqMNrh+WnVtsar70qbJyNjsovvX+9UG9Z96/Z7FvxN14Xppsc5eZKkSja0uLIsln/LZeJweYfD4XlpyiCla88vWTn7+TJPr3KXpCH/3J4WH5qte1D47UX1yx3eeDRIP3GOavDmtldm921nXw7pZuk6JqKTIewp9+uTGPod1JEGKswc2RJOHsesRALC2lhUwTCiAFhxIAwYkAYMSCMGBBGDAgjBoQRA8KIAWHEgDBiQBgxIIwYEEYMCCMGhBEDwohxUtjTksxwh0lwWtiLv8QdGQmsMBAmh082DnZhIAYBhJXjZe2OBQ6EEeZ2LHDAV1ikY0EbEEYMb2FykhZjTc0OCIuBr7D9Xdao314cjWaGsEA8Pj6WP4RqdDQ0PiAsDI/6KwMZljxhheklD1CHxSOwsDjHggpB67BIx4I2gghbN3b/QlgMIIwY/sKKZc6KY8z6lYETyDBiQBgx0EokBoQRI4Cw/R27+Pjl8UIlEBYDf2H7u5vd9QP6EnsiQLP+xb0Qht76ngiVYRtkWD+EqcMYO/YFYVFAK5EYEEYMCCMGhBHDexDOUnfNY6h2P3hnmGjVOx8L7AnwxrmhV8r0WGAN6jBiQBgxIIwYEEYMCCMGhBEDwogBYcSAMGJEEIaRvzFBhhEDwogBYcSAMGJAGDEgjBgQRgwIIwaEEcN71NSLezVyCkO1eyKAMDVxZffc/ljgQABh6lPiMd2oJ/wHks7++b3MsGtMN+qFEPPD2JxvsThYT6CVSAwII4a3MKz5a0Sw57m+wrAiqRGMh7ofId44V7/bHDsh0hGGDDOiV2HFnL3Gmgpr/hrRZx1WlnYdH7RiHxo4gWY9McyEta3/pcF6if1hJKx1/S8NhPWHkbDW9b/URqz52ycWGdaw/pcGGdYfxnVY40NlDYT1B1qJxIAwIw4+/mRQbHo6Gj/8dxJr/h5+wNCghHjiPP41f0clbApr/pITtukoEiex5m+9DhuuTjN74/zlajvnm3nzPhNc83fAjDPt6cgHjIYLTZnUhe1frcR/uysI06QujAtXW8baVrJ0C02axOuwKKGBE/5DtbHmb6+YCduyW76ZNT7AxJq//WLarOeqImvaZXpr/uYV2CAVmeHzMPn8pP2Js1NosjzWvvrFrEhUNVVL369raLJQEBYjNDmKkpBDGAVKP+nXYXxz8bBhrHEggHNoaiTSY2/aShT/TbxripSwF/cixyYuLJFhAqbPw2ar7cSLxApDqkOjw55BC8cIwkY/8ndswkIcmzRDCru87N4+VWHdtdRgdZjQhQxrIpEm/CGXKrvMmvXLzpGknceSJD1hl3lZaJZha/nMazO366+HsGBUai7TN87q33eTmeOcxpvkjMuDhobp/DAuOxR/Ol6y7eSxwIvLerPQsNGxlpMsn5ZWfR0Q5k1DIx6txGQ5Si6Ft7Ddgt2sx7CwSkrVFm9/h+w7ZVYO91gLW+RXJE2qYdicXAqrRkeDMdmA3N6MYHGwdIR12OKWzfqGRn2+OBgyLBCenYUnM4xnTccN6rAQdCeXIsiyD06hQQ0DWxzN+mQwssXDNOuxXqIvZsml8F32ASuSemNhiweYboQ1f/2wssXNMqxrRVJkmA92yaWwKRKx5m9Y7G1xtBIHwyG5FBA2BK62eCBhWC/RCndbHMJ6xyO5FP7CsOavOb62uEVfIpZB98bfFjfvrR/1Muh9lAYBkkth+jysfRl019DpwHj0iw1ki1tlWPsy6E6hE0BnVmxhoZJLEeB5GNk1f1ntKwpBbfEQrUS6a/4WouLVYYFt8SDNerJr/pIqCnPMhHUsDtZewSUvLGrrMIotbtpK7FocrLWCS19YPCLZ4satRCwOZkGs5FKYFYlYHMyYqLY4Hq8EJrItDmEhiZ1cCtNWYtuoKXJr/kYb4NuHLW7aSuyYyUdszd9IQ+h7SS6FxWSIFmit+RtDWH+2uGmRuLb8jAGT0MOQCQtZLvZpixsXiQ7LdKQpTLkKl2a9Jpdikq3EQML6t8UhzJ0hbHFTYV0f+OYaeki867BBkkth2vnb8YFvjqEJM5gtbt6sxwe+5QyXXAqz3vrpfuBb7ZHZwLa4aR022Q98O3woPbgtHqWVmPjIX6sLqwgbPrkUY23Wt2qxG8iR752ILW4k7OnFO3I9He1aLEfeKPHJ2OKjzbBgwlJKLoV/b71r6Kh0aLGqwxKzxc2b9eFDxyVImyc5W5x+b328FaLSSy4F8TqsqRs3iMM0bfExCgvQFZ9ocimI99ZHEJayLU6/t/64/PMTlrYt7t9bn+AwN/c6LPHkUnj31hMb5tYOBVs8RG998sPcjN6S0bDFybcSDTDoiyKSXAoIo5NcCpPe+mXL3EtFkkvIVtsd3cIoJZfCrNFxx9qa9EkucHnYsm+vw8jZ4uZF4rblbXOSS8iavRUjaIvb1GFPSzKLNBsIo5hcClNhzbp4okvInnjvTNYWN6/DbCc4nw49GIRt8QCtROfQw0A5uRRB3oeRWX6Pui0+KWHkk0vhL4zGErLjsMXpZtipv4fD7WOxxckKO9VBWN0+muRSEO38NRY2Llt87MLGZosHETbIErIGddjokkvhLyzNJWTHaYsHadYnuITsWG3xcBmW0BKyo00uRZg6LKElZEdti5NtJbYw7uRSjEjYBGzxpIW1PoVs3DAJWzxlYcVz/rqfhgEA00guha+weGPrH2tfRxtyJmSLB8iwaGPrDYVNyhYP8sY51th6XRQel4BlGTmt5FKkW4cVtDY+pmeLUxDWMshwgsmloClsqrY4TWHTtcUpCKvVYRNOLgUBYRWmbosnJ6xzUDxs8dSEdUw7QXJl0BAGWwURhHmM/G0WBlsV0sqwhjoMyXVIYsLqwFadlIUhuRpIVhhsNZOoMNhqIzFhetVxU11lUzSx6WjxSEuYla3qlIhTkyPGQ2LChC2LwyDMdnPYY7PkgrBO0hGW2bKrilCHWW4Odiwa8aakIAy2LBh+IClsWTHwQFIkly1DDiSFLQeGq8MuL6N9zs2YGUiYSK5Any8/NbyFOSzSnBWFEOaErzD7JWTzigvCnPBu1tst0lxtZ8T7rLYx02uGoVXoj3cdZrRIs0wmNOKD0EsrEbbC0YswaQv1VRjCCNs0dU/pY/GWKygRhFVH/uqiEA3CYETNMFRc4YlYh0FXDAIIG2RF0sniLyzNFUlHS4DnYQmuSDpiQmVY04qkIAbewnjbiqTmEU4QIlXHFCNufAgLHiNufAgLHiNufAgLHiNufAgLHsMrfsdAUsMIAS5iYjH84rcPJDWNEOAiphXDM37rQFIwAOitIAaEEQPCiAFhxIAwYkAYMSCMGBBGDAgjhpOw3dVhv+LTUj/frG8wDVDGKEJ5xAhxHXJWXOPHw1vE2LZ3wLrjImxbuw45wWUzb9hgGqCMUYTyiBHiOmR33O6ZSZdcewxp0ux3scFB2Hr2d/lHJf6MzsqpY/Lq9AbbAGp4j46Rh/KJEeI6tvJGrw1SrOs6uHmqm+NeJK5v8r+f3fWD7iG2KoryAOqX1DHKUO4xQlyH3BjgOtLIsOwa5RXpoW9yyKL9jdIBtuph242OUYZyjxHiOvjpx0oGMXaLWfAHHe7C5IPN2WrN2NztL1sH8MqwxhghrkMWcma+Oq8jwqMpd2HlwNKyzLa6UXkApzqsI0aI6xDJYdZG7L4Os3rQCq86TA/floVHVljb1h3l+G8dowzlHiPEdZj7ao9hUbxb4C5MFAN5Ce32/qcSoIxh+T6sMUaA69io2shIWvt1bBhLpA4DwwFhxIAwYkAYMSCMGBBGDAgjBoQRA8KIAWHEgDBiQBgxIIwYEEYMCCMGhBEDwogBYcSAMGJAGDHoCtst1HDq9lH0W3bxk+2kiP2d4RSIwSAs7NkXD/zpq3Yl27nLLJbgAwkDQ1jY1e9WfPd1Nu5W5lk2Q2h3/Qc9Pk0L01vFt/Ov1KAzPQsoG5mmDyr3g7BY7K7+fcvfy7kj2UwENUPo6n63yMd0amF6jKf8pkYJynG5emLTVq09LQ8qokBYNHZXPzzff//D1X1lWoZcnvgqHyedCZNbxB7y2/6VEpYNxi1LweygPAqExWJ39eOfP/5e3up8JsJalnV1YfL/hSk5QSETJktBWRZeZwOM84PyKBAWC3GTX//1RucQl3XSbS6oM8MkoozM9ikPyuczQFgs5DzJ2aqspZSpZ6u6sKM6TP4gvmQdJkrV8qB8PwiLRJYYun0nVWwYO395eySsbCV+nmXYutpKLA/SUSBsMLb1aUtmk6chbCi21YlLcu19g7k/6OkAgYEwYkAYMSCMGBBGDAgjBoQRA8KIAWHEgDBiQBgxIIwYEEYMCCMGhBEDwojxf8bw69GwmXivAAAAAElFTkSuQmCC" alt />
+<p class="caption">plot of chunk code14.3MV</p>
+</div>
 <p><em>How’s the Poisson assumption looking?</em></p>
-<p>It is in all sorts of trouble, there is a very strong fan-shape on the residuals vs fits plot, points drift well outside the simulation envelope on the nromal quantile plot (with many residuals larger than 5 or less than -5) and a strong increasing trend on the residual vs fits plot. These are all symptomatic of overdispersion, confirmed by the sample mean-variance plot, where points tend to fall above the one-to-one line at large means.</p>
+<p>It is in all sorts of trouble, there is a very strong fan-shape on
+the residuals vs fits plot, points drift well outside the simulation
+envelope on the nromal quantile plot (with many residuals larger than 5
+or less than -5) and a strong increasing trend on the residual vs fits
+plot. These are all symptomatic of overdispersion, confirmed by the
+sample mean-variance plot, where points tend to fall above the
+one-to-one line at large means.</p>
 </div>
 <div id="exercise-14.5-checking-assumptions-for-the-habitat-configuration-data" class="section level2">
-<h2>Exercise 14.5: Checking assumptions for the habitat configuration data</h2>
+<h2>Exercise 14.5: Checking assumptions for the habitat configuration
+data</h2>
 <p><em>What assumptions were made?</em></p>
 <p>We assumed:</p>
 <ul>
@@ -281,16 +536,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>residuals have constant correlation</li>
 </ul>
 <p><em>Where possible, check these assumptions.</em></p>
-<p><em>The below code chunk takes up to a minute to run so it has not been evaluated here to shorten vignette compilation time</em></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="fl">1.75</span>,<span class="fl">0.75</span>,<span class="dv">0</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ft_epiAlt <span class="ot">=</span> <span class="fu">manyglm</span>(PA<span class="sc">~</span>(Wmass<span class="sc">+</span>Size<span class="sc">+</span>Time)<span class="sc">*</span>Dist,<span class="at">family=</span><span class="fu">binomial</span>(<span class="st">&quot;cloglog&quot;</span>), <span class="at">data=</span>seaweed)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_epiAlt, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_epiAlt, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in matrix(NA, nPred, n.sim): object &#39;n.sim&#39; not found</span></span></code></pre></div>
 <p><em>Do assumptions seem reasonable?</em></p>
-<p>Yes it all looks good to me. This is not unexpected because presence-absence data are by definition Bernoulli, the only potential issues could be if there were higher order interactions or violations of te independence assumption.</p>
+<p>Yes it all looks good to me. This is not unexpected because
+presence-absence data are by definition Bernoulli, the only potential
+issues could be if there were higher order interactions or violations of
+te independence assumption.</p>
 </div>
 <div id="exercise-14.6-checking-assumptions-for-the-wind-farm-data" class="section level2">
 <h2>Exercise 14.6: Checking assumptions for the wind farm data</h2>
-<p><em>Consider Lena’s offshore wind farm study (Exercise 14.3). Fit an appropriate model to the data. Make sure you include a Station main effect (to account for the paired sampling design).</em></p>
+<p><em>Consider Lena’s offshore wind farm study (Exercise 14.3). Fit an
+appropriate model to the data. Make sure you include a Station main
+effect (to account for the paired sampling design).</em></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(windFarms)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ft_wind<span class="ot">=</span><span class="fu">manyglm</span>(<span class="fu">mvabund</span>(windFarms<span class="sc">$</span>abund)<span class="sc">~</span>Station<span class="sc">+</span>Year<span class="sc">+</span>Year<span class="sc">:</span>Zone, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>windFarms<span class="sc">$</span>X)</span></code></pre></div>
 <p><em>What assumptions were made?</em></p>
@@ -303,22 +563,126 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><em>Where possible, check these assumptions.</em></p>
 <p>Used “stand.norm” because this model takes a while to fit.</p>
-<p><em>The below code chunk takes almost a minute to run so it has not been evaluated here to shorten vignette compilation time</em></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="fl">1.75</span>,<span class="fl">0.75</span>,<span class="dv">0</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_wind, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">sim.method=</span><span class="st">&quot;stand.norm&quot;</span>)</span></code></pre></div>
-<p><em>Do assumptions seem reasonable? In particular, think about whether there is evidence that the counts are overdispersed compared to the Poisson.</em></p>
-<p>Things generally look OK, but there is a weird downward kink on the scale-location plot, weakly suggestive of under-dispersion. Note the sim envelope was constructed using <code>&quot;stand.norm&quot;</code>, meaning we compared the smoother to what would be expected for a bunch of standard normal residuals. But the kink could be a weird artifact of the model being fitted (which has loads of parameters) so let’s repeat using <code>&quot;refit&quot;</code>, but with a smaller value of <code>n.sim</code> so it doesn’t take too long:</p>
-<p><em>The below code chunk takes a minute or so to run so it has not been evaluated here to shorten vignette compilation time</em></p>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_wind, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">sim.method=</span><span class="st">&quot;stand.norm&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in matrix(NA, nPred, n.sim): object &#39;n.sim&#39; not found</span></span></code></pre></div>
+<p><em>Do assumptions seem reasonable? In particular, think about
+whether there is evidence that the counts are overdispersed compared to
+the Poisson.</em></p>
+<p>Things generally look OK, but there is a downward trend on the
+scale-location plot, weakly suggestive of under-dispersion. Note the sim
+envelope was constructed using <code>&quot;stand.norm&quot;</code>, meaning we
+compared the smoother to what would be expected for a bunch of standard
+normal residuals. But the kink could be a weird artifact of the model
+being fitted (which has loads of parameters) so let’s repeat using
+<code>&quot;refit&quot;</code>, but with a smaller value of <code>n.sim</code> so
+it doesn’t take too long (it will take a few minutes though):</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="fl">1.75</span>,<span class="fl">0.75</span>,<span class="dv">0</span>))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_wind, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">n.sim=</span><span class="dv">39</span>)</span></code></pre></div>
-<p>(You can ignore the error messages - this seemed to happen because predicted values were numerically zero.)</p>
-<p>Anyway, the weird kink in the scale-location plot happened in simulated data too, so it is nothing really to worry about. It seems to be an artifact, probably because of overfitting of the data by including a <code>Station</code> term in the model – this means that there is a parameter for every two observations in the data! (If a random effect were used instead, this effect would have been weaker. But it isn’t really a problem)</p>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_wind, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">n.sim=</span><span class="dv">59</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error : inner loop 1; cannot correct step size</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error : inner loop 1; cannot correct step size</span></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  : </span></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   NA/NaN/Inf in &#39;x&#39;</span></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in matrix(NA, nPred, n.sim): object &#39;n.sim&#39; not found</span></span></code></pre></div>
+<p>(You can ignore any error messages - these seem to happen because
+predicted values were numerically zero.)</p>
+<p>Anyway, the downward trend in the scale-location plot happened in
+simulated data too, so it is nothing really to worry about. It seems to
+be an artifact, probably because of overfitting of the data by including
+a <code>Station</code> term in the model – this means that there is a
+parameter for every two observations in the data! (If a random effect
+were used instead, this effect would have been weaker. But it isn’t
+really a problem.)</p>
 </div>
-<div id="code-box-14.4-a-manyglm-analysis-of-the-revegetation-data-using-a" class="section level2">
-<h2>Code Box 14.4: A manyglm analysis of the revegetation data, using a</h2>
-<p>statistic accounting for correlation</p>
+<div id="code-box-14.4-a-manyglm-analysis-of-the-revegetation-data-using-a-statistic-accounting-for-correlation" class="section level2">
+<h2>Code Box 14.4: A manyglm analysis of the revegetation data, using a
+statistic accounting for correlation</h2>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ft_reveg,<span class="at">test=</span><span class="st">&quot;wald&quot;</span>,<span class="at">cor.type=</span><span class="st">&quot;shrink&quot;</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 3 sec</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 4 sec</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of Variance Table</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model: abundMV ~ treatment</span></span>
@@ -326,7 +690,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate test:</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Res.Df Df.diff  wald Pr(&gt;wald)  </span></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)      9                          </span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment        8       1 8.698     0.059 .</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment        8       1 8.698     0.048 *</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
@@ -334,9 +698,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  P-value calculated using 999 iterations via PIT-trap resampling.</span></span></code></pre></div>
 </div>
 <div id="exercise-14.7-testing-for-an-effect-of-offshore-wind-farms-slowly" class="section level2">
-<h2>Exercise 14.7: Testing for an effect of offshore wind farms (slowly)</h2>
-<p><em>Fit models [to Lena’s windfarm data] under the null and alternative hypotheses of interest. Run an anova to compare these two models, with just 19 bootstrap resamples, to estimate computation time.</em></p>
-<p>The null model in this case has no <code>Year:Zone</code> term… there could still be year-to-year variation, but it should not affect different Zones in different ways.</p>
+<h2>Exercise 14.7: Testing for an effect of offshore wind farms
+(slowly)</h2>
+<p><em>Fit models [to Lena’s windfarm data] under the null and
+alternative hypotheses of interest. Run an anova to compare these two
+models, with just 19 bootstrap resamples, to estimate computation
+time.</em></p>
+<p>The null model in this case has no <code>Year:Zone</code> term… there
+could still be year-to-year variation, but it should not affect
+different Zones in different ways.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>windMV <span class="ot">=</span> <span class="fu">mvabund</span>(windFarms<span class="sc">$</span>abund)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ft_wind<span class="ot">=</span><span class="fu">manyglm</span>(windMV<span class="sc">~</span>Station<span class="sc">+</span>Year<span class="sc">+</span>Year<span class="sc">:</span>Zone, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>windFarms<span class="sc">$</span>X)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>ft_windNull<span class="ot">=</span><span class="fu">manyglm</span>(windMV<span class="sc">~</span>Station<span class="sc">+</span>Year, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>windFarms<span class="sc">$</span>X)</span>
@@ -357,7 +727,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Test statistics calculated assuming uncorrelated response (for faster computation) </span></span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  P-value calculated using 19 iterations via PIT-trap resampling.</span></span></code></pre></div>
 <p>This took 12 seconds for me.</p>
-<p><em>Remove zerotons and singletons from the dataset using: <code>windMV = mvabund( windFarms$abund[,colSums(windFarms$abund&gt;0)&gt;1] )</code> Now fit a model to this new response variable, again with just 19 bootstrap resamples.</em></p>
+<p><em>Remove zerotons and singletons from the dataset using:
+<code>windMV = mvabund( windFarms$abund[,colSums(windFarms$abund&gt;0)&gt;1] )</code>
+Now fit a model to this new response variable, again with just 19
+bootstrap resamples.</em></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>windMV1 <span class="ot">=</span> <span class="fu">mvabund</span>(windFarms<span class="sc">$</span>abund[,<span class="fu">colSums</span>(windFarms<span class="sc">$</span>abund<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">&gt;</span><span class="dv">1</span>])</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ft_wind1<span class="ot">=</span><span class="fu">manyglm</span>(windMV1<span class="sc">~</span>Station<span class="sc">+</span>Year<span class="sc">+</span>Year<span class="sc">:</span>Zone, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>windFarms<span class="sc">$</span>X)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ft_windNull1<span class="ot">=</span><span class="fu">manyglm</span>(windMV1<span class="sc">~</span>Station<span class="sc">+</span>Year, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>windFarms<span class="sc">$</span>X)</span>
@@ -377,21 +750,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Test statistics calculated assuming uncorrelated response (for faster computation) </span></span>
 <span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  P-value calculated using 19 iterations via PIT-trap resampling.</span></span></code></pre></div>
-<p><em>Did this run take less time?</em> Yes, but not much less, it took 10 seconds for me.</p>
-<p><em>How do results compare?</em> Results were almost identical, with the same test statistic (to two decimal places).</p>
-<p><em>How long do you think it would take to fit a model with 999 bootstrap resamples, for an accurate 𝑃-value?</em></p>
-<p>As a rough estimate, multiply the time you just got by 50. For me this is about 500 seconds, so I would expect it to take about eight minutes.</p>
-<p>It is curious that this didn’t change computation time all that much. Looking at number of non-zero values in <code>windMV</code>:</p>
+<p><em>Did this run take less time?</em> Yes, but not much less, it took
+10 seconds for me.</p>
+<p><em>How do results compare?</em> Results were almost identical, with
+the same test statistic (to two decimal places).</p>
+<p><em>How long do you think it would take to fit a model with 999
+bootstrap resamples, for an accurate 𝑃-value?</em></p>
+<p>As a rough estimate, multiply the time you just got by 50. For me
+this is about 500 seconds, so I would expect it to take about eight
+minutes.</p>
+<p>It is curious that this didn’t change computation time all that much.
+Looking at number of non-zero values in <code>windMV</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(windFarms<span class="sc">$</span>abund<span class="sc">&gt;</span><span class="dv">0</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Bergvar         Oxsimpa         Piggvar      Roodspotta       Rootsimpa </span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               0              51               1               3              30 </span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Sandskaadda         Sjurygg   Skrubbskaadda     Skaaggsimpa    Skaarsnultra </span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               5               6              22               6               4 </span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Stensnultra Svart.smoorbult           Torsk        Tanglake     Aakta.tunga </span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              37               3             134             136               0 </span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              AL </span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              61</span></span></code></pre></div>
-<p>we see that only three of the 16 species had one or less presence A couple more had three counts, removing these as well:</p>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Bergvar         Oxsimpa         Piggvar      Roodspotta       Rootsimpa     Sandskaadda </span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               0              51               1               3              30               5 </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Sjurygg   Skrubbskaadda     Skaaggsimpa    Skaarsnultra     Stensnultra Svart.smoorbult </span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               6              22               6               4              37               3 </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           Torsk        Tanglake     Aakta.tunga              AL </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             134             136               0              61</span></span></code></pre></div>
+<p>we see that only three of the 16 species had one or less presence. A
+couple more had three counts, removing these as well:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>windMV3 <span class="ot">=</span> <span class="fu">mvabund</span>(windFarms<span class="sc">$</span>abund[,<span class="fu">colSums</span>(windFarms<span class="sc">$</span>abund<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">&gt;</span><span class="dv">3</span>])</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ft_wind3<span class="ot">=</span><span class="fu">manyglm</span>(windMV3<span class="sc">~</span>Station<span class="sc">+</span>Year<span class="sc">+</span>Year<span class="sc">:</span>Zone, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>windFarms<span class="sc">$</span>X)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ft_windNull3<span class="ot">=</span><span class="fu">manyglm</span>(windMV3<span class="sc">~</span>Station<span class="sc">+</span>Year, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>windFarms<span class="sc">$</span>X)</span>
@@ -411,73 +789,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Test statistics calculated assuming uncorrelated response (for faster computation) </span></span>
 <span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  P-value calculated using 19 iterations via PIT-trap resampling.</span></span></code></pre></div>
-<p>This is only slightly quicker, which is a tad surprising. The test statistic is only slightly smaller, so we can see clearly that the action is happening for the more abundant species – this is not surprising, there is not enough information in any of the rare species to detect an interaction!</p>
+<p>This is only slightly quicker, which is a tad surprising. The test
+statistic is only slightly smaller, so we can see clearly that the
+action is happening for the more abundant species – this is not
+surprising, there is not enough information in any of the rare species
+to detect an interaction!</p>
 </div>
 <div id="code-box-14.5-analysing-ordinal-data-from-the-habitat-configuration-study-using-manyany" class="section level2">
-<h2>Code Box 14.5: Analysing ordinal data from the habitat configuration study using manyany</h2>
+<h2>Code Box 14.5: Analysing ordinal data from the habitat configuration
+study using manyany</h2>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>habOrd <span class="ot">=</span> counts <span class="ot">=</span> <span class="fu">as.matrix</span>( <span class="fu">round</span>(seaweed[,<span class="dv">6</span><span class="sc">:</span><span class="dv">21</span>]<span class="sc">*</span>seaweed<span class="sc">$</span>Wmass))</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a> habOrd[counts<span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> counts<span class="sc">&lt;</span><span class="dv">10</span>] <span class="ot">=</span> <span class="dv">1</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>habOrd[counts<span class="sc">&gt;=</span><span class="dv">10</span>] <span class="ot">=</span> <span class="dv">2</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ordinal)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;ordinal&#39;</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:glmmTMB&#39;:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:VGAM&#39;:</span></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     VarCorr, ranef</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:lme4&#39;:</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     dgumbel, dlgamma, pgumbel, plgamma, qgumbel, rgumbel, wine</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:glmmTMB&#39;:</span></span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     VarCorr, ranef</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(habOrd) <span class="co"># Amphipods are all &quot;2&quot; which would return an error in clm</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Amph        Cope            Poly            Anem             Iso       </span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :2   Min.   :0.000   Min.   :0.000   Min.   :0.0000   Min.   :0.000  </span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:2   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:0.0000   1st Qu.:2.000  </span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2   Median :2.000   Median :2.000   Median :0.0000   Median :2.000  </span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :2   Mean   :1.895   Mean   :1.772   Mean   :0.2456   Mean   :1.877  </span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:2   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:0.0000   3rd Qu.:2.000  </span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2   Max.   :2.000   Max.   :2.000   Max.   :2.0000   Max.   :2.000  </span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Bival            Gast            Turb             Prawn       </span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :0.000   Min.   :1.000   Min.   :0.00000   Min.   :0.0000  </span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:0.000   1st Qu.:2.000   1st Qu.:0.00000   1st Qu.:0.0000  </span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2.000   Median :2.000   Median :0.00000   Median :0.0000  </span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :1.351   Mean   :1.947   Mean   :0.08772   Mean   :0.5263  </span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:0.00000   3rd Qu.:2.0000  </span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2.000   Max.   :2.000   Max.   :2.00000   Max.   :2.0000  </span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Urchin             Fish             Crab            Caddis       </span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000   Min.   :0.00000  </span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.00000  </span></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :0.00000   Median :0.0000   Median :0.0000   Median :0.00000  </span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :0.07018   Mean   :0.1754   Mean   :0.5965   Mean   :0.03509  </span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:2.0000   3rd Qu.:0.00000  </span></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2.00000   Max.   :2.0000   Max.   :2.0000   Max.   :2.00000  </span></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Opi              Ost            Bstar       </span></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :0.0000   Min.   :0.000   Min.   :0.0000  </span></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000  </span></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :0.0000   Median :2.000   Median :0.0000  </span></span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :0.1404   Mean   :1.404   Mean   :0.2105  </span></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:0.0000   3rd Qu.:2.000   3rd Qu.:0.0000  </span></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2.0000   Max.   :2.000   Max.   :2.0000</span></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>habOrd<span class="ot">=</span>habOrd[,<span class="sc">-</span><span class="dv">1</span>] <span class="co">#remove Amphipods</span></span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>manyOrd<span class="ot">=</span><span class="fu">manyany</span>(habOrd<span class="sc">~</span>Dist<span class="sc">*</span>Time<span class="sc">*</span>Size,<span class="st">&quot;clm&quot;</span>,<span class="at">data=</span>seaweed)</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>manyOrdNull<span class="ot">=</span><span class="fu">manyany</span>(habOrd<span class="sc">~</span>Time<span class="sc">*</span>Size,<span class="st">&quot;clm&quot;</span>,<span class="at">data=</span>seaweed)</span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(manyOrdNull, manyOrd)</span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              LR Pr(&gt;LR)  </span></span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sum-of-LR 101.1    0.08 .</span></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
-<p><em>What hypothesis has been tested here? Is there any evidence against it?</em></p>
-<p>We tested for an effect of distance on abundance, when classified into a three-level ordinal factor. There is no evidence of a <code>Dist</code> effect.</p>
-<p>The <code>ordinal</code> package has a bug in it (in version 2019.12) so it conflicts with <code>lme4</code> (specifically it overwrites the <code>ranef</code> function), [issue posted on Github] (<a href="https://github.com/runehaubo/ordinal/issues/48" class="uri">https://github.com/runehaubo/ordinal/issues/48</a>). So if you are running analyses using both packages, you need to <em>detach the <code>ordinal</code> package</em> before continuing…</p>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ranef, VarCorr</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:nlme&#39;:</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ranef, VarCorr</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:lme4&#39;:</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ranef, VarCorr</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(habOrd) <span class="co"># Amphipods are all &quot;2&quot; which would return an error in clm</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Amph        Cope            Poly            Anem             Iso            Bival      </span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :2   Min.   :0.000   Min.   :0.000   Min.   :0.0000   Min.   :0.000   Min.   :0.000  </span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:2   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:0.0000   1st Qu.:2.000   1st Qu.:0.000  </span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2   Median :2.000   Median :2.000   Median :0.0000   Median :2.000   Median :2.000  </span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :2   Mean   :1.895   Mean   :1.772   Mean   :0.2456   Mean   :1.877   Mean   :1.351  </span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:2   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:0.0000   3rd Qu.:2.000   3rd Qu.:2.000  </span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2   Max.   :2.000   Max.   :2.000   Max.   :2.0000   Max.   :2.000   Max.   :2.000  </span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Gast            Turb             Prawn            Urchin             Fish       </span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :1.000   Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.0000  </span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:2.000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000  </span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2.000   Median :0.00000   Median :0.0000   Median :0.00000   Median :0.0000  </span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :1.947   Mean   :0.08772   Mean   :0.5263   Mean   :0.07018   Mean   :0.1754  </span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:2.000   3rd Qu.:0.00000   3rd Qu.:2.0000   3rd Qu.:0.00000   3rd Qu.:0.0000  </span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2.000   Max.   :2.00000   Max.   :2.0000   Max.   :2.00000   Max.   :2.0000  </span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Crab            Caddis             Opi              Ost            Bstar       </span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :0.0000   Min.   :0.00000   Min.   :0.0000   Min.   :0.000   Min.   :0.0000  </span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000  </span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :0.0000   Median :0.00000   Median :0.0000   Median :2.000   Median :0.0000  </span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :0.5965   Mean   :0.03509   Mean   :0.1404   Mean   :1.404   Mean   :0.2105  </span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:2.0000   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:2.000   3rd Qu.:0.0000  </span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2.0000   Max.   :2.00000   Max.   :2.0000   Max.   :2.000   Max.   :2.0000</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>habOrd<span class="ot">=</span>habOrd[,<span class="sc">-</span><span class="dv">1</span>] <span class="co">#remove Amphipods</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>manyOrd<span class="ot">=</span><span class="fu">manyany</span>(habOrd<span class="sc">~</span>Dist<span class="sc">*</span>Time<span class="sc">*</span>Size,<span class="st">&quot;clm&quot;</span>,<span class="at">data=</span>seaweed)</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>manyOrdNull<span class="ot">=</span><span class="fu">manyany</span>(habOrd<span class="sc">~</span>Time<span class="sc">*</span>Size,<span class="st">&quot;clm&quot;</span>,<span class="at">data=</span>seaweed)</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(manyOrdNull, manyOrd)</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              LR Pr(&gt;LR)  </span></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sum-of-LR 101.1    0.05 *</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p><em>What hypothesis has been tested here? Is there any evidence
+against it?</em></p>
+<p>We tested for an effect of distance on abundance, when classified
+into a three-level ordinal factor. There is no evidence of a
+<code>Dist</code> effect.</p>
+<p>The <code>ordinal</code> package has a bug in it (in version 2019.12)
+so it conflicts with <code>lme4</code> (specifically it overwrites the
+<code>ranef</code> function), [issue posted on Github] (<a href="https://github.com/runehaubo/ordinal/issues/48" class="uri">https://github.com/runehaubo/ordinal/issues/48</a>). So if
+you are running analyses using both packages, you need to <em>detach the
+<code>ordinal</code> package</em> before continuing…</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">&quot;package:ordinal&quot;</span>, <span class="at">unload=</span><span class="cn">TRUE</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: &#39;ordinal&#39; namespace cannot be unloaded:</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   namespace &#39;ordinal&#39; is imported by &#39;ecoCopula&#39; so cannot be unloaded</span></span></code></pre></div>
 </div>
 <div id="code-box-14.6-a-compositional-analysis-of-anthonys-revegetation" class="section level2">
-<h2>Code Box 14.6: A compositional analysis of Anthony’s revegetation</h2>
+<h2>Code Box 14.6: A compositional analysis of Anthony’s
+revegetation</h2>
 <p>data</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ft_comp<span class="ot">=</span><span class="fu">manyglm</span>(abundMV<span class="sc">~</span>treatment<span class="sc">+</span><span class="fu">offset</span>(<span class="fu">log</span>(pitfalls)), <span class="at">data=</span>reveg, <span class="at">composition=</span><span class="cn">TRUE</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ft_comp,<span class="at">nBoot=</span><span class="dv">99</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 20 sec</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 18 sec</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model: abundMV ~ cols + treatment + offset(log(pitfalls)) + rows + cols:(treatment + offset(log(pitfalls)))</span></span>
@@ -488,15 +878,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cols              216      23 361.2     0.01 **</span></span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment         215       1  14.1     0.01 **</span></span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rows              206       9  25.5     0.03 * </span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cols:treatment    184      23  56.7     0.02 * </span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cols:treatment    184      23  56.7     0.01 **</span></span>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments: P-value calculated using 99 iterations via PIT-trap resampling.</span></span></code></pre></div>
-<p><em>Which term measures the effect of treatment on relative abundance? Is there evidence of an effect on relative abundance?</em></p>
-<p><code>cols:treatment</code>. There is evidence of an effect of relative abundance.</p>
+<p><em>Which term measures the effect of treatment on relative
+abundance? Is there evidence of an effect on relative
+abundance?</em></p>
+<p><code>cols:treatment</code>. There is evidence of an effect of
+relative abundance.</p>
 </div>
 <div id="code-box-14.7-a-faster-compositional-analysis-of-anthonys-revegetation-data" class="section level2">
-<h2>Code Box 14.7: A faster compositional analysis of Anthony’s revegetation data</h2>
+<h2>Code Box 14.7: A faster compositional analysis of Anthony’s
+revegetation data</h2>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ft_null <span class="ot">=</span> <span class="fu">manyglm</span>(abundMV<span class="sc">~</span>cols<span class="sc">+</span>rows<span class="sc">+</span><span class="fu">offset</span>(<span class="fu">log</span>(pitfalls)),</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="at">data=</span>ft_comp<span class="sc">$</span>data)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ft_alt <span class="ot">=</span> <span class="fu">manyglm</span>(abundMV<span class="sc">~</span>cols<span class="sc">+</span>rows<span class="sc">+</span>treatment<span class="sc">:</span>cols</span>
@@ -509,15 +903,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_alt: abundMV ~ cols + rows + treatment:cols + offset(log(pitfalls))</span></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate test:</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Res.Df Df.diff   Dev Pr(&gt;Dev)  </span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_null    207                         </span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_alt     184      23 56.74     0.02 *</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Res.Df Df.diff   Dev Pr(&gt;Dev)   </span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_null    207                          </span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_alt     184      23 56.74     0.01 **</span></span>
 <span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments: P-value calculated using 99 iterations via PIT-trap resampling.</span></span></code></pre></div>
 </div>
 <div id="code-box-14.8-quick-and-dirty-compositional-analysis-of-anthonys-revegetation-data" class="section level2">
-<h2>Code Box 14.8: Quick-and-dirty compositional analysis of Anthony’s revegetation data</h2>
+<h2>Code Box 14.8: Quick-and-dirty compositional analysis of Anthony’s
+revegetation data</h2>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ft_reveg0 <span class="ot">=</span> <span class="fu">manyglm</span>(abundMV<span class="sc">~</span><span class="dv">1</span><span class="sc">+</span><span class="fu">offset</span>(<span class="fu">log</span>(pitfalls)), <span class="at">data=</span>reveg)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>QDrows0 <span class="ot">=</span> <span class="fu">log</span>(<span class="fu">rowSums</span>(reveg<span class="sc">$</span>abundMV)) <span class="sc">-</span> <span class="fu">log</span>( <span class="fu">rowSums</span>(<span class="fu">fitted</span>(ft_reveg0)) )</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ft_row0<span class="ot">=</span><span class="fu">manyglm</span>(abundMV<span class="sc">~</span><span class="dv">1</span><span class="sc">+</span><span class="fu">offset</span>(<span class="fu">log</span>(pitfalls))<span class="sc">+</span><span class="fu">offset</span>(QDrows0), <span class="at">data=</span>reveg)</span>
@@ -525,7 +920,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>QDrows <span class="ot">=</span> <span class="fu">log</span>(<span class="fu">rowSums</span>(reveg<span class="sc">$</span>abundMV)) <span class="sc">-</span> <span class="fu">log</span>( <span class="fu">rowSums</span>(<span class="fu">fitted</span>(ft_reveg)) )</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ft_row<span class="ot">=</span><span class="fu">manyglm</span>(abundMV<span class="sc">~</span>treatment<span class="sc">+</span><span class="fu">offset</span>(<span class="fu">log</span>(pitfalls))<span class="sc">+</span><span class="fu">offset</span>(QDrows), <span class="at">data=</span>reveg)</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ft_row0,ft_row)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 7 sec</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 8 sec</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_row0: abundMV ~ 1 + offset(log(pitfalls)) + offset(QDrows0)</span></span>
@@ -534,19 +929,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate test:</span></span>
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Res.Df Df.diff   Dev Pr(&gt;Dev)  </span></span>
 <span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_row0      9                         </span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_row       8       1 50.26    0.071 .</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_row       8       1 50.26    0.077 .</span></span>
 <span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
 <span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Test statistics calculated assuming uncorrelated response (for faster computation) </span></span>
 <span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  P-value calculated using 999 iterations via PIT-trap resampling.</span></span></code></pre></div>
-<p><em>This was over ten times quicker than Code Box 14.7 (note that it used ten times as many resamples), but results are slightly different – the test statistic is slightly smaller, and the <span class="math inline">\(P\)</span>-value larger. Why do you think this might be the case?</em></p>
-<p>The quick-and-dirty offset approach only roughly approximates the row effect, so it would be expected to lose some efficiency (leading to a smaller test statistic and a larger <span class="math inline">\(P\)</span>-value).</p>
+<p><em>This was over ten times quicker than Code Box 14.7 (note that it
+used ten times as many resamples), but results are slightly different –
+the test statistic is slightly smaller, and the <span class="math inline">\(P\)</span>-value larger. Why do you think this
+might be the case?</em></p>
+<p>The quick-and-dirty offset approach only roughly approximates the row
+effect, so it would be expected to lose some efficiency (leading to a
+smaller test statistic and a larger <span class="math inline">\(P\)</span>-value).</p>
 </div>
 <div id="code-box-14.9-posthoc-testing-for-the-bush-regeneration-data" class="section level2">
 <h2>Code Box 14.9: Posthoc testing for the bush regeneration data</h2>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>an_reveg <span class="ot">=</span> <span class="fu">anova</span>(ft_reveg,<span class="at">p.uni=</span><span class="st">&quot;adjusted&quot;</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 7 sec</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 0 min 6 sec</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>an_reveg</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -555,49 +955,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate test:</span></span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Res.Df Df.diff   Dev Pr(&gt;Dev)  </span></span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)      9                         </span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment        8       1 78.25    0.018 *</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment        8       1 78.25    0.024 *</span></span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Univariate Tests:</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Acarina          Amphipoda          Araneae          Blattodea</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 Dev Pr(&gt;Dev)       Dev Pr(&gt;Dev)     Dev Pr(&gt;Dev)       Dev</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                               </span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment     8.538    0.188     9.363    0.160   0.493    0.975    10.679</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      Coleoptera          Collembola          Dermaptera</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Pr(&gt;Dev)        Dev Pr(&gt;Dev)        Dev Pr(&gt;Dev)        Dev</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                            </span></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment      0.123      9.741    0.144      6.786    0.303      0.196</span></span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      Diotocardia          Diplura          Diptera         </span></span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Pr(&gt;Dev)         Dev Pr(&gt;Dev)     Dev Pr(&gt;Dev)     Dev Pr(&gt;Dev)</span></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                                </span></span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment      0.975           0    0.983    2.24    0.861    5.93    0.369</span></span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Formicidae          Haplotaxida          Hemiptera         </span></span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Dev Pr(&gt;Dev)         Dev Pr(&gt;Dev)       Dev Pr(&gt;Dev)</span></span>
-<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                            </span></span>
-<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment        0.831    0.975       2.889    0.777     1.302    0.962</span></span>
-<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Hymenoptera          Isopoda          Larvae          Lepidoptera</span></span>
-<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     Dev Pr(&gt;Dev)     Dev Pr(&gt;Dev)    Dev Pr(&gt;Dev)         Dev</span></span>
-<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                                  </span></span>
-<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment         4.254    0.548   1.096    0.975  0.463    0.975       0.913</span></span>
-<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      Polydesmida          Pseudoscorpionida         </span></span>
-<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Pr(&gt;Dev)         Dev Pr(&gt;Dev)               Dev Pr(&gt;Dev)</span></span>
-<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                         </span></span>
-<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment      0.975       1.451    0.960             1.056    0.975</span></span>
-<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Scolopendrida          Seolifera          Soleolifera         </span></span>
-<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                       Dev Pr(&gt;Dev)       Dev Pr(&gt;Dev)         Dev Pr(&gt;Dev)</span></span>
-<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                               </span></span>
-<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment           0.913    0.975      1.03    0.975       4.223    0.548</span></span>
-<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Thysanoptera          Tricladida         </span></span>
-<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      Dev Pr(&gt;Dev)        Dev Pr(&gt;Dev)</span></span>
-<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                          </span></span>
-<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment          1.056    0.975      2.804    0.780</span></span>
-<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
-<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Test statistics calculated assuming uncorrelated response (for faster computation) </span></span>
-<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P-value calculated using 999 iterations via PIT-trap resampling.</span></span></code></pre></div>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Acarina          Amphipoda          Araneae          Blattodea          Coleoptera</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 Dev Pr(&gt;Dev)       Dev Pr(&gt;Dev)     Dev Pr(&gt;Dev)       Dev Pr(&gt;Dev)        Dev</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                                                   </span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment     8.538    0.190     9.363    0.157   0.493    0.980    10.679    0.113      9.741</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      Collembola          Dermaptera          Diotocardia          Diplura         </span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Pr(&gt;Dev)        Dev Pr(&gt;Dev)        Dev Pr(&gt;Dev)         Dev Pr(&gt;Dev)     Dev Pr(&gt;Dev)</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                                                       </span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment      0.137      6.786    0.295      0.196    0.980           0    0.980    2.24    0.851</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Diptera          Formicidae          Haplotaxida          Hemiptera         </span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 Dev Pr(&gt;Dev)        Dev Pr(&gt;Dev)         Dev Pr(&gt;Dev)       Dev Pr(&gt;Dev)</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                                             </span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment      5.93    0.365      0.831    0.980       2.889    0.765     1.302    0.967</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Hymenoptera          Isopoda          Larvae          Lepidoptera          Polydesmida</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     Dev Pr(&gt;Dev)     Dev Pr(&gt;Dev)    Dev Pr(&gt;Dev)         Dev Pr(&gt;Dev)         Dev</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                                                       </span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment         4.254    0.554   1.096    0.980  0.463    0.980       0.913    0.980       1.451</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      Pseudoscorpionida          Scolopendrida          Seolifera         </span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Pr(&gt;Dev)               Dev Pr(&gt;Dev)           Dev Pr(&gt;Dev)       Dev Pr(&gt;Dev)</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                                              </span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment      0.961             1.056    0.980         0.913    0.980      1.03    0.980</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Soleolifera          Thysanoptera          Tricladida         </span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     Dev Pr(&gt;Dev)          Dev Pr(&gt;Dev)        Dev Pr(&gt;Dev)</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                                                               </span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment         4.223    0.554        1.056    0.980      2.804    0.766</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Arguments:</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Test statistics calculated assuming uncorrelated response (for faster computation) </span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P-value calculated using 999 iterations via PIT-trap resampling.</span></span></code></pre></div>
 </div>
 <div id="code-box-14.10-exploring-indicator-taxa-most-strongly-associated-with-the-treatment-effect-in-anthonys-revegetation-data" class="section level2">
-<h2>Code Box 14.10: Exploring indicator taxa most strongly associated with the treatment effect in Anthony’s revegetation data</h2>
+<h2>Code Box 14.10: Exploring indicator taxa most strongly associated
+with the treatment effect in Anthony’s revegetation data</h2>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sortedRevegStats <span class="ot">=</span> <span class="fu">sort</span>(an_reveg<span class="sc">$</span>uni.test[<span class="dv">2</span>,],<span class="at">decreasing=</span>T,</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="at">index.return=</span>T)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>sortedRevegStats<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
@@ -616,25 +1009,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="exercise-14.8-indicator-species-for-offshore-wind-farms" class="section level2">
 <h2>Exercise 14.8: Indicator species for offshore wind farms?</h2>
-<p><em>Which fish species are most strongly associated with offshore wind farms, in Lena’s study? Reanalyse the data to obtain univariate test statistics and univariate <span class="math inline">\(P\)</span>-values that have been adjusted for multiple testing.</em></p>
-<p><em>This code chunk has not been run as it takes several minutes</em></p>
+<p><em>Which fish species are most strongly associated with offshore
+wind farms, in Lena’s study? Reanalyse the data to obtain univariate
+test statistics and univariate <span class="math inline">\(P\)</span>-values that have been adjusted for
+multiple testing.</em></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(windFarms)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>windMV1 <span class="ot">=</span> <span class="fu">mvabund</span>(windFarms<span class="sc">$</span>abund[,<span class="fu">colSums</span>(windFarms<span class="sc">$</span>abund<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">&gt;</span><span class="dv">1</span>])</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>ft_wind1<span class="ot">=</span><span class="fu">manyglm</span>(windMV1<span class="sc">~</span>Station<span class="sc">+</span>Year<span class="sc">+</span>Year<span class="sc">:</span>Zone, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>, <span class="at">data=</span>windFarms<span class="sc">$</span>X)</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>an_wind1 <span class="ot">=</span> <span class="fu">anova</span>(ft_wind1,<span class="at">p.uni=</span><span class="st">&quot;adjusted&quot;</span>,<span class="at">nBoot=</span><span class="dv">99</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>sortedWindStats <span class="ot">=</span> <span class="fu">sort</span>(an_wind1<span class="sc">$</span>uni.test[<span class="dv">4</span>,], <span class="at">decreasing=</span>T, <span class="at">index.return=</span>T)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>sortedWindStats<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>an_wind1<span class="sc">$</span>uni.p[<span class="dv">4</span>,sortedWindStats<span class="sc">$</span>ix[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]]</span></code></pre></div>
-<p><em>Is there evidence that any species clearly have a Zone:Year interaction, after adjusting for multiple testing?</em></p>
-<p>Yes it looks like we have evidence of an effect in <code>Tanglake</code> (Viviparous Eelpout) and <code>Torsk</code> (cod).</p>
-<p><em>What proportion of the total <code>Zone:Year</code> effect is attributable to these potential indicator species?</em></p>
-<p><em>This code chunk has not been run as it is reliant on the previous code chunk</em></p>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0 hr 51 min 49 sec</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>sortedWindStats <span class="ot">=</span> <span class="fu">sort</span>(an_wind1<span class="sc">$</span>uni.test[<span class="dv">4</span>,], <span class="at">decreasing=</span>T, <span class="at">index.return=</span>T)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>sortedWindStats<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Tanglake     Torsk   Oxsimpa Rootsimpa        AL </span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29.019951 22.296044  6.899955  6.801339  4.819447</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>an_wind1<span class="sc">$</span>uni.p[<span class="dv">4</span>,sortedWindStats<span class="sc">$</span>ix[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]]</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Tanglake     Torsk   Oxsimpa Rootsimpa        AL </span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      0.01      0.01      0.04      0.04      0.17</span></span></code></pre></div>
+<p><em>Is there evidence that any species clearly have a Zone:Year
+interaction, after adjusting for multiple testing?</em></p>
+<p>Yes it looks like we have evidence of an effect in
+<code>Tanglake</code> (Viviparous Eelpout) and <code>Torsk</code>
+(cod).</p>
+<p><em>What proportion of the total <code>Zone:Year</code> effect is
+attributable to these potential indicator species?</em></p>
+<p><em>(These code chunk has not been run as it is reliant on the
+previous code chunk.)</em></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(sortedWindStats<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])<span class="sc">/</span>an_wind1<span class="sc">$</span>table[<span class="dv">4</span>,<span class="dv">3</span>]</span></code></pre></div>
-<p>So 63% of the <code>Zone:Year</code> effect is just these two species.</p>
-<p><em>Plot the abundance of each potential indicator species against Zone and Year.</em></p>
+<p>So 63% of the <code>Zone:Year</code> effect is just these two
+species.</p>
+<p><em>Plot the abundance of each potential indicator species against
+Zone and Year.</em></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(windMV1<span class="sc">~</span><span class="fu">interaction</span>(windFarms<span class="sc">$</span>X<span class="sc">$</span>Zone,windFarms<span class="sc">$</span>X<span class="sc">$</span>Year),<span class="at">var.subset=</span>sortedWindStats<span class="sc">$</span>ix[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
-<p><em>What is the nature of the wind farm effect for each species? Do you think these species are good indicators of an effect of wind farms?</em></p>
-<p>It is hard to say. I guess there has been a big increase in Ellpout in 2010, perhaps more so in wind farms than in North Zone. Cod numbers seemed to increase in 2010 for South Zone and not wind farms. Interaction plots might be a better way to see this…</p>
+<p><em>What is the nature of the wind farm effect for each species? Do
+you think these species are good indicators of an effect of wind
+farms?</em></p>
+<p>It is hard to say. I guess there has been a big increase in Ellpout
+in 2010, perhaps more so in wind farms than in North Zone. Cod numbers
+seemed to increase in 2010 for South Zone and not wind farms.
+Interaction plots might be a better way to see this…</p>
 </div>
 
 

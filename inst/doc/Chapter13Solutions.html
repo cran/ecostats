@@ -12,11 +12,23 @@
 
 <meta name="author" content="David Warton" />
 
-<meta name="date" content="2022-05-30" />
+<meta name="date" content="2022-06-28" />
 
 <title>Chapter 13 – Allometric line-fitting – Exercise solutions and Code Boxes</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -128,7 +140,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -140,23 +332,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<h1 class="title toc-ignore">Chapter 13 – Allometric line-fitting – Exercise solutions and Code Boxes</h1>
+<h1 class="title toc-ignore">Chapter 13 – Allometric line-fitting –
+Exercise solutions and Code Boxes</h1>
 <h4 class="author">David Warton</h4>
-<h4 class="date">2022-05-30</h4>
+<h4 class="date">2022-06-28</h4>
 
 
 
 <div id="exercise-13.1-brain-size-body-size-relationships" class="section level2">
 <h2>Exercise 13.1: Brain size-body size relationships</h2>
 <p><em>Does brain size scale as the 2/3 power of body size?</em></p>
-<p><em>How should we analyse the data to answer this research question?</em></p>
-<p>We are primarily interested in the slope coefficient, and do not have a predictor and a response, rather we have two response variables. So we want to avoid regression to the mean and should look at this as a multivariate problem, and use principal components analysis (or related methods).</p>
+<p><em>How should we analyse the data to answer this research
+question?</em></p>
+<p>We are primarily interested in the slope coefficient, and do not have
+a predictor and a response, rather we have two response variables. So we
+want to avoid regression to the mean and should look at this as a
+multivariate problem, and use principal components analysis (or related
+methods).</p>
 </div>
 <div id="exercise-13.2-leaf-economics-and-environment" class="section level2">
 <h2>Exercise 13.2: Leaf economics and environment</h2>
-<p><em>How steep is the slope of the line representing the leaf economics spectrum? It is steeper than one? Does the steepness of the line vary across environments?</em></p>
+<p><em>How steep is the slope of the line representing the leaf
+economics spectrum? It is steeper than one? Does the steepness of the
+line vary across environments?</em></p>
 <p><em>What method should [Ian] use to do this?</em></p>
-<p>We are primarily interested in the slope coefficients, and do not have a predictor and a response, rather we have two response variables. So we want to avoid regression to the mean and should look at this as a multivariate problem, and use principal components analysis (or related methods) and generalisations designed to compare slopes of several such axes.</p>
+<p>We are primarily interested in the slope coefficients, and do not
+have a predictor and a response, rather we have two response variables.
+So we want to avoid regression to the mean and should look at this as a
+multivariate problem, and use principal components analysis (or related
+methods) and generalisations designed to compare slopes of several such
+axes.</p>
 </div>
 <div id="code-box-13.1-linear-models-of-the-brain-size-body-size-data" class="section level2">
 <h2>Code Box 13.1: Linear models of the brain size-body size data</h2>
@@ -167,13 +372,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 2.5 %    97.5 %</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 1.7056829 3.4041133</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; log(body)   0.3353152 0.6566742</span></span></code></pre></div>
-<p>This confidence interval does not cover <code>2/3</code> so suggests the data do not fit the 2/3 power law.</p>
+<p>This confidence interval does not cover <code>2/3</code> so suggests
+the data do not fit the 2/3 power law.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ftBodyBrain<span class="ot">=</span><span class="fu">lm</span>(<span class="fu">log</span>(body)<span class="sc">~</span><span class="fu">log</span>(brain),<span class="at">data=</span>Animals)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(ftBodyBrain)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  2.5 %    97.5 %</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) -3.6396580 0.3396307</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; log(brain)   0.8281789 1.6218881</span></span></code></pre></div>
-<p>Flipping <code>x</code> and <code>y</code> axes, this confidence interval <em>does</em> cover <code>3/2</code>, which suggests that the data <em>do</em> fit the 2/3 power law!</p>
+<p>Flipping <code>x</code> and <code>y</code> axes, this confidence
+interval <em>does</em> cover <code>3/2</code>, which suggests that the
+data <em>do</em> fit the 2/3 power law!</p>
 </div>
 <div id="code-box-13.2-testing-if-the-brain-body-mass-slope-is-23" class="section level2">
 <h2>Code Box 13.2: Testing if the brain-body mass slope is 2/3</h2>
@@ -203,7 +411,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; H0 : slope not different from 0.6666667 </span></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test statistic : r= -0.07424 with 26 degrees of freedom under H0</span></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P-value : 0.70734</span></span></code></pre></div>
-<p>Here we got <span class="math inline">\(r=-0.07\)</span>, <span class="math inline">\(P=0.71\)</span> and conclude there is no evidence against the 2/3 power law. Note that <code>2/3</code> is towards the centre of the confidence interval for the SMA slope.</p>
+<p>Here we got <span class="math inline">\(r=-0.07\)</span>, <span class="math inline">\(P=0.71\)</span> and conclude there is no evidence
+against the 2/3 power law. Note that <code>2/3</code> is towards the
+centre of the confidence interval for the SMA slope.</p>
 <p>Reversing the axes:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sma</span>(body<span class="sc">~</span>brain, <span class="at">data=</span>Animals,<span class="at">log=</span><span class="st">&quot;xy&quot;</span>,<span class="at">slope.test=</span><span class="dv">3</span><span class="sc">/</span><span class="dv">2</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call: sma(formula = body ~ brain, data = Animals, log = &quot;xy&quot;, slope.test = 3/2) </span></span>
@@ -229,12 +439,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; H0 : slope not different from 1.5 </span></span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test statistic : r= 0.07424 with 26 degrees of freedom under H0</span></span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P-value : 0.70734</span></span></code></pre></div>
-<p>We get exactly the same test results: <span class="math inline">\(r=-0.07\)</span>, <span class="math inline">\(P=0.71\)</span> and reach the same conclusion. Note that <code>3/2</code> is towards the centre of the confidence interval for the SMA slope.</p>
-<p><em>Is this what you would have expected? Is there evidence against the 2/3 power law?</em></p>
-<p>This is as expected, (S)MA is invariant under flipping of <code>x</code> and <code>y</code>. As above there is no evidence against the 2/3 power law.</p>
+<p>We get exactly the same test results: <span class="math inline">\(r=-0.07\)</span>, <span class="math inline">\(P=0.71\)</span> and reach the same conclusion.
+Note that <code>3/2</code> is towards the centre of the confidence
+interval for the SMA slope.</p>
+<p><em>Is this what you would have expected? Is there evidence against
+the 2/3 power law?</em></p>
+<p>This is as expected, (S)MA is invariant under flipping of
+<code>x</code> and <code>y</code>. As above there is no evidence against
+the 2/3 power law.</p>
 </div>
 <div id="code-box-13.3-comparing-allometric-slopes-for-ians-data-using-smatr" class="section level2">
-<h2>Code Box 13.3: Comparing allometric slopes for Ian’s data using <code>smatr</code></h2>
+<h2>Code Box 13.3: Comparing allometric slopes for Ian’s data using
+<code>smatr</code></h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(leaflife)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>leafSlopes <span class="ot">=</span> <span class="fu">sma</span>(longev<span class="sc">~</span>lma<span class="sc">*</span>site, <span class="at">log=</span><span class="st">&quot;xy&quot;</span>, <span class="at">data=</span>leaflife)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(leafSlopes)</span>
@@ -299,7 +515,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 <div id="code-box-13.4-comparing-elevations-of-allometric-lines-for-ians-low-soil-nutrients-data-using-smatr" class="section level2">
-<h2>Code Box 13.4: Comparing elevations of allometric lines for Ian’s low soil nutrients data using <code>smatr</code></h2>
+<h2>Code Box 13.4: Comparing elevations of allometric lines for Ian’s
+low soil nutrients data using <code>smatr</code></h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>leaf_low_soilp <span class="ot">=</span> <span class="fu">subset</span>(leaflife, soilp <span class="sc">==</span> <span class="st">&quot;low&quot;</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>leafElev <span class="ot">=</span> <span class="fu">sma</span>(longev<span class="sc">~</span>lma<span class="sc">+</span>rain, <span class="at">log=</span><span class="st">&quot;xy&quot;</span>, <span class="at">data=</span>leaf_low_soilp)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>leafElev</span>
@@ -368,12 +585,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(sma_brainBody, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(sma_brainBodyRobust, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkAAAAJACAMAAABSRCkEAAAAYFBMVEUAAAAAADoAAGYAAP8AOpAAZrY6AAA6ADo6AGY6Ojo6OpA6kNtmAABmADpmkJBmtv+QOgCQZgCQkGaQ27aQ2/+2ZgC2///bkDrb2//b////AAD/tmb/25D//7b//9v////+2rbAAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAWBElEQVR4nO3djXaruBVAYVInmbY305u28dDYSfz+b1ljfoxthASHg3TE3mv1dtoETHK/wZKMcXEiElTEPgCyHYBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBI1AxAx6J4+lj+SMhk0wDti+LX1z8/T99vvx27o8jtJnzvYeRrKoD2z5+n/eXsU57/Sbw7Wr7dhO89jHxNBdDlvPP1RwXo+Le/xLuj5Zvg5zDmRwvQr/OfP/87cQZKtCl+xr+s8xRWtuedmpJ0d7Rwy/lRAnQq6+nXsXCMoQEUswX9aAFae3c0oSX9AGh7LepHC9DPe71I4JiDAShey/rRGkQXzdj5WDCITquF/egA+nnv2DCNT6xgQOPLP116C4l1LCSmVbifwO/jDLSJ2tesFvejNgZqTkGMgZKoaP6zvB+tWdj3Wz0Lc5x/ALRqRfOngh/WgbZQA0jDD4C2kNb457rvJb+xyzUBm7k7mt+U8U/g9L2/62W/sQtA6VQEP39N4wOgraTlRw1QWc/C7i+qn34pLYXn/rWq+eEMlFHtas9jen4AlE9F78/bFP0AKJ+cgDT9sA6UTy5Aqn4AlFHDY6BAPxOXf24edNlvbPt+K54/947XUgGk0dAsLNTP7Mdc/Bubjk8f5fMnb+uJnLYfNUDVJUHVtUAlF5TFTN2PGqDqosQKEFckxkzfj/oZaM8VifFawY/2GKh0vTUVQPqt4Ud3FjZygykAqRfmZ+70vY11oFwL9CN9GADlWhAgsR/N+wMdeWtzxFbyowjo8o4w9z0SJ+yOpreWHz1ADR3eWBil1fzoAfp6vQBiITFG6/nhDJRjIX6k0/c2JUDVVc8vJ+6RGKUgP0s9mN5rYdUiovOt8QDSa1U/rANl17p+AJRbK/sBUGat7QdAebW6HwBl1fp+AJRTAX6WWv7pAlA+hfhZ/EEBlE1R/AAom+L4AVAuRfIDoEyK5QdAeRTND4CyyO9n8el7G4AyKMCP2mMDyH4x/QDIflH9AMh+XkCafgBkvrh+AGS9yH4AZLzYfgBkO58fteWfLgBZzutH/xAAZLgE/ADIcCn4AZDdkvADILOl4QdAVkvED4DWSOHz9Tx+9KfvbQDSrzgt/vP6/Cz7aGMBSL2i9+dCpeMHQPotDyghPwDSb3FAKfkB0AotPAZKyg+A1mjRWVhafgBkrcT8AMhY437WW/7pApCpPH5WOop+ALJUen4AZKkE/QDIUCn6WRtQ0bXI7rbVKKBIfjgD2SlJPwAy05ifCNP3NgAZadTPakfxGIBslKofANkoWT9agMrzPKv+wDk+sXCB0vWjBKh8+jh9v1WfOAegBUrYjw6gn/dflz+fPwG0QCn70QHUftj3/vkTQOKS9qN5Bjq3fwGQtBE/EZd/upTGQA2b77cCQLLG/Kx3FO7UZmH1k9jPO4BE7dwvGybhh3WgtNu5L8hPww+Akm5XX7cw9MtKxI8WoJ/3+qINxxMYgILaNe8IGvhlpeJHaxBdNNOwY/sPot1ttLOfy69pYBSUjB/lafyZ0vOneHcbbdeefB5+VylM39tUFxLPHZmFzayavxf1NZx3X0mID2egZKvXf4ZOQEn5URsDNacgxkAza9cPEz//qM3Cvt/qWZjj/AMgT+7158T8sA6UZHb8ACjJnICS86MJyDUBm7m7DWXID4ASzOUnpeWfLgAll9PPqkcRmhagsp6FPX3c7YW3Nvuy5YczUGoZ8wMg5aaea635AZBu7uvBhjPnh3Ug1YrenyPf1Z2ldo4vpOsHQKoFASo6Kfd+mv8kOX1v0wP0/VY8f+4dr6UCqP89RX3R2ICf6s+U+SgCOj59lM+f32/bfjU+YAzUXjRW3I9/GkBp+1EDVF0SVPLW5oBZWAvoYfxcb5i4HzVA1UWJFSCuSPRWv+9i9/gbuYx/1j+eaWmfgfZckeitOksN+Km+kLwf7TFQd2midHd5Vwz6MXD+UZ6FPb4WNn93WedYPzTgh3WgFBr2k/TyTxeA4ufws/JRzEzpfWHV6s+RtzYHZdqPIqDLO8J6bzGcv7u8s+1HD1BDhzcWejLuRw/Q1+sFEAuJ41n3wxkobub9aAGqrnp+ObXDaeHuMm4IkI3pe5vea2HVIqLzrfEAujToZ/WjEMU6UMQy8AOgiOXgB0DxysIPgKKVhx8AxSoTPwCK1IAfW9P3NgBFacjP+kexRACKUT5+ABSjjPwAKEI5+QHQ+mXlB0Crl5cfAK1dZn4AtHKPfmwu/3QBaNUG/EQ4iiUDUFAL3RV02I/pW44CKKSAu7S4t73ycPgR7Dx+AAoo5D5RY9s2W7r9GPt99ANQQIK/496mjvEPgHQfN4UWAeQaPwNI93GTaP4wpePR+WnHRN30nTGQ6uOm0fyJUsNjd/e/+9N3Q7Owx0MFkHb177z7CMvmT5vLPwMnSwCt0s0J6JT8rVcdDQ3XALRG1wF0M/6JdSCyABSp/gTsbvxjKgDF6XYCb+HWq64YA8XofgHIrh9mYTG682P86o2HAKTcvZ84R6EXgDRyfgJYdn4ApNF1rJm9HwBNbuyFh/przhdQM/QDoKmNvfTZfO3xBdS6HP0AaGJjF1+0X2v/ewt+ADSxEEDNmejWT27T9zYATSsIUP0JYDdfy5QPgCYXMAa6tBE/AJqcfxZWtRU/ANJpM37WBlR0LbK7VNuOH85AGm3ID4AU2pIfAC3fjZ9cl3+6ALR0t35iHcVqAWjhNuYHQEvXB7QBPwBauK350QFUf2Jh3bY+M3VzfpTOQD/vzg+Mn7M7M23Pj9ZT2M/7y5K7M1LPT/bT9zatMdCx+L3k7kzU9xPvKDwt/SrSDEA/76Ojm4Uf1042/JwW/t3PALQXyZn6uGYy42fZX/50QM6Pgtd5XCuZ8JMIoPHRzSXv01xugGz4SQKQd4J1riyas9SxcJyuMgNkxE8aYyDfBKsy1rEpnz9lj2siM35SmIV1y8zusXTvWe64hZXoq5/NLP90qawDbewM1PMT8SgipbOQWLbPclsYAz36yf2S735KK9Ht85zj/JMToAE/p5x+Pk8TAX2//QoYAy35uKk37CejH9AT1wPJGhj/AEj2jV2uCdjM3SXZ0PjZAqDlRmkzALXPYb6nsA0A6vzcTN/THwMteIRzXkx9/ixfTl+vvuXE/AFd/dz+/6nPwpY8R857MfV4nl25Vnjqyvos9fRxt5ec3trs8pN8sQH9Pn39/a/Lf0bL/Qxk1k9kQNUy8/efH5sHZNdP7DFQeYax/+V5CjttBpBBP5FnYaf9SzUTk12XaB6QaT8LxkLivPDTNG8MFNL5JPX8uXd9r3FAjZ/tXb3xkNIlrecR0NPHeZTkvIDaNqDWT9yjSKI5VySGjH6q81Q1zC5zvKAMP9dUrkg81eepClCOVyTip5fWILo9A+3zuyIRP/3UZmH1GKh0XYBvFxB+bpoD6PIk5ltGrL/r/rWw6Y+bWvi5bfbbekqnjWUfN7FqP0zfu+avA7lGNws/blo1fiIfRUrNXwcamc3Xqz/H/N7ajJ+H5r+1eeTF1Augy9edq44mAeHnsVljoMv5ZWQMVAFq6OT0xkL8DDT5bT3e22eeakDNJa8ZLSTiZyiVdaAsz0D4GUwJUHWGejmN3I3KHCD8DKe1En02dB4kOd8abw7QxQ/LP49xQVlQtZ/YR5FiAHpo4Hph/DgD0H0D71jAjzsA3TXwnin8jASgux4B4WcsAN01DAg/rgB03/0YaMf0fSwAPXQ7C9tx+hkNQOPhxxOARsOPLwCNhR9vABoJP/4A5A4/AQHI2Y7pe0AAcrXj9BMSgBzhJywADYefwAA0GH5CA9BQ+AkOQAPhJzwAPYafCQHooR3LPxMC0H07+EwJQHfhZ1oAug0/EwPQTfiZGoD64WdyAOqFn+kB6Nph5/8eugtAXfiZE4DaDrssPsh17QDUdDn/JHdU6Qeguub5K7XDSj8AXTo/f13+O7HDMhCAqs7nHwDNC0Cn3vgnqaOyEYBOh3b8wyxsRgA6nFj/EbR5QPiRtXVA+BG2MqDrJ20ssjtx+JG27TMQfsRtGhB+5G0Y0AE/C7RdQIcTfhZos4Dws0xKgH7ePZ9qGBvQ4VTsYh9DFukAKtvPCXN+YFjkv7zKT/SDyCIVQO1Hy59S/cjL2k/so8giFUC9D/tO8kN3u/EPgMRt8QxU+eHyn4XSGgM1p6AEx0CH+vzD5T/LpDQLaz9f3nH+ifh3d3nv4OUCslRej7Pd1taBOj+0TBsDhJ+l29ZCIn4Wb1MLifhZvi1N4/Gj0HYWEg/40WgzZ6D61j/4WbqtLCT2/LAAtGQbWUjs+1n/0XNuG+tAd34QtFybANQf/wBo2RQBuSZgM3c3v5vxM4CWbQOA7uZfjIEWLXtAh4f5O7OwJdMCVNazsKePu72s/dbm5s7PrP9olfkZCD/a5Q0IP+plDQg/+uW8DoSfFcoYEH7WSA/Q91vx/Ll3vJaqD+iAn1VSA3R8+iifP7/fIr0a335wE36U0wJUXRJUXQtUxrmgDD9rpQWouiixAhTnisTug+MApJ32GWgf44pE/KyX8hiouzRRursp4WfFVGdhj6+Fzd9dePhZs/zWgfCzarkBOuBn3ZTeF1at/hwjvLX5+rnd+FknPUCXd4T13mI4f3fh4Wf11AA1dJTeWDh8RRp+1k8N0NfrBZDOQuLwdc34iZDJM9DwOyvwEyMlQNVVzy+ndjgt3J1j47td4CdKeq+FVYuIzrfGLw7ogJ842VwHehgDXfngZ91sArqfheEnWkYB3YafeOUACD8RywAQfmJmHxB+omYeEH7iZhzQAT+Rsw2oxwc/cTINCD/xswwIPwlkGFDfD4BiZRcQfpLILKBBP9z+cPWMAjoM+5HvmCZmE9ANnxs/CFo5k4CG/QAoRhYBOfwAKEYGAbn8MAaKkT1Abj/MwiJkDtCYH1o/Y4AO+EksW4Bu+eAngUwBwk96WQKEnwQzBAg/KWYHEH6SzAwg/KSZFUD4STQbgA74STUTgO744CehLADCT8IZAISflEsfEH6SLnlA+Em71AHd+wFQYqUN6H76jp/kShrQA5/WD1ceJlPKgNx+AndA+iUMaNQPghJpZUBFl/dbnX4AlFLJnoHcfgCUUqkCGvHDGCilEgU06odZWEIlCehx+Yf1n1RLEdAjH/wkW4KA8GOp9ADhx1TJAcKPrVIDhB9jqQCqPzO1btqnNuPHWjpnoJ93h5vx3Q1M3/GTeEpPYT/vL9N3N8AHP6mnNQY6Fr+n7g4/FktnEI0fkyUDCD82SwUQfoymNogencQ/7A4/VtMBVBa/6n84tv8wvjv8mE0F0M97x6Z8/vTubmj5B0BGUlqJ7ubwR/9K9CAf/Bgp/hkIP6bTGgM1pyD/GAg/tlOahbUvpzrOP9fd4cd4kdeB8GM9TUC9oZBjd/gxX0xAw9N3/JhqZUD9tzYP88GPreKdgfCTRdEA4SePYs3C8JNJeoC+34rnz73rHDS8O/yYSw3Q8emjfP78fgt6Nb4JP/bSAlSNf6rXwcrAt/VU8zL8GEwLUPWCfAUo4NX49n/ix2LaZ6B9wPVArR/u+WMw5TFQ6Xp3zwOgHTcdM5nqLKwonj6CdlePfwBksETelYEfq6UBaMddD62mdE10tfpzDH5bD/Mvu+kBulwN3bu83r07/BhODVBDJ+BtPfixnBqgr9cLoICFRABZLv4ZCD+mU7zF3cupHU6P7Q4/ttN7LaxaRHS+LazbHX6MF3kdCD/WiwsIP+aLCgg/9osJCD8ZFA1QUewKyqBIgOYnPhDpDqxvH+kAAJTL9gCKvAPr2wMo8g6sbw+gyDuwvj2AIu/A+vYAirwD69sDKPIOrG8PoMg7sL791gGRzQBEogBEogBEogBEogBEogBEogBEogBEogBEogBEogBEogBEomIB+vr7wP1hjtfbdw5+3bP5zS6OI7cCDdl+/BC82/+8F4XzDgIhj1+OHn/QD+C8GXPI9tc7aYwXCdD328ANho7VfRvqn37w657Nb3bR29es7ccPwbv9z/v5j9L5+/c/fvVRAO7jD/oBzhacgPzbf/0xwrdXHEDHodss1h8jtX9xfd2z+c0uevuatf34Ifi3r+/D5fpACP/2l/vn/Ly7AIb8APXH4sze3nULsfuiADoWv5rjK3sn+usv/fr14M3rf2G6XYz+BQZsP3oIIdvX3zh8Cgnd3gkobAfl878dgEK2L/3PXpdijYHqH6A8/4a/XhtB9Y/Q/GSefwEeNm9+/nYXN/uasb3vEEK2P/+bLHr8y5fnH8D5H0fGQN7t9/8YHcR1RQXU3De4+X3V/742/9aGAOpv3vzk7S5u9jVje98hhGw/ch+ukO2Po39/3h1UT0Y+QCPbf79V2zo/F+5aVED14Tb37ZwOqNv867W+IcDvaYBGtvcdQtD2I3OYkO3PBjwAxnYw9pE4oQcQMhCKC6i5E0QNaPJTWH/zOU9hI9v7DiFg+5HzT9jjj/0LEPYL8ALyHUD77/ZICZyBTs1Y7mYEGX4GqpsyiA7Y3ncI/u3L0QFEyOOP/v35dlDe/Ls5+wD8c/nIY6D+z3cz9Q4bA103r3/UwGm8f3vfIXi3d34gVtj29V/kyBGE/AABY6D5B9AWfxZ22nfPuP1FsNBZ2HXzm12MLyT6t/ccgm/7bmo59/Grv/uxz1cP+QG8gEYPoEKY+iC6fu66/j31lu+DAN1tfrOL8ZcC/NuHAHJv3zyDjA/iRx9/P/L8E/gD+AEJDqCNF1NJFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIBIFIC8uW6yMnLvhg0FIG8AGgtA3gA0FoC8fb3+67W54eWxvXNpdROU/zx9XG6iE3pD3DwDkLev1/aOUcfi9+n77aW+f++xePqo7rLz8x5wF518A5C3+m5j5d/+qu8Ydn7mqp/U9tXNcH8HfyZApgHIW3O7wNbN+c/mNqznE9P5Oax03wZsCwHIW3cD3BrQ+axTdoDOlALuI5hzAPI2dgb6/vO/f276GQxA/pox0PPn3RiovHygwD+2/QwGIH+XWVg1AbvOwsrL/1PfjnXbz2AA8levA13m6vfrQOGfy5ZtAJL19c9tP4MBSFi58WcwAIn6et34EBpAJAxAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJApAJOr/Eyfa+fiZ+doAAAAASUVORK5CYII=" /><!-- --></p>
-<p><em>Notice that this line is slightly steeper than previously, because it is less sensitive to the outliers below the line, also note that the confidence interval is narrower. Is this what you expected to happen?</em></p>
-<p>Yes – the outliers were towards the bottom-right, so giving them less weight in analysis should drag the line up towards the rest of the data. It makes sense that CIs are narrower because outliers make variances and covariances inefficient estimators, so by using a method that can better handle outliers we can get more precise estimates.</p>
+<p><em>Notice that this line is slightly steeper than previously,
+because it is less sensitive to the outliers below the line, also note
+that the confidence interval is narrower. Is this what you expected to
+happen?</em></p>
+<p>Yes – the outliers were towards the bottom-right, so giving them less
+weight in analysis should drag the line up towards the rest of the data.
+It makes sense that CIs are narrower because outliers make variances and
+covariances inefficient estimators, so by using a method that can better
+handle outliers we can get more precise estimates.</p>
 </div>
 <div id="exercise-13.3-outlier-sensitivity-for-the-brain-body-mass-data" class="section level2">
 <h2>Exercise 13.3: Outlier sensitivity for the brain-body mass data</h2>
-<p><em>Repeat the analyses of the brain-body mass data, in Code Boxes 13.2 and 13.6, excluding the three dinosaur species from analysis by using <code>data=AnimalsSnipped[-c(6,16,26),]</code>.</em></p>
+<p><em>Repeat the analyses of the brain-body mass data, in Code Boxes
+13.2 and 13.6, excluding the three dinosaur species from analysis by
+using <code>data=AnimalsSnipped[-c(6,16,26),]</code>.</em></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>AnimalsSnipped<span class="ot">=</span>Animals[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">16</span>,<span class="dv">26</span>),]</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sma_brainBody <span class="ot">=</span> <span class="fu">sma</span>(brain<span class="sc">~</span>body, <span class="at">data=</span>AnimalsSnipped,<span class="at">log=</span><span class="st">&quot;xy&quot;</span>,<span class="at">slope.test=</span><span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sma_brainBody</span>
@@ -401,7 +627,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; H0 : slope not different from 0.6666667 </span></span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test statistic : r= 0.5016 with 23 degrees of freedom under H0</span></span>
 <span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P-value : 0.010623</span></span></code></pre></div>
-<p>This suddenly gives a significant effect (<span class="math inline">\(r=0.50\)</span>, <span class="math inline">\(P=0.01\)</span>), with the slope having jumped up from <code>0.64</code> to <code>0.78</code>. Using robust methods:</p>
+<p>This suddenly gives a significant effect (<span class="math inline">\(r=0.50\)</span>, <span class="math inline">\(P=0.01\)</span>), with the slope having jumped up
+from <code>0.64</code> to <code>0.78</code>. Using robust methods:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sma_brainBodyRobust <span class="ot">=</span> <span class="fu">sma</span>(brain<span class="sc">~</span>body, <span class="at">data=</span>AnimalsSnipped,<span class="at">log=</span><span class="st">&quot;xy&quot;</span>,</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">slope.test=</span><span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>,<span class="at">robust=</span><span class="cn">TRUE</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sma_brainBodyRobust</span>
@@ -429,12 +656,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; H0 : slope not different from 0.6666667 </span></span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test statistic : r= 0.5261 with 23 degrees of freedom under H0</span></span>
 <span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P-value : 0.005345</span></span></code></pre></div>
-<p><em>Is robust SMA less sensitive to the dinosaur outliers? Is this what you expected?</em></p>
-<p>The results changed in both cases, but in a less dramatic way when using robust SMA. The robust SMA slope only changed from <code>0.75</code> to <code>0.77</code> on outlier removal, whereas the regular SMA slope changed from <code>0.64</code> to <code>0.78</code>. In both cases there is significant evidence against the 2/3 power law after outlier removal, but in the robust case, this change was less dramatic. It is expected that robust SMA would be less sensitive to outliers.</p>
+<p><em>Is robust SMA less sensitive to the dinosaur outliers? Is this
+what you expected?</em></p>
+<p>The results changed in both cases, but in a less dramatic way when
+using robust SMA. The robust SMA slope only changed from
+<code>0.75</code> to <code>0.77</code> on outlier removal, whereas the
+regular SMA slope changed from <code>0.64</code> to <code>0.78</code>.
+In both cases there is significant evidence against the 2/3 power law
+after outlier removal, but in the robust case, this change was less
+dramatic. It is expected that robust SMA would be less sensitive to
+outliers.</p>
 </div>
 <div id="exercise-13.4-robust-allometric-line-fitting-for-ians-leaf-data" class="section level2">
-<h2>Exercise 13.4: Robust allometric line fitting for Ian’s leaf data</h2>
-<p><em>Repeat the analysis of Ian’s leaf economics data, as in Code Boxes 13.3-13.4, using robust=TRUE. Do results work out differently?</em></p>
+<h2>Exercise 13.4: Robust allometric line fitting for Ian’s leaf
+data</h2>
+<p><em>Repeat the analysis of Ian’s leaf economics data, as in Code
+Boxes 13.3-13.4, using robust=TRUE. Do results work out
+differently?</em></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>leafSlopes <span class="ot">=</span> <span class="fu">sma</span>(longev<span class="sc">~</span>lma<span class="sc">*</span>site, <span class="at">log=</span><span class="st">&quot;xy&quot;</span>, <span class="at">data=</span>leaflife, <span class="at">robust=</span><span class="cn">TRUE</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(leafSlopes)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call: sma(formula = longev ~ lma * site, data = leaflife, log = &quot;xy&quot;, </span></span>
@@ -495,7 +733,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; H0 : variables uncorrelated.</span></span>
 <span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R-squared : 0.80651 </span></span>
 <span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; P-value : 0.00041709</span></span></code></pre></div>
-<p>This result is fairly similar, although there is stronger evidence now that the slopes are not the same, perhaps because the slope for group 1 is now noticeably steeper.</p>
+<p>This result is fairly similar, although there is stronger evidence
+now that the slopes are not the same, perhaps because the slope for
+group 1 is now noticeably steeper.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>leaf_low_soilp <span class="ot">=</span> <span class="fu">subset</span>(leaflife, soilp <span class="sc">==</span> <span class="st">&quot;low&quot;</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>leafElev <span class="ot">=</span> <span class="fu">sma</span>(longev<span class="sc">~</span>lma<span class="sc">+</span>rain, <span class="at">log=</span><span class="st">&quot;xy&quot;</span>, <span class="at">data=</span>leaf_low_soilp, <span class="at">robust=</span><span class="cn">TRUE</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>leafElev</span>
@@ -522,7 +762,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Use the summary() function to print coefficients by group.</span></span></code></pre></div>
-<p>When comparing elevation of lines fitted to low soil nutrient sites, there does not seem to be evidence of a difference due to rainfall.</p>
+<p>When comparing elevation of lines fitted to low soil nutrient sites,
+there does not seem to be evidence of a difference due to rainfall.</p>
 </div>
 
 

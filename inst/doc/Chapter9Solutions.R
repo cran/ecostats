@@ -50,14 +50,14 @@ anova(ft_heightRL, resamp="perm.resid")
 
 ## ----box95, fig.width=4, fig.height=3.5---------------------------------------
 ft_heightRLlm = lm(height~lat, data=globalPlants)
-plotenvelope(ft_heightRLlm)
+plotenvelope(ft_heightRLlm, n.sim=99)
 
 ## ----ex95, fig.width=4, fig.height=3.5----------------------------------------
 globalPlants$loght = log(globalPlants$height)
 ft_loghtRL=manylm(loght~rain+lat, data=globalPlants)
 anova(ft_loghtRL, resamp="perm.resid")
 ft_loghtRLlm = lm(loght~rain+lat, data=globalPlants)
-plotenvelope(ft_loghtRLlm)
+plotenvelope(ft_loghtRLlm, n.sim=99)
 
 ## ----ex95 lm------------------------------------------------------------------
 anova(ft_loghtRLlm)
@@ -66,7 +66,7 @@ anova(ft_loghtRLlm)
 data(guineapig)
 guineapig$logErrors = log(guineapig$errors)
 ft_guineaLog = lm(logErrors~treatment,data=guineapig)
-plotenvelope(ft_guineaLog)
+plotenvelope(ft_guineaLog, n.sim=99)
 by(guineapig$logErrors,guineapig$treatment,sd)
 
 ## ----ex96 anova---------------------------------------------------------------
@@ -80,7 +80,7 @@ anova(ftMany_guineaLog)
  snowmelt$logFlow[snowmelt$logFlow==-Inf]=NA
  snowReduced = na.omit(snowmelt[,c("logFlow","snow","elev")]) #this line not normally needed, lm can handle NA's, but seems needed because of a weird conflict with MCMCglmm code in Chapter 11 solutions
  ft_logsnow = lm(logFlow~elev+snow, data=snowReduced)
- plotenvelope(ft_logsnow)
+ plotenvelope(ft_logsnow, n.sim=99)
  summary(ft_logsnow)
  confint(ft_logsnow)
 
@@ -131,7 +131,7 @@ mft_richAdd = manylm(logrich~soil+poly(TMP_MAX,degree=2)+
                                          
 # construct a boot ID matrix: 
 BootID = BlockBootID(x = Myrtaceae$X, y = Myrtaceae$Y, block_L = 20,
-             nBoot = 199, Grid_space = 5)
+             nBoot = 99, Grid_space = 5)
 anova(mft_richAdd,resamp="case",bootID=BootID)
 
 ## ----box98 lm-----------------------------------------------------------------
@@ -144,7 +144,7 @@ anova(ft_richAdd)
 ft_richAdd = lm(logrich~soil+poly(TMP_MAX,degree=2)+
           poly(TMP_MIN,degree=2)+poly(RAIN_ANN,degree=2),
           data=Myrtaceae)
-nBoot=199
+nBoot=nrow(BootID)
 predMat = matrix(NA,length(Myrtaceae$logrich),nBoot)
 for(iBoot in 1:nBoot)
 {
@@ -164,7 +164,7 @@ bootSEall[,3]=bootSEs #we already did block length 20 in Code Box 9.9
 for (iLength in c(1,2,4))
 {
   BootIDi = BlockBootID(x = Myrtaceae$X, y = Myrtaceae$Y, block_L = block_Ls[iLength],
-             nBoot = 199, Grid_space = 5)
+             nBoot = 99, Grid_space = 5)
   predMat = matrix(NA,length(Myrtaceae$logrich),nBoot)
   for(iBoot in 1:nBoot)
   {

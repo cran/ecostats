@@ -17,7 +17,8 @@ library(lme4)
 ft_estu = lmer(Total~Mod+(1|Estuary),data=estuaries)
 summary(ft_estu)
 
-## ----code62, warning=FALSE----------------------------------------------------
+## ----code62, warning=FALSE, fig.width=8, fig.height=4-------------------------
+par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
 ft_estu = lmer(Total~Mod+(1|Estuary),data=estuaries)
 scatter.smooth(residuals(ft_estu)~fitted(ft_estu),
     xlab="Fitted values",ylab="Residuals")
@@ -34,7 +35,7 @@ anova(ft_estuInt,ft_estu)
 ## ----code64-------------------------------------------------------------------
 confint(ft_estu)
 
-## ----code65-------------------------------------------------------------------
+## ----code65, fig.width=5, fig.height=4----------------------------------------
 rft=ranef(ft_estu,condVar=T)
 library(lattice)
 dotplot(rft)
@@ -69,7 +70,8 @@ cols=c("blue","red","lightblue","pink")
 plot(Total~interaction(Estuary,Zone),data=estuaryZone,col=cols[c(1,2,2,1,2,1,2,3,4,4,3,4,3,4)])
 legend("bottomright",legend=c("Mod-Inner","Prist-Inner","Mod-Outer","Pris-Outer"),col=cols,pch=15,pt.cex=2)
 
-## ----ex64 lme-----------------------------------------------------------------
+## ----ex64 lme, fig.width=8, fig.height=4--------------------------------------
+par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
 library(lme4)
 lme_MZ = lmer(Total~Zone*Mod + (Zone|Estuary), data=estuaryZone )
 
@@ -89,17 +91,17 @@ anova(lme_MplusZ,lme_MZ)
 lme_Z = lmer(Total~Zone + (Zone|Estuary), data=estuaryZone )
 anova(lme_Z,lme_MplusZ)
 
-## ----box6.6, message=FALSE, eval=FALSE----------------------------------------
-#  nBoot=500
-#  bStat=rep(NA,nBoot)
-#  ft_estu = lmer(Total~Mod+(1|Estuary),data=estuaries)
-#  for(iBoot in 1:nBoot)
-#  {
-#     estuaries$TotalSim=unlist(simulate(ft_estu))
-#     ft_i = lmer(TotalSim~Mod+(1|Estuary),data=estuaries)
-#     bStat[iBoot] = fixef(ft_i)[2]
-#  }
-#  sd(bStat) #standard error of Mod effect
+## ----box6.6, message=FALSE----------------------------------------------------
+nBoot=500
+bStat=rep(NA,nBoot)
+ft_estu = lmer(Total~Mod+(1|Estuary),data=estuaries)
+for(iBoot in 1:nBoot)
+{
+   estuaries$TotalSim=unlist(simulate(ft_estu))
+   ft_i = lmer(TotalSim~Mod+(1|Estuary),data=estuaries)
+   bStat[iBoot] = fixef(ft_i)[2]
+}
+sd(bStat) #standard error of Mod effect
 
 ## ----summft_estu--------------------------------------------------------------
 summary(ft_estu)

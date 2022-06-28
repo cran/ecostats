@@ -29,7 +29,8 @@ plot(errors~treatment,data=guineapig)
 prop.test(65,109,0.5)
 2*pbinom(64,109,0.5,lower.tail=FALSE)
 
-## ----Code 1.2-----------------------------------------------------------------
+## ----Code 1.2, fig.width=8,fig.height=4---------------------------------------
+par(mfrow=c(1,2), mgp=c(1.75,0.75,0), mar=c(3,3,1,1))
 Before = c(0, 0, 0, 0, 0, 2, 1, 0, 0, 3, 5, 0)
 After = c(2, 1, 4, 1, 0, 5, 0, 1, 0, 3, 5, 2)
 qqnorm(After-Before, main="")
@@ -37,7 +38,7 @@ qqline(After-Before,col="red")
 library(ecostats)
 qqenvelope(After-Before)
 
-## ----Code 1.3-----------------------------------------------------------------
+## ----Code 1.3, fig.width=4,fig.height=4---------------------------------------
 # Enter the data
 Before = c(0, 0, 0, 0, 0, 2, 1, 0, 0, 3, 5, 0)
 After = c(2, 1, 4, 1, 0, 5, 0, 1, 0, 3, 5, 2)
@@ -47,18 +48,19 @@ logAfter = log(After+1)
 # Construct a normal quantile plot of the transformed data
 qqenvelope(logAfter-logBefore)
 
-## ----global plants------------------------------------------------------------
+## ----global plants, fig.width=4,fig.height=4----------------------------------
 data(globalPlants)
 hist(globalPlants$height)
 
-## ----global plants logHt------------------------------------------------------
+## ----global plants logHt, fig.width=4,fig.height=4----------------------------
 hist(log(globalPlants$height))
 
-## ----seaweed plot-------------------------------------------------------------
+## ----seaweed plot, fig.width=4,fig.height=4-----------------------------------
 data(seaweed)
 boxplot(Total~Dist,data=seaweed)
 
-## ----seaweed transform--------------------------------------------------------
+## ----seaweed transform, fig.width=8,fig.height=4------------------------------
+par(mfrow=c(1,2), mgp=c(1.75,0.75,0), mar=c(3,3,1,1))
 hist(seaweed$Total)
 hist(log(seaweed$Total))
 

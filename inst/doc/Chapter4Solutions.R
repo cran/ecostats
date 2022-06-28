@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----ravens check-------------------------------------------------------------
+## ----ravens check, fig.width=4, fig.height=4----------------------------------
  library(ecostats)
  data(ravens)
  qqenvelope(ravens$delta[ravens$treatment==1])
@@ -27,10 +27,11 @@ crowAfter = ravens[ravens$treatment <=3,]
 ft_crowAfter = lm(After~site+treatment,data=crowAfter)
 anova(ft_crowAfter)
 
-## ----ravens block assumptions-------------------------------------------------
+## ----ravens block assumptions, fig.width=8, fig.height=4----------------------
+ par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
  plotenvelope(ft_crowAfter)
 
-## ----seaweed plot-------------------------------------------------------------
+## ----seaweed plot, fig.width=4, fig.height=4----------------------------------
  data(seaweed)
  seaweed$Dist = factor(seaweed$Dist)
  plot(Total~Wmass, data=seaweed, col=Dist, 
@@ -43,8 +44,9 @@ anova(ft_crowAfter)
  lmMassDist=lm(logTot~logWmass+Dist,data=seaweed)
   anova(lmMassDist)
 
-## ----seaweed plt--------------------------------------------------------------
-plotenvelope(lmMassDist)
+## ----seaweed plt, fig.width=8, fig.height=4-----------------------------------
+par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
+plotenvelope(lmMassDist, n.sim=99)
 
 ## ----seaweed lm switch--------------------------------------------------------
  lmDistMass=lm(logTot~Dist+logWmass,data=seaweed)
@@ -53,18 +55,19 @@ plotenvelope(lmMassDist)
 ## ----seaweed lm drop1---------------------------------------------------------
 drop1(lmMassDist,test="F")
 
-## ----seaweed compBox----------------------------------------------------------
+## ----seaweed compBox, fig.width=4, fig.height=4-------------------------------
 plot(Total ~ interaction(Dist,Time), data=seaweed, log="y") ## and as usual use xlabel, ylabel to name axes
 
-## ----seaweed fact-------------------------------------------------------------
+## ----seaweed fact, fig.width=8, fig.height=4----------------------------------
+ par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
  ft_seaweedFact=lm(logTot~Time*Dist, data=seaweed)
- plotenvelope(ft_seaweedFact)
+ plotenvelope(ft_seaweedFact, n.sim=99)
 
 ## ----code4.9------------------------------------------------------------------
 ft_seaweedFact = lm(logTot~Time*Dist,data=seaweed)
 anova(ft_seaweedFact)
 
-## ----seaweed interplot--------------------------------------------------------
+## ----seaweed interplot, fig.width=5, fig.height=4-----------------------------
  library(dplyr)
  seaweed$Time = as.factor(seaweed$Time) 
  by_DistTime = group_by(seaweed,Dist,Time)
@@ -77,7 +80,7 @@ anova(ft_seaweedFact)
    group = Time)) + theme_few() + xlab("Distance of Isolation") +
    ylab("Total abundance [log scale]") + scale_y_log10(breaks=c(2,5,10,20))
 
-## ----seaweed interplot2-------------------------------------------------------
+## ----seaweed interplot2, fig.width=5, fig.height=4----------------------------
 interaction.plot(seaweed$Dist, seaweed$Time, ft_seaweedFact$fitted,
       xlab="Isolation of patch", ylab="Total density [log]", trace.label="Time")
 
@@ -135,30 +138,31 @@ anova(ft_nofactor)
  plot(flow~snow,data=snowmelt)
  snowReduced = na.omit(snowmelt[,c("flow","snow","elev")]) #this line not normally needed, lm can handle NA's, but seems needed because of a weird conflict with MCMCglmm
  ft_snow = lm(flow~elev+snow, data=snowReduced)
- plotenvelope(ft_snow)
+ plotenvelope(ft_snow, n.sim=99)
 
 ## ----snowmelt log-------------------------------------------------------------
  plot(flow~snow,data=snowmelt,log="y")
  snowReduced$logFlow = log(snowReduced$flow)
  snowReduced2 = snowReduced[snowReduced$logFlow>-Inf,] # look it's a bit naughty, removing the infinite value, but no biggie as only one value
  ft_logsnow = lm(logFlow~elev+snow, data=snowReduced2)
- plotenvelope(ft_logsnow)
+ plotenvelope(ft_logsnow, n.sim=99)
  summary(ft_logsnow)
  confint(ft_logsnow)
 
-## ----aphid netting------------------------------------------------------------
+## ----aphid netting, fig.width=4, fig.height=4---------------------------------
 data(aphidsBACI)
 str(aphidsBACI)
 plot(logcount~interaction(Time,Treatment),data=aphidsBACI)
 
-## ----aphid lm-----------------------------------------------------------------
+## ----aphid lm, fig.width=8, fig.height=4--------------------------------------
+ par(mfrow=c(1,3),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
 lm_aphids = lm(logcount~Plot+Time+Treatment:Time,data=aphidsBACI)
-plotenvelope(lm_aphids,which=1:3)
+plotenvelope(lm_aphids,which=1:3, n.sim=99)
 
 ## ----aphid anova--------------------------------------------------------------
 anova(lm_aphids)
 
-## ----seaweed 3----------------------------------------------------------------
+## ----seaweed 3, fig.width=6, fig.height=4-------------------------------------
 data(seaweed)
 str(seaweed)
 seaweed$logTot = log(seaweed$Total)
@@ -167,9 +171,10 @@ par(mar=c(4,7,1,1))
 plot(logTot~interaction(Dist,Size,Time),data=seaweed,xlab="",ylab="Total abundance [log scale]",horizontal=TRUE,col=2:4,las=1)
 legend("topleft",legend=paste0("Dist=",levels(seaweed$Dist)),pch=15,col=2:4,pt.cex=2)
 
-## ----seaweed anova3-----------------------------------------------------------
+## ----seaweed anova3, fig.width=8, fig.height=4--------------------------------
+ par(mfrow=c(1,3),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
 ft_seaweed3 = lm(log(Total)~Size*Time*Dist,data=seaweed)
-plotenvelope(ft_seaweed3,which=1:3)
+plotenvelope(ft_seaweed3,which=1:3, n.sim=99)
 anova(ft_seaweed3)
 
 ## ----seaweed ancova3----------------------------------------------------------
