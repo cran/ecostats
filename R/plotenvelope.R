@@ -187,7 +187,7 @@
 plotenvelope = function (y, which = 1:2, sim.method="refit", 
                        n.sim=199, conf.level=0.95, type="st", overlay=TRUE, transform = NULL, 
                        main = c("Residuals vs Fitted Values", "Normal Quantile Plot", "Scale-Location Plot"), xlab = c("Fitted values", "Theoretical Quantiles", "Fitted Values"),
-                       ylab = c("Residuals", "Residuals", expression(sqrt("|Residuals|"))), col=par("col"), 
+                       ylab = c("Residuals", "Residuals", expression(sqrt("|Residuals|"))), col=NULL, 
                        line.col=if(add.smooth) c("slateblue4","olivedrab","slateblue4") else rep("olivedrab",3), 
                        envelope.col = adjustcolor(line.col, 0.1), add.smooth=TRUE,
                        plot.it = TRUE, resFunction=NULL, predFunction=NULL, fitMin=if(inherits(y,"glm")|inherits(y,"manyglm")) -6 else -Inf, ...) 
@@ -227,20 +227,19 @@ plotenvelope = function (y, which = 1:2, sim.method="refit",
   # unless told otherwise, define predict function to be cpredict for mlm, otherwise predict
   if(is.null(predFunction))
   {
-    predFunction = if(inherits(object,"mlm")) 
-      #    cpredict
-      #  else
-      #    fitted
+    prFunction = if(inherits(object,"mlm")) 
       function(obj, xMin){ pmax(cpredict(obj), xMin) } #try using unconditional fitted values
     else 
       function(obj, xMin){ pmax(predict(obj), xMin) }
   }  
+  else
+    prFunction = function(obj,xMin){pmax(predFunction(obj), xMin)}
   
   if(inherits(object,"glmmTMB"))
     y = resFunction(object,type="pearson")
   else
     y = resFunction(object)
-  x = predFunction(object, fitMin)
+  x = prFunction(object, xMin=fitMin)
   
   y[y==Inf] = 2*max(y[y<Inf]) #deal with any probs with infinite resids
   
@@ -270,11 +269,18 @@ plotenvelope = function (y, which = 1:2, sim.method="refit",
       is.mva = FALSE
     mu     = switch(sim.method[1], "stand.norm" = rep(0, n.resp), colMeans(y) )
     Sigma  = switch(sim.method[1], "stand.norm" = cor(y), var(y) ) 
-    if(col==par("col"))
+    if(is.null(col))
+    {
       col  = rep(1:n.resp,each=n.rows)
+    }
+    else
+    if(length(col)==n.resp) # if a vector of length n.resp was given, expand to required size
+      col = rep(col, each=n.rows)
   }
   else
   {
+    if(is.null(col))
+      col=1  
     is.mva = FALSE
     n.resp = 1
     mu     = switch(sim.method[1],"stand.norm" = 0, mean(y))
@@ -345,7 +351,7 @@ plotenvelope = function (y, which = 1:2, sim.method="refit",
         resids[,i.sim] = resFunction(newFit,type="pearson")
       else
         resids[,i.sim] = resFunction(newFit)
-      ftt   = try(predFunction(newFit, fitMin)) #using try for fitted values because eel data occasionally failed(!?)
+      ftt   = try(prFunction(newFit, xMin=fitMin)) #using try for fitted values because eel data occasionally failed(!?)
       if(inherits(ftt,"try-error"))
         fits[,i.sim] = x
       else
@@ -447,85 +453,7 @@ plotenvelope = function (y, which = 1:2, sim.method="refit",
     }
   }
   
-  
-  # an envelope around points on res vs fits plot - used in simulation work for faster comp times
-  if (show[4L])
-  {
-    # get observed smoother
-    xSort = sort(x,index.return=TRUE)
-    ySort = y[xSort$ix]
-    
-    residSort=resids
-    for(i.sim in 1:n.sim)
-    {
-      fitSort = sort(fits[,i.sim],index.return=TRUE)
-      residSort[,i.sim]=resids[,i.sim][fitSort$ix]
-    }
-    
-    #use the Global Envelope Test package to get global envelope
-    datCurves = GET::create_curve_set(list(obs=ySort, sim_m=residSort))
-    cr = GET::global_envelope_test(datCurves, type=type, alpha=1-conf.level)
-    
-    if(plot.it==TRUE)      #do a qq plot and add sim envelope
-    {
-      # make axes and scales as appropriate
-      plot(rep(xSort$x,3), c(ySort,cr$lo,cr$hi), main=main[1], 
-           xlab=xlab[1], ylab=ylab[1], type="n", ...)
-      # add data
-      points(xSort$x, ySort, col=col, ...)
-      polygon(xSort$x[c(1:n.obs,n.obs:1)], c(cr$lo,cr$hi[n.obs:1]), 
-              col=envelope.col, border=NA)
-    }
-    
-    # return a list with qq values and limits, ordered same way as input data
-    out[[4]]=list(x = xSort, y = ySort, lo=cr$lo, hi=cr$hi, p.value=attr(cr,"p"))
-  }
-  
-  # an envelope around points on scale-location plot
-  if (show[6L])
-  {
-    # get observed smoother
-    xSort = sort(x,index.return=TRUE)
-    ySort = sqrt(abs(y))[xSort$ix]
-    
-    residsAbs = sqrt(abs(resids))
-    residSort = residsAbs
-    for(i.sim in 1:n.sim)
-    {
-      fitSort = sort(fits[,i.sim],index.return=TRUE)
-      residSort[,i.sim]=residsAbs[,i.sim][fitSort$ix]
-    }
-    
-    #use the Global Envelope Test package to get global envelope
-    datCurves = GET::create_curve_set(list(obs=ySort, sim_m=residSort))
-    cr = GET::global_envelope_test(datCurves, type=type, alpha=1-conf.level)
-    
-    if(plot.it==TRUE)      #do a qq plot and add sim envelope
-    {
-      # make axes and scales as appropriate
-      plot(rep(xSort$x,3), c(ySort,cr$lo,cr$hi), main=main[3], 
-           xlab=xlab[3], ylab=ylab[3], type="n", ...)
-      # add data
-      points(xSort$x, ySort, col=col, ...)
-      polygon(xSort$x[c(1:n.obs,n.obs:1)], c(cr$lo,cr$hi[n.obs:1]), 
-              col=envelope.col, border=NA)
-    }
-    
-    # return a list with qq values and limits, ordered same way as input data
-    out[[6]]=list(x = xSort, y = ySort, lo=cr$lo, hi=cr$hi, p.value=attr(cr,"p"))
-  }
-  
   invisible(out)
-}
-
-qqenvelope = function (y, n.sim=199, conf.level=0.95, ylab="Sample Quantiles", ...) 
-{
-  # If y is data, make it a model fit to call plotenvelope
-  if(is.numeric(y))
-    y = lm(y~1)
-  
-  out = plotenvelope(y, which=2, ylab=ylab, n.sim=n.sim, conf.level=conf.level, ...)
-  invisible(out[[2]])
 }
 
 resFitEnvelope = function(x,y,fits, resids, n.obs, conf.level=0.95, type="st",n.sim=n.sim,

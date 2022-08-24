@@ -12,7 +12,7 @@
 
 <meta name="author" content="David Warton" />
 
-<meta name="date" content="2022-06-28" />
+<meta name="date" content="2022-08-24" />
 
 <title>Chapter 6 – Mixed effect models – Exercise solutions and Code Boxes</title>
 
@@ -335,7 +335,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Chapter 6 – Mixed effect models – Exercise
 solutions and Code Boxes</h1>
 <h4 class="author">David Warton</h4>
-<h4 class="date">2022-06-28</h4>
+<h4 class="date">2022-08-24</h4>
 
 
 
@@ -672,7 +672,7 @@ error of the <code>Mod</code> fixed effect in Exercise 6.1.</h2>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>   bStat[iBoot] <span class="ot">=</span> <span class="fu">fixef</span>(ft_i)[<span class="dv">2</span>]</span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(bStat) <span class="co">#standard error of Mod effect</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.897774</span></span></code></pre></div>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.237895</span></span></code></pre></div>
 <p>And if we compare this to the standard error from
 <code>summary</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_estu)</span>
@@ -713,7 +713,7 @@ Estuary in Exercise 6.1.</h2>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in Ops.factor(1, Estuary): &#39;|&#39; not meaningful for factors</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           df deviance      LRT Pr(&gt;LRT)</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_noestu  3 322.1963       NA       NA</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estu    4 314.3646 7.831769     0.32</span></span></code></pre></div>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_estu    4 314.3646 7.831769     0.26</span></span></code></pre></div>
 <p>So we have no evidence of an <code>Estuary</code> effect.</p>
 </div>
 <div id="exercise-6.6-accurate-inferences-about-the-estuary-data" class="section level2">
@@ -732,7 +732,7 @@ to <code>anovaPB</code>:</p>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; object: Total ~ Zone * Mod + (Zone | Estuary)</span></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik deviance  Chisq Pr(&gt;Chisq)</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; objectNull    7 595.91 612.31 -290.95   581.91                  </span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; object        8 597.14 615.89 -290.57   581.14 0.7618       0.46</span></span></code></pre></div>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; object        8 597.14 615.89 -290.57   581.14 0.7618       0.42</span></span></code></pre></div>
 <p>There is no evidence of an interaction.</p>
 <p>(Ignore the warnings in the output – this is random stuff that was
 thrown up in bootstrap resamples that didn’t get a good fit.)</p>
@@ -750,9 +750,16 @@ there?</em></p>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anovaPB</span>(lme_MZnoest,lme_MZ,<span class="at">n.sim=</span><span class="dv">99</span>)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error : $ operator not defined for this S4 class</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in Ops.factor(Zone, Estuary): &#39;|&#39; not meaningful for factors</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             df deviance      LRT Pr(&gt;LRT)</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MZnoest  4 582.8273       NA       NA</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MZ       8 581.1436 1.683641     0.36</span></span></code></pre></div>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in optwrap(optimizer, devfun, opt$par, lower = rho$lower, control =</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; control, : convergence code -4 from nloptwrap: NLOPT_ROUNDOFF_LIMITED: Roundoff</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; errors led to a breakdown of the optimization algorithm. In this case, the</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; returned minimum may still be useful. (e.g. this error occurs in NEWUOA if one</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tries to achieve a tolerance too close to machine precision.)</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model failed to converge with max|grad| = 0.00281884 (tol = 0.002, component 1)</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             df deviance      LRT Pr(&gt;LRT)</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MZnoest  4 582.8273       NA       NA</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lme_MZ       8 581.1436 1.683641     0.36</span></span></code></pre></div>
 <p>We have no evidence of an <code>Estuary</code> effect either!</p>
 </div>
 

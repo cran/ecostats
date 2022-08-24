@@ -12,7 +12,7 @@
 
 <meta name="author" content="David Warton" />
 
-<meta name="date" content="2022-06-28" />
+<meta name="date" content="2022-08-24" />
 
 <title>Chapter 5 – Model selection – Exercise solutions and Code Boxes</title>
 
@@ -335,7 +335,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Chapter 5 – Model selection – Exercise
 solutions and Code Boxes</h1>
 <h4 class="author">David Warton</h4>
-<h4 class="date">2022-06-28</h4>
+<h4 class="date">2022-08-24</h4>
 
 
 
@@ -915,81 +915,84 @@ fits best.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>headbobLizards<span class="sc">$</span>bobspeed<span class="ot">=</span><span class="fu">log</span>(headbobLizards<span class="sc">$</span>Hbspd_max)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>ft_headbob<span class="ot">=</span><span class="fu">lm</span>(bobspeed<span class="sc">~</span>TemperatureC<span class="sc">+</span>AmbientLight<span class="sc">+</span>Bg_noise_max,<span class="at">data=</span>headbobLizards)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_headbob)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in matrix(NA, nPred, n.sim): object &#39;n.sim&#39; not found</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stepAIC</span>(ft_headbob)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start:  AIC=-35.58</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bobspeed ~ TemperatureC + AmbientLight + Bg_noise_max</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                Df Sum of Sq     RSS     AIC</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Bg_noise_max  1  0.018757 0.64139 -37.164</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                      0.62264 -35.580</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - AmbientLight  1  0.113540 0.73618 -35.235</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - TemperatureC  1  0.193576 0.81621 -33.790</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=-37.16</span></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bobspeed ~ TemperatureC + AmbientLight</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                Df Sum of Sq     RSS     AIC</span></span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                      0.64139 -37.164</span></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - AmbientLight  1   0.14217 0.78356 -36.361</span></span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - TemperatureC  1   0.46327 1.10466 -31.553</span></span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = bobspeed ~ TemperatureC + AmbientLight, data = headbobLizards)</span></span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Intercept)  TemperatureC  AmbientLight  </span></span>
-<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    -1.930275      0.210716     -0.009144</span></span>
-<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_headbob)</span>
-<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = bobspeed ~ TemperatureC + AmbientLight + Bg_noise_max, </span></span>
-<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = headbobLizards)</span></span>
-<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.29881 -0.15097 -0.02893  0.07918  0.43165 </span></span>
-<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)</span></span>
-<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  -1.085254   2.581853  -0.420    0.683</span></span>
-<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TemperatureC  0.176014   0.099825   1.763    0.108</span></span>
-<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AmbientLight -0.008383   0.006208  -1.350    0.207</span></span>
-<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bg_noise_max  0.006418   0.011693   0.549    0.595</span></span>
-<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.2495 on 10 degrees of freedom</span></span>
-<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.4611, Adjusted R-squared:  0.2994 </span></span>
-<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 2.852 on 3 and 10 DF,  p-value: 0.09115</span></span>
-<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>ft_2<span class="ot">=</span><span class="fu">lm</span>(bobspeed<span class="sc">~</span>TemperatureC<span class="sc">+</span>AmbientLight,<span class="at">data=</span>headbobLizards)</span>
-<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_2)</span>
-<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = bobspeed ~ TemperatureC + AmbientLight, data = headbobLizards)</span></span>
-<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.30317 -0.15088 -0.03001  0.07111  0.45789 </span></span>
-<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
-<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  -1.930275   2.005678  -0.962   0.3565  </span></span>
-<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TemperatureC  0.210716   0.074756   2.819   0.0167 *</span></span>
-<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AmbientLight -0.009144   0.005856  -1.561   0.1467  </span></span>
-<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.2415 on 11 degrees of freedom</span></span>
-<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.4448, Adjusted R-squared:  0.3439 </span></span>
-<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 4.407 on 2 and 11 DF,  p-value: 0.0393</span></span>
-<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-73"><a href="#cb26-73" aria-hidden="true" tabindex="-1"></a>ft_int<span class="ot">=</span><span class="fu">lm</span>(bobspeed<span class="sc">~</span><span class="dv">1</span>,<span class="at">data=</span>headbobLizards)</span>
-<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(ft_int,ft_2,ft_headbob)</span>
-<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            df       BIC</span></span>
-<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_int      2 10.082646</span></span>
-<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_2        4  7.122104</span></span>
-<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_headbob  5  9.345644</span></span></code></pre></div>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_headbob)</span></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt />
+<p class="caption">plot of chunk headbobs</p>
+</div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stepAIC</span>(ft_headbob)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start:  AIC=-35.58</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bobspeed ~ TemperatureC + AmbientLight + Bg_noise_max</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                Df Sum of Sq     RSS     AIC</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Bg_noise_max  1  0.018757 0.64139 -37.164</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                      0.62264 -35.580</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - AmbientLight  1  0.113540 0.73618 -35.235</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - TemperatureC  1  0.193576 0.81621 -33.790</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=-37.16</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bobspeed ~ TemperatureC + AmbientLight</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                Df Sum of Sq     RSS     AIC</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                      0.64139 -37.164</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - AmbientLight  1   0.14217 0.78356 -36.361</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - TemperatureC  1   0.46327 1.10466 -31.553</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = bobspeed ~ TemperatureC + AmbientLight, data = headbobLizards)</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Intercept)  TemperatureC  AmbientLight  </span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    -1.930275      0.210716     -0.009144</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_headbob)</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = bobspeed ~ TemperatureC + AmbientLight + Bg_noise_max, </span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = headbobLizards)</span></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.29881 -0.15097 -0.02893  0.07918  0.43165 </span></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)</span></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  -1.085254   2.581853  -0.420    0.683</span></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TemperatureC  0.176014   0.099825   1.763    0.108</span></span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AmbientLight -0.008383   0.006208  -1.350    0.207</span></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bg_noise_max  0.006418   0.011693   0.549    0.595</span></span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.2495 on 10 degrees of freedom</span></span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.4611, Adjusted R-squared:  0.2994 </span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 2.852 on 3 and 10 DF,  p-value: 0.09115</span></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>ft_2<span class="ot">=</span><span class="fu">lm</span>(bobspeed<span class="sc">~</span>TemperatureC<span class="sc">+</span>AmbientLight,<span class="at">data=</span>headbobLizards)</span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ft_2)</span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = bobspeed ~ TemperatureC + AmbientLight, data = headbobLizards)</span></span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.30317 -0.15088 -0.03001  0.07111  0.45789 </span></span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  -1.930275   2.005678  -0.962   0.3565  </span></span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TemperatureC  0.210716   0.074756   2.819   0.0167 *</span></span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AmbientLight -0.009144   0.005856  -1.561   0.1467  </span></span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.2415 on 11 degrees of freedom</span></span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.4448, Adjusted R-squared:  0.3439 </span></span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 4.407 on 2 and 11 DF,  p-value: 0.0393</span></span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a>ft_int<span class="ot">=</span><span class="fu">lm</span>(bobspeed<span class="sc">~</span><span class="dv">1</span>,<span class="at">data=</span>headbobLizards)</span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(ft_int,ft_2,ft_headbob)</span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            df       BIC</span></span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_int      2 10.082646</span></span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_2        4  7.122104</span></span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ft_headbob  5  9.345644</span></span></code></pre></div>
 <p>There’s actually a suggestion of non-linearity here, there are only a
 few points making that pattern though so I’m not sure. Also not sure if
 that makes sense, for lizards to get most active at an intermediate
@@ -997,31 +1000,31 @@ temperature, would need to check with Terry on that one…</p>
 <p>But in any case, the main story seems to be that noisiness doesn’t
 seem that important, it is more about temperature and light. Some <span class="math inline">\(R^2\)</span> values might help understand variable
 relative importance:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>stepMargin<span class="ot">=</span><span class="fu">add1</span>(ft_int,<span class="at">scope=</span><span class="fu">formula</span>(ft_headbob))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>stepMargin<span class="sc">$</span>R2<span class="ot">=</span>stepMargin<span class="sc">$</span><span class="st">`</span><span class="at">Sum of Sq</span><span class="st">`</span><span class="sc">/</span><span class="fu">deviance</span>(ft_int)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>stepMargin</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Single term additions</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model:</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bobspeed ~ 1</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Df Sum of Sq     RSS     AIC      R2</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                    1.15530 -32.926        </span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TemperatureC  1   0.37174 0.78356 -36.361 0.32177</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AmbientLight  1   0.05064 1.10466 -31.553 0.04384</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bg_noise_max  1   0.29569 0.85962 -35.065 0.25594</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>leave1out<span class="ot">=</span><span class="fu">drop1</span>(ft_headbob)</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>leave1out<span class="sc">$</span>R2<span class="ot">=</span>leave1out<span class="sc">$</span><span class="st">`</span><span class="at">Sum of Sq</span><span class="st">`</span><span class="sc">/</span><span class="fu">deviance</span>(ft_int)</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>leave1out</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Single term deletions</span></span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model:</span></span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bobspeed ~ TemperatureC + AmbientLight + Bg_noise_max</span></span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Df Sum of Sq     RSS     AIC       R2</span></span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                    0.62264 -35.580         </span></span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TemperatureC  1  0.193576 0.81621 -33.790 0.167555</span></span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AmbientLight  1  0.113540 0.73618 -35.235 0.098278</span></span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bg_noise_max  1  0.018757 0.64139 -37.164 0.016235</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>stepMargin<span class="ot">=</span><span class="fu">add1</span>(ft_int,<span class="at">scope=</span><span class="fu">formula</span>(ft_headbob))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>stepMargin<span class="sc">$</span>R2<span class="ot">=</span>stepMargin<span class="sc">$</span><span class="st">`</span><span class="at">Sum of Sq</span><span class="st">`</span><span class="sc">/</span><span class="fu">deviance</span>(ft_int)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>stepMargin</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Single term additions</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model:</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bobspeed ~ 1</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Df Sum of Sq     RSS     AIC      R2</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                    1.15530 -32.926        </span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TemperatureC  1   0.37174 0.78356 -36.361 0.32177</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AmbientLight  1   0.05064 1.10466 -31.553 0.04384</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bg_noise_max  1   0.29569 0.85962 -35.065 0.25594</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>leave1out<span class="ot">=</span><span class="fu">drop1</span>(ft_headbob)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>leave1out<span class="sc">$</span>R2<span class="ot">=</span>leave1out<span class="sc">$</span><span class="st">`</span><span class="at">Sum of Sq</span><span class="st">`</span><span class="sc">/</span><span class="fu">deviance</span>(ft_int)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>leave1out</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Single term deletions</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model:</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bobspeed ~ TemperatureC + AmbientLight + Bg_noise_max</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Df Sum of Sq     RSS     AIC       R2</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                    0.62264 -35.580         </span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TemperatureC  1  0.193576 0.81621 -33.790 0.167555</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AmbientLight  1  0.113540 0.73618 -35.235 0.098278</span></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bg_noise_max  1  0.018757 0.64139 -37.164 0.016235</span></span></code></pre></div>
 <p>Well glad we looked at this as well… so temperature and noisiness
 both seem associated with headbobs, but after adding temp to the model,
 noisiness doesn’t really add anything, whereas the reverse is not true.
@@ -1036,111 +1039,114 @@ effect of noisiness is probably due to correlation with temp.</p>
 plant height</em></p>
 <p>I’ll start with forward selection. We know temp is important so I
 will include that in all models</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(globalPlants)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(globalPlants)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    131 obs. of  33 variables:</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ sort_number     : int  1402 25246 11648 8168 22422 25151 26007 6597 16908 4610 ...</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ site            : int  193 103 54 144 178 27 118 154 106 201 ...</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Genus_species   : Factor w/ 175 levels &quot;_8324&quot;,&quot;Abies_veitchii&quot;,..: 5 143 67 45 127 142 147 37 96 28 ...</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Family          : Factor w/ 68 levels &quot;Annonaceae&quot;,&quot;Asteraceae&quot;,..: 60 37 49 12 50 27 55 31 49 5 ...</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ growthform      : Factor w/ 6 levels &quot;Fern&quot;,&quot;Herb&quot;,..: 6 6 2 4 2 4 6 6 2 4 ...</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ height          : num  22.86 45 0.55 0.6 0.152 ...</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Country         : Factor w/ 37 levels &quot;Argentina&quot;,&quot;Australia&quot;,..: 35 26 2 14 35 2 NA 35 2 8 ...</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Site            : Factor w/ 127 levels &quot;a-ngau&quot;,&quot;ab&quot;,..: 84 74 41 52 55 66 75 45 44 NA ...</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ lat             : num  44.6 12.2 23.8 32.6 41.6 ...</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ long            : num  -123.3 -70.5 133.8 34.9 -87 ...</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ alt             : int  179 386 553 115 200 157 2 71 2 28 ...</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp            : num  10.8 24.5 20.9 19.9 9.7 16.8 27.7 15.5 26.4 5.4 ...</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ diurn.temp      : num  11.8 10.8 16.3 9.7 10.7 10 4.8 11.4 5 6.6 ...</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ isotherm        : num  4.4 7.4 4.8 4.4 2.8 4.8 8.8 3.2 7.4 2.1 ...</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.seas       : num  5.2 0.9 6 4.9 9.7 3.9 0.2 8.6 0.6 8.3 ...</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.max.warm   : num  27 31.2 37 30.7 28.6 26.1 30.6 32.9 29.9 21.2 ...</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.min.cold   : num  0.3 16.7 3.6 8.7 -9.5 5.5 25.2 -2.6 23.2 -9 ...</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.ann.range  : num  26.7 14.5 33.4 22 38.1 20.6 5.4 35.5 6.7 30.2 ...</span></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.mean.wetqr : num  4.9 25.1 28.1 13.6 21.6 21.2 27.9 15.6 26.8 6.5 ...</span></span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.mean.dryqr : num  17.4 23.2 14.8 25.3 -3.3 12.3 27.5 21.5 25.7 -1.6 ...</span></span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.mean.warmqr: num  17.6 25.3 28.1 25.7 21.6 21.4 27.9 26.1 27.1 16.1 ...</span></span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.mean.coldqr: num  4.5 23.1 12.8 13.6 -3.3 11.5 27.5 3.8 25.5 -5 ...</span></span>
-<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain            : int  1208 3015 278 598 976 1283 2585 1262 1704 664 ...</span></span>
-<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.wetm       : int  217 416 37 159 104 157 300 129 309 77 ...</span></span>
-<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.drym       : int  13 99 9 0 44 63 82 66 16 31 ...</span></span>
-<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.seas       : int  69 45 42 115 23 29 34 18 66 28 ...</span></span>
-<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.wetqr      : int  601 1177 109 408 299 450 870 382 806 220 ...</span></span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.dryqr      : int  68 340 35 0 165 208 305 249 92 106 ...</span></span>
-<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.warmqr     : int  75 928 109 2 299 385 855 268 659 191 ...</span></span>
-<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.coldqr     : int  560 359 42 408 165 279 405 325 135 137 ...</span></span>
-<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ LAI             : num  2.51 4.26 1.32 1.01 3.26 4.14 NA 3.14 4.51 3.07 ...</span></span>
-<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ NPP             : int  572 1405 756 359 1131 1563 NA 1266 2296 536 ...</span></span>
-<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ hemisphere      : int  1 -1 -1 1 1 -1 1 1 -1 1 ...</span></span>
-<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>globalPlants<span class="sc">$</span>logHt <span class="ot">=</span> <span class="fu">log</span>(globalPlants<span class="sc">$</span>height)</span>
-<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>ft_temp <span class="ot">=</span> <span class="fu">lm</span>(logHt<span class="sc">~</span>temp, <span class="at">data=</span>globalPlants)</span>
-<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>ft_tempRain <span class="ot">=</span> <span class="fu">lm</span>(logHt<span class="sc">~</span>temp<span class="sc">+</span>rain<span class="sc">+</span>rain.wetm<span class="sc">+</span>rain.drym<span class="sc">+</span>rain.seas<span class="sc">+</span>rain.wetqr<span class="sc">+</span>rain.dryqr<span class="sc">+</span>rain.warmqr<span class="sc">+</span>rain.coldqr, <span class="at">data=</span>globalPlants)</span>
-<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="fl">1.75</span>,<span class="fl">0.75</span>,<span class="dv">0</span>))</span>
-<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_tempRain)</span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in matrix(NA, nPred, n.sim): object &#39;n.sim&#39; not found</span></span>
-<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a>ft_step <span class="ot">=</span> <span class="fu">step</span>(ft_temp, <span class="at">scope=</span><span class="fu">formula</span>(ft_tempRain), <span class="at">direction=</span><span class="st">&quot;forward&quot;</span>)</span>
-<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start:  AIC=107.97</span></span>
-<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp</span></span>
-<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetqr   1   26.7393 262.96  97.280</span></span>
-<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1   26.4615 263.24  97.418</span></span>
-<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetm    1   24.5243 265.17  98.379</span></span>
-<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.coldqr  1   20.3413 269.36 100.429</span></span>
-<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1   11.2099 278.49 104.796</span></span>
-<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1    9.4721 280.22 105.611</span></span>
-<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.drym    1    9.2552 280.44 105.713</span></span>
-<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     289.70 107.966</span></span>
-<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1    0.0632 289.63 109.938</span></span>
-<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=97.28</span></span>
-<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp + rain.wetqr</span></span>
-<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.coldqr  1    4.0676 258.89 97.238</span></span>
-<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     262.96 97.280</span></span>
-<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetm    1    1.5701 261.39 98.495</span></span>
-<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1    1.1733 261.78 98.694</span></span>
-<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1    0.7535 262.20 98.904</span></span>
-<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1    0.5071 262.45 99.027</span></span>
-<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.drym    1    0.4799 262.48 99.041</span></span>
-<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1    0.0841 262.87 99.238</span></span>
-<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=97.24</span></span>
-<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp + rain.wetqr + rain.coldqr</span></span>
-<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     258.89 97.238</span></span>
-<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetm    1   1.33741 257.55 98.559</span></span>
-<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1   0.12668 258.76 99.174</span></span>
-<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1   0.01663 258.87 99.229</span></span>
-<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1   0.01150 258.88 99.232</span></span>
-<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1   0.00406 258.88 99.236</span></span>
-<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.drym    1   0.00005 258.89 99.238</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(globalPlants)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(globalPlants)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    131 obs. of  33 variables:</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ sort_number     : int  1402 25246 11648 8168 22422 25151 26007 6597 16908 4610 ...</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ site            : int  193 103 54 144 178 27 118 154 106 201 ...</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Genus_species   : Factor w/ 175 levels &quot;_8324&quot;,&quot;Abies_veitchii&quot;,..: 5 143 67 45 127 142 147 37 96 28 ...</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Family          : Factor w/ 68 levels &quot;Annonaceae&quot;,&quot;Asteraceae&quot;,..: 60 37 49 12 50 27 55 31 49 5 ...</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ growthform      : Factor w/ 6 levels &quot;Fern&quot;,&quot;Herb&quot;,..: 6 6 2 4 2 4 6 6 2 4 ...</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ height          : num  22.86 45 0.55 0.6 0.152 ...</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Country         : Factor w/ 37 levels &quot;Argentina&quot;,&quot;Australia&quot;,..: 35 26 2 14 35 2 NA 35 2 8 ...</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Site            : Factor w/ 127 levels &quot;a-ngau&quot;,&quot;ab&quot;,..: 84 74 41 52 55 66 75 45 44 NA ...</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ lat             : num  44.6 12.2 23.8 32.6 41.6 ...</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ long            : num  -123.3 -70.5 133.8 34.9 -87 ...</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ alt             : int  179 386 553 115 200 157 2 71 2 28 ...</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp            : num  10.8 24.5 20.9 19.9 9.7 16.8 27.7 15.5 26.4 5.4 ...</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ diurn.temp      : num  11.8 10.8 16.3 9.7 10.7 10 4.8 11.4 5 6.6 ...</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ isotherm        : num  4.4 7.4 4.8 4.4 2.8 4.8 8.8 3.2 7.4 2.1 ...</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.seas       : num  5.2 0.9 6 4.9 9.7 3.9 0.2 8.6 0.6 8.3 ...</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.max.warm   : num  27 31.2 37 30.7 28.6 26.1 30.6 32.9 29.9 21.2 ...</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.min.cold   : num  0.3 16.7 3.6 8.7 -9.5 5.5 25.2 -2.6 23.2 -9 ...</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.ann.range  : num  26.7 14.5 33.4 22 38.1 20.6 5.4 35.5 6.7 30.2 ...</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.mean.wetqr : num  4.9 25.1 28.1 13.6 21.6 21.2 27.9 15.6 26.8 6.5 ...</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.mean.dryqr : num  17.4 23.2 14.8 25.3 -3.3 12.3 27.5 21.5 25.7 -1.6 ...</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.mean.warmqr: num  17.6 25.3 28.1 25.7 21.6 21.4 27.9 26.1 27.1 16.1 ...</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ temp.mean.coldqr: num  4.5 23.1 12.8 13.6 -3.3 11.5 27.5 3.8 25.5 -5 ...</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain            : int  1208 3015 278 598 976 1283 2585 1262 1704 664 ...</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.wetm       : int  217 416 37 159 104 157 300 129 309 77 ...</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.drym       : int  13 99 9 0 44 63 82 66 16 31 ...</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.seas       : int  69 45 42 115 23 29 34 18 66 28 ...</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.wetqr      : int  601 1177 109 408 299 450 870 382 806 220 ...</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.dryqr      : int  68 340 35 0 165 208 305 249 92 106 ...</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.warmqr     : int  75 928 109 2 299 385 855 268 659 191 ...</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rain.coldqr     : int  560 359 42 408 165 279 405 325 135 137 ...</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ LAI             : num  2.51 4.26 1.32 1.01 3.26 4.14 NA 3.14 4.51 3.07 ...</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ NPP             : int  572 1405 756 359 1131 1563 NA 1266 2296 536 ...</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ hemisphere      : int  1 -1 -1 1 1 -1 1 1 -1 1 ...</span></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>globalPlants<span class="sc">$</span>logHt <span class="ot">=</span> <span class="fu">log</span>(globalPlants<span class="sc">$</span>height)</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>ft_temp <span class="ot">=</span> <span class="fu">lm</span>(logHt<span class="sc">~</span>temp, <span class="at">data=</span>globalPlants)</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>ft_tempRain <span class="ot">=</span> <span class="fu">lm</span>(logHt<span class="sc">~</span>temp<span class="sc">+</span>rain<span class="sc">+</span>rain.wetm<span class="sc">+</span>rain.drym<span class="sc">+</span>rain.seas<span class="sc">+</span>rain.wetqr<span class="sc">+</span>rain.dryqr<span class="sc">+</span>rain.warmqr<span class="sc">+</span>rain.coldqr, <span class="at">data=</span>globalPlants)</span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="fl">1.75</span>,<span class="fl">0.75</span>,<span class="dv">0</span>))</span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a><span class="fu">plotenvelope</span>(ft_tempRain)</span></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt />
+<p class="caption">plot of chunk ex5.5plantprecip</p>
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ft_step <span class="ot">=</span> <span class="fu">step</span>(ft_temp, <span class="at">scope=</span><span class="fu">formula</span>(ft_tempRain), <span class="at">direction=</span><span class="st">&quot;forward&quot;</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start:  AIC=107.97</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetqr   1   26.7393 262.96  97.280</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1   26.4615 263.24  97.418</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetm    1   24.5243 265.17  98.379</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.coldqr  1   20.3413 269.36 100.429</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1   11.2099 278.49 104.796</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1    9.4721 280.22 105.611</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.drym    1    9.2552 280.44 105.713</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     289.70 107.966</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1    0.0632 289.63 109.938</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=97.28</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp + rain.wetqr</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.coldqr  1    4.0676 258.89 97.238</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     262.96 97.280</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetm    1    1.5701 261.39 98.495</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1    1.1733 261.78 98.694</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1    0.7535 262.20 98.904</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1    0.5071 262.45 99.027</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.drym    1    0.4799 262.48 99.041</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1    0.0841 262.87 99.238</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=97.24</span></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp + rain.wetqr + rain.coldqr</span></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     258.89 97.238</span></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetm    1   1.33741 257.55 98.559</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1   0.12668 258.76 99.174</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1   0.01663 258.87 99.229</span></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1   0.01150 258.88 99.232</span></span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1   0.00406 258.88 99.236</span></span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.drym    1   0.00005 258.89 99.238</span></span></code></pre></div>
 <p>So forward selection suggests adding rainfall in the wettest and
 coldest quarters to the model.</p>
 <p>How about LASSO…</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>XtempRain<span class="ot">=</span><span class="fu">with</span>(globalPlants,<span class="fu">cbind</span>(temp,rain,rain.wetm,rain.drym,rain.seas,rain.wetqr,rain.dryqr,rain.wetqr,rain.dryqr))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>lasso_rain<span class="ot">=</span><span class="fu">cv.glmnet</span>(XtempRain,globalPlants<span class="sc">$</span>logHt,<span class="at">penalty.factor=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">8</span>)))</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_rain)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>XtempRain<span class="ot">=</span><span class="fu">with</span>(globalPlants,<span class="fu">cbind</span>(temp,rain,rain.wetm,rain.drym,rain.seas,rain.wetqr,rain.dryqr,rain.wetqr,rain.dryqr))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>lasso_rain<span class="ot">=</span><span class="fu">cv.glmnet</span>(XtempRain,globalPlants<span class="sc">$</span>logHt,<span class="at">penalty.factor=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">8</span>)))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_rain)</span></code></pre></div>
 <div class="figure">
 <img src="data:image/png;base64,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" alt />
 <p class="caption">plot of chunk ex5.5lassorain</p>
 </div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ft_lasso<span class="ot">=</span><span class="fu">glmnet</span>(XtempRain,globalPlants<span class="sc">$</span>logHt,<span class="at">lambda=</span>lasso_rain<span class="sc">$</span>lambda.min)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ft_lasso<span class="sc">$</span>beta</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      s0</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; temp       0.0396005806</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain       0.0006377051</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetm  .           </span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.drym  .           </span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.seas  0.0055999469</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr .           </span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr .           </span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr .           </span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr .</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ft_lasso<span class="ot">=</span><span class="fu">glmnet</span>(XtempRain,globalPlants<span class="sc">$</span>logHt,<span class="at">lambda=</span>lasso_rain<span class="sc">$</span>lambda.min)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ft_lasso<span class="sc">$</span>beta</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      s0</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; temp       0.0396005806</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain       0.0006377051</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetm  .           </span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.drym  .           </span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.seas  0.0055999469</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr .           </span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr .           </span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr .           </span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr .</span></span></code></pre></div>
 <p>This time we are going with two rainfall variables again, but
 different ones – total precipitation and seasonality. (This actually
 provides similar information to what you would get from
@@ -1150,92 +1156,92 @@ you about both total rainfall and variability/seasonality.)</p>
 variables? Try to address any multi-collinearity by culling one or two
 of the main culprits. Does this affect your previous model selection
 results?</em></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(ft_tempRain)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        temp        rain   rain.wetm   rain.drym   rain.seas  rain.wetqr  rain.dryqr rain.warmqr </span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    1.773040  111.063634   85.433552  110.163673    5.524702  130.580531  144.565319    9.577784 </span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.coldqr </span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    6.436926</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(XtempRain)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 temp        rain rain.wetm  rain.drym   rain.seas rain.wetqr rain.dryqr rain.wetqr</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; temp       1.0000000  0.47869648 0.5552163  0.1923458  0.37764956  0.5530709  0.1959310  0.5530709</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain       0.4786965  1.00000000 0.9170080  0.7540378 -0.03914991  0.9276384  0.7811679  0.9276384</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetm  0.5552163  0.91700800 1.0000000  0.4730420  0.30626819  0.9935421  0.5030374  0.9935421</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.drym  0.1923458  0.75403779 0.4730420  1.0000000 -0.53128346  0.4907095  0.9933645  0.4907095</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.seas  0.3776496 -0.03914991 0.3062682 -0.5312835  1.00000000  0.2893864 -0.5243323  0.2893864</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr 0.5530709  0.92763843 0.9935421  0.4907095  0.28938641  1.0000000  0.5187558  1.0000000</span></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr 0.1959310  0.78116788 0.5030374  0.9933645 -0.52433232  0.5187558  1.0000000  0.5187558</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr 0.5530709  0.92763843 0.9935421  0.4907095  0.28938641  1.0000000  0.5187558  1.0000000</span></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr 0.1959310  0.78116788 0.5030374  0.9933645 -0.52433232  0.5187558  1.0000000  0.5187558</span></span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            rain.dryqr</span></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; temp        0.1959310</span></span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain        0.7811679</span></span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetm   0.5030374</span></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.drym   0.9933645</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.seas  -0.5243323</span></span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr  0.5187558</span></span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr  1.0000000</span></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr  0.5187558</span></span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr  1.0000000</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(ft_tempRain)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        temp        rain   rain.wetm   rain.drym   rain.seas  rain.wetqr  rain.dryqr </span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1.7730    111.0600     85.4340    110.1600      5.5247    130.5800    144.5700 </span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.warmqr rain.coldqr </span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      9.5778      6.4369</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(XtempRain)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 temp        rain rain.wetm  rain.drym   rain.seas rain.wetqr rain.dryqr</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; temp       1.0000000  0.47869648 0.5552163  0.1923458  0.37764956  0.5530709  0.1959310</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain       0.4786965  1.00000000 0.9170080  0.7540378 -0.03914991  0.9276384  0.7811679</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetm  0.5552163  0.91700800 1.0000000  0.4730420  0.30626819  0.9935421  0.5030374</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.drym  0.1923458  0.75403779 0.4730420  1.0000000 -0.53128346  0.4907095  0.9933645</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.seas  0.3776496 -0.03914991 0.3062682 -0.5312835  1.00000000  0.2893864 -0.5243323</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr 0.5530709  0.92763843 0.9935421  0.4907095  0.28938641  1.0000000  0.5187558</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr 0.1959310  0.78116788 0.5030374  0.9933645 -0.52433232  0.5187558  1.0000000</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr 0.5530709  0.92763843 0.9935421  0.4907095  0.28938641  1.0000000  0.5187558</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr 0.1959310  0.78116788 0.5030374  0.9933645 -0.52433232  0.5187558  1.0000000</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            rain.wetqr rain.dryqr</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; temp        0.5530709  0.1959310</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain        0.9276384  0.7811679</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetm   0.9935421  0.5030374</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.drym   0.4907095  0.9933645</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.seas   0.2893864 -0.5243323</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr  1.0000000  0.5187558</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr  0.5187558  1.0000000</span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr  1.0000000  0.5187558</span></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr  0.5187558  1.0000000</span></span></code></pre></div>
 <p>A bunch of high VIF’s, looking at correlations,
 <code>rain.wetm</code> looks like one of the main culprits, it is quite
 understandable that rainfall in the wettest month should be highly
 correlated with total rainfall, and with rainfall in the wettest
 quarter! Will also remove <code>rain.drym</code> because there is high
 redundancy between this variable and <code>rain.dryqr</code>.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ft_tempLessRain <span class="ot">=</span> <span class="fu">lm</span>(logHt<span class="sc">~</span>temp<span class="sc">+</span>rain<span class="sc">+</span>rain.seas<span class="sc">+</span>rain.wetqr<span class="sc">+</span>rain.dryqr<span class="sc">+</span>rain.warmqr<span class="sc">+</span>rain.coldqr, <span class="at">data=</span>globalPlants)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ft_Lstep <span class="ot">=</span> <span class="fu">step</span>(ft_temp, <span class="at">scope=</span><span class="fu">formula</span>(ft_tempLessRain), <span class="at">direction=</span><span class="st">&quot;forward&quot;</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start:  AIC=107.97</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetqr   1   26.7393 262.96  97.280</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1   26.4615 263.24  97.418</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.coldqr  1   20.3413 269.36 100.429</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1   11.2099 278.49 104.796</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1    9.4721 280.22 105.611</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     289.70 107.966</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1    0.0632 289.63 109.938</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=97.28</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp + rain.wetqr</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.coldqr  1    4.0676 258.89 97.238</span></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     262.96 97.280</span></span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1    1.1733 261.78 98.694</span></span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1    0.7535 262.20 98.904</span></span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1    0.5071 262.45 99.027</span></span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1    0.0841 262.87 99.238</span></span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=97.24</span></span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp + rain.wetqr + rain.coldqr</span></span>
-<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     258.89 97.238</span></span>
-<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1  0.126684 258.76 99.174</span></span>
-<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1  0.016626 258.87 99.229</span></span>
-<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1  0.011498 258.88 99.232</span></span>
-<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1  0.004059 258.88 99.236</span></span>
-<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>XlessRain<span class="ot">=</span><span class="fu">model.matrix</span>(ft_tempLessRain)[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>lasso_Lrain<span class="ot">=</span><span class="fu">cv.glmnet</span>(XlessRain,globalPlants<span class="sc">$</span>logHt,<span class="at">penalty.factor=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">6</span>)))</span>
-<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_Lrain)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ft_tempLessRain <span class="ot">=</span> <span class="fu">lm</span>(logHt<span class="sc">~</span>temp<span class="sc">+</span>rain<span class="sc">+</span>rain.seas<span class="sc">+</span>rain.wetqr<span class="sc">+</span>rain.dryqr<span class="sc">+</span>rain.warmqr<span class="sc">+</span>rain.coldqr, <span class="at">data=</span>globalPlants)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>ft_Lstep <span class="ot">=</span> <span class="fu">step</span>(ft_temp, <span class="at">scope=</span><span class="fu">formula</span>(ft_tempLessRain), <span class="at">direction=</span><span class="st">&quot;forward&quot;</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start:  AIC=107.97</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.wetqr   1   26.7393 262.96  97.280</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1   26.4615 263.24  97.418</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.coldqr  1   20.3413 269.36 100.429</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1   11.2099 278.49 104.796</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1    9.4721 280.22 105.611</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     289.70 107.966</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1    0.0632 289.63 109.938</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=97.28</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp + rain.wetqr</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.coldqr  1    4.0676 258.89 97.238</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     262.96 97.280</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1    1.1733 261.78 98.694</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1    0.7535 262.20 98.904</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1    0.5071 262.45 99.027</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1    0.0841 262.87 99.238</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Step:  AIC=97.24</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logHt ~ temp + rain.wetqr + rain.coldqr</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;none&gt;                     258.89 97.238</span></span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.seas    1  0.126684 258.76 99.174</span></span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.warmqr  1  0.016626 258.87 99.229</span></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain         1  0.011498 258.88 99.232</span></span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + rain.dryqr   1  0.004059 258.88 99.236</span></span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>XlessRain<span class="ot">=</span><span class="fu">model.matrix</span>(ft_tempLessRain)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>lasso_Lrain<span class="ot">=</span><span class="fu">cv.glmnet</span>(XlessRain,globalPlants<span class="sc">$</span>logHt,<span class="at">penalty.factor=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">6</span>)))</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_Lrain)</span></code></pre></div>
 <div class="figure">
 <img src="data:image/png;base64,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" alt />
 <p class="caption">plot of chunk ex5.5lessrain</p>
 </div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ft_Llasso<span class="ot">=</span><span class="fu">glmnet</span>(XlessRain,globalPlants<span class="sc">$</span>logHt,<span class="at">lambda=</span>lasso_Lrain<span class="sc">$</span>lambda.min)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>ft_Llasso<span class="sc">$</span>beta</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                       s0</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; temp        4.188268e-02</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain        5.333291e-05</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.seas   .           </span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr  1.030699e-03</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr  .           </span></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.warmqr .           </span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.coldqr 6.719062e-04</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ft_Llasso<span class="ot">=</span><span class="fu">glmnet</span>(XlessRain,globalPlants<span class="sc">$</span>logHt,<span class="at">lambda=</span>lasso_Lrain<span class="sc">$</span>lambda.min)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ft_Llasso<span class="sc">$</span>beta</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                       s0</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; temp        4.188268e-02</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain        5.333291e-05</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.seas   .           </span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.wetqr  1.030699e-03</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.dryqr  .           </span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.warmqr .           </span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rain.coldqr 6.719062e-04</span></span></code></pre></div>
 <p>Forward selection is unchanged, not a big surprise because the
 forward path stopped before any deleted variables were considered. This
 time LASSO gave a similar model, also picking <code>rain.wetqr</code>

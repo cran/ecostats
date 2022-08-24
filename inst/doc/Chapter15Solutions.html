@@ -12,7 +12,7 @@
 
 <meta name="author" content="David Warton" />
 
-<meta name="date" content="2022-06-28" />
+<meta name="date" content="2022-08-24" />
 
 <title>Chapter 15 – Predicting multivariate abundances – Exercise solutions and Code Boxes</title>
 
@@ -335,7 +335,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Chapter 15 – Predicting multivariate
 abundances – Exercise solutions and Code Boxes</h1>
 <h4 class="author">David Warton</h4>
-<h4 class="date">2022-06-28</h4>
+<h4 class="date">2022-08-24</h4>
 
 
 
@@ -648,7 +648,7 @@ did about as well as each other.</p>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>wind_RR2<span class="ot">=</span><span class="fu">rrvglm</span>(<span class="fu">as.matrix</span>(windFarms<span class="sc">$</span>abund)<span class="sc">~</span>Year<span class="sc">*</span>Zone, <span class="at">family=</span>poissonff, <span class="at">data=</span>windFarms<span class="sc">$</span>X, <span class="at">Rank=</span><span class="dv">2</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>wind_manyglm <span class="ot">=</span> <span class="fu">manyglm</span>(windMV<span class="sc">~</span>Year<span class="sc">*</span>Zone, <span class="at">data=</span>windFarms<span class="sc">$</span>X, <span class="at">family=</span><span class="fu">poisson</span>())</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>( <span class="fu">BIC</span>(wind_RR2), <span class="fu">sum</span>(<span class="fu">BIC</span>(wind_manyglm)))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3471.901</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3318.548 3471.901</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>zoneyear <span class="ot">=</span> <span class="fu">interaction</span>(windFarms<span class="sc">$</span>X<span class="sc">$</span>Zone,windFarms<span class="sc">$</span>X<span class="sc">$</span>Year)</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(<span class="fu">as.numeric</span>(zoneyear),<span class="fu">latvar</span>(wind_RR2),<span class="at">pch=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">19</span>))</span></code></pre></div>
 <div class="figure">
@@ -695,8 +695,8 @@ strong (but positive) interactions.</p>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>fullFormula <span class="ot">=</span> <span class="fu">formula</span>(<span class="fu">paste0</span>(<span class="st">&quot;value~cols+&quot;</span>,Xformula,<span class="st">&quot;+(&quot;</span>,Xformula,<span class="st">&quot;|cols)&quot;</span>))</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>spid_glmm <span class="ot">=</span> <span class="fu">glmmTMB</span>(fullFormula,<span class="at">family=</span><span class="fu">nbinom2</span>(),<span class="at">data=</span>spiderLong)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in fitTMB(TMBStruc): Model convergence problem; non-positive-definite Hessian matrix. See</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; vignette(&#39;troubleshooting&#39;)</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in fitTMB(TMBStruc): Model convergence problem; non-positive-definite Hessian matrix.</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; See vignette(&#39;troubleshooting&#39;)</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in fitTMB(TMBStruc): Model convergence problem; false convergence (8). See</span></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; vignette(&#39;troubleshooting&#39;)</span></span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spid_glmm)</span>
