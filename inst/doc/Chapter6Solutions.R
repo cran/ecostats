@@ -109,15 +109,15 @@ summary(ft_estu)
 ## ----box67, message=FALSE-----------------------------------------------------
 ft_noestu = lm(Total~Mod,data=estuaries)
 library(ecostats)
-anovaPB(ft_noestu,ft_estu,n.sim=99)
+anovaPB(ft_noestu,ft_estu,n.sim=99, ncpus=1)
 
 ## ----ex66 interaction, message=FALSE------------------------------------------
 lme_MZ = lmer(Total~Zone*Mod + (Zone|Estuary), data=estuaryZone, REML=FALSE )
 lme_MplusZ = lmer(Total~Zone+Mod + (Zone|Estuary), data=estuaryZone, REML=FALSE )
-anovaPB(lme_MplusZ,lme_MZ,n.sim=99)
+anovaPB(lme_MplusZ,lme_MZ,n.sim=99,ncpus=1)
 
 ## ----ex66 estuary, message=FALSE----------------------------------------------
 lme_MZ = lmer(Total~Zone*Mod + (Zone|Estuary), data=estuaryZone, REML=FALSE )
 lme_MZnoest = lm(Total~Zone+Mod, data=estuaryZone)
-anovaPB(lme_MZnoest,lme_MZ,n.sim=99)
+anovaPB(lme_MZnoest,lme_MZ,n.sim=99,ncpus=1)
 

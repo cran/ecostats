@@ -20,6 +20,8 @@
 #' Default choices have been set for common models (\code{colRef=5} for \code{lm} objects,
 #' \code{colRef=6} for \code{lmer} objects and \code{colRef=4} otherwise, which is correct 
 #' for \code{glm} and \code{gam} objects).
+#' @param ncpus the number of CPUs to use. Default (NULL) uses two less than the total 
+#' available.
 #' @param ... further arguments sent through to \code{anova}.
 #' 
 #' @details
@@ -67,15 +69,19 @@
 #' # fit a Poisson regression to random data:
 #' y = rpois(50,lambda=1)
 #' x = 1:50
-#' rpois_glm = glm(y~x,family=poisson())
-#' rpois_int = glm(y~1,family=poisson())
-#' anovaPB(rpois_int,rpois_glm,n.sim=99)
+#' rpois_glm = glm(y~x, family=poisson())
+#' rpois_int = glm(y~1, family=poisson())
+#' anovaPB(rpois_int, rpois_glm, n.sim=99, ncpus=1)
+#' # this approach would run faster on some larger problems (but maybe not this one!):
+#' \dontrun{anovaPB(rpois_int, rpois_glm, n.sim=99, ncpus=4)}
+
 #' 
 #' @import stats
+#' @importFrom parallel clusterApplyLB clusterExport detectCores makeCluster stopCluster
+#' @importFrom methods .hasSlot
 
 #' @export
-
-anovaPB=function(objectNull, object, n.sim=999, colRef = switch(class(object)[1],"lm"=5,"lmerMod"=6,4), rowRef=2,...)
+anovaPB=function(objectNull, object, n.sim=999, colRef = switch(class(object)[1],"lm"=5,"lmerMod"=6,4), rowRef=2, ncpus=NULL, ...)
 {
   # check the second model is the larger one... otherwise this will be a prob later
   if(length(unlist(coef(objectNull)))>length(unlist(coef(object))))
@@ -84,6 +90,13 @@ anovaPB=function(objectNull, object, n.sim=999, colRef = switch(class(object)[1]
 
   # get dimnames of response
   respDimnames     = dimnames( model.response(model.frame(object)) )
+  
+  # decide number of cores to use
+  if(is.null(ncpus))
+  {
+    ncpus=max(1,parallel::detectCores()-2)
+    parl = ifelse(ncpus==1,"no","snow")
+  }
   
   # get the observed stat
   targs <- match.call(expand.dots = FALSE)
@@ -124,20 +137,46 @@ anovaPB=function(objectNull, object, n.sim=999, colRef = switch(class(object)[1]
   stats[1]=statObs[rowRef,colRef]
 #  mf = model.frame(object)
   if( inherits(object,c("lmerMod","glmerMod")) )
-    mf <- match.call(call=object@call)
+  {
+    cll <- object@call
+    mf  <- match.call(call=cll)
+    if(.hasSlot(object,"data"))
+       dat <- object@data
+    else
+       dat <- NULL
+  }
   else
-    mf <- match.call(call=object$call)
+  {
+    cll <- object$call
+    mf  <- match.call(call=cll)
+    dat <- object$data
+  }
   m <- match(c("formula", "data", "subset", 
                "weights", "na.action", "etastart", 
                "mustart", "offset"), names(mf), 0L)
   mf <- mf[c(1L, m)]
   #    mf$drop.unused.levels <- TRUE
   mf[[1L]] <- quote(stats::model.frame)
+
+  # try to coerce to a data frame
   modelF <- try( eval(mf, parent.frame()), silent=TRUE )
-  
   # if for some reason this didn't work (mgcv::gam objects cause grief) then just call model.frame on object:    
-  if(inherits(modelF, "try-error") | inherits(object,c("lmerMod","glmerMod")) )
-      modelF = model.frame(object)
+  # also, do this for lme4 because it is so not a team player 
+  if(inherits(modelF, "try-error") | inherits(object,c("lmerMod","glmerMod","glmmTMB")))
+    modelF <- model.frame(object)
+  
+  respName <- names(model.frame(object))[1]
+  whichResp <- 1
+  # if data object available, add stuff to modelF that is not there... hack fix for offsets that can't be found by model.frame
+  if(is.null(dat)==FALSE)
+    if(is.list(dat)) # only try this when a list or data frame is provided
+    {  
+      whichAdd = which( names(dat) %in% names(modelF) == FALSE)
+      if(length(whichAdd)>0)
+        for (iAdd in whichAdd)
+          if(is.list(dat[[iAdd]])==FALSE) #stuff added can't be a data frame!
+            modelF[[names(dat)[iAdd]]] = dat[[iAdd]]
+    }
 
   # if there is an offset, add it, as a separate argument when updating
   offs=NULL
@@ -145,7 +184,6 @@ anovaPB=function(objectNull, object, n.sim=999, colRef = switch(class(object)[1]
 
   # if response has brackets in its name, it is some sort of expression,
   # put quotes around it so it works (?)
-  respName   = names(modelF)[1]
   if(regexpr("(",respName,fixed=TRUE)>0)
   {
     newResp    = sprintf("`%s`", respName)
@@ -154,10 +192,19 @@ anovaPB=function(objectNull, object, n.sim=999, colRef = switch(class(object)[1]
   else
     fm.update  = reformulate(".")
     
+  is.mva = ncol(as.matrix(modelF[[whichResp]]))>1
+  
   # now n.sim times, simulate new response, refit models and get anova again
-  for(iBoot in 1:n.sim+1)
+  yNew = simulate(objectNull,n.sim)
+  getStat = function(iSim, yNew, objectNull=objectNull, object=object, modelF=modelF, anovaFn=anovaFn, is.mva=is.mva, fm.update=fm.update,
+                     whichResp=whichResp, respDimnames=respDimnames, rowRef=rowRef, colRef=colRef)
   {
-    modelF[[1]]   = as.matrix(simulate(objectNull), dimnames=respDimnames) #matrix to fix lme4 issues
+    modelF[[whichResp]] = 
+      if(is.mva)
+        yNew[,,iSim]
+      else
+        as.matrix(yNew[,iSim], dimnames=respDimnames) #matrix to fix lme4 issues
+    
     if(inherits(modelF$offs,"try-error") | is.null(modelF$offs))
     {
       objectiNull  = update(objectNull, formula=fm.update, data=modelF)
@@ -168,8 +215,38 @@ anovaPB=function(objectNull, object, n.sim=999, colRef = switch(class(object)[1]
       objectiNull = update(object, formula=fm.update, data=modelF,offset=offs)
       objecti = update(object, formula=fm.update, data=modelF,offset=offs)
     }    
-    stats[iBoot] = anovaFn(objectiNull,objecti,...)[rowRef,colRef]
-  }  
+    return(anovaFn(objectiNull,objecti,...)[rowRef,colRef])
+  }
+
+  if(ncpus>1)
+  {
+    cl <- parallel::makeCluster(ncpus)
+    parallel::clusterExport(cl,c("getStat","anovaFn","yNew","objectNull","object","modelF","is.mva","fm.update","whichResp",
+                               "respDimnames","rowRef","colRef",as.character(cll[[1]])), envir=environment())
+    statList <- parallel::clusterApplyLB(cl, 1:n.sim, getStat, yNew=yNew, objectNull=objectNull, object=object, modelF=modelF,
+                                         anovaFn=anovaFn, is.mva=is.mva, fm.update=fm.update, whichResp=whichResp, 
+                                         respDimnames=respDimnames, rowRef=rowRef, colRef=colRef)
+    parallel::stopCluster(cl)
+    stats[1:n.sim+1] = unlist(statList)
+  }
+  else
+    for(iBoot in 1:n.sim+1)
+      stats[iBoot] = getStat(iBoot-1,yNew=yNew,objectNull=objectNull,object=object,modelF=modelF,anovaFn=anovaFn,is.mva=is.mva,
+                             fm.update=fm.update, whichResp=whichResp,respDimnames=respDimnames,rowRef=rowRef,colRef=colRef)
+#  {
+#    modelF[[whichResp]]   = as.matrix(simulate(objectNull), dimnames=respDimnames) #matrix to fix lme4 issues
+#    if(inherits(modelF$offs,"try-error") | is.null(modelF$offs))
+#    {
+#      objectiNull  = update(objectNull, formula=fm.update, data=modelF)
+#      objecti      = update(object, formula=fm.update, data=modelF)
+#    }
+#    else
+#    {
+#      objectiNull = update(object, formula=fm.update, data=modelF,offset=offs)
+#      objecti = update(object, formula=fm.update, data=modelF,offset=offs)
+#    }    
+#    stats[iBoot] = anovaFn(objectiNull,objecti,...)[rowRef,colRef]
+#  }  
   # now take the original anova table, get rid of unneeded columns, stick on P-value
   statReturn=statObs[,1:colRef] #get rid of the extra columns we don't need
   statReturn$'P-value'=NA
@@ -179,13 +256,14 @@ anovaPB=function(objectNull, object, n.sim=999, colRef = switch(class(object)[1]
   # change the name of the P-value column to whatever it was in the original anova table
   hasP = grep("Pr",colnames(statObs))
   colnames(statReturn)[colRef+1]=colnames(statObs)[hasP[1]]
-    
+
   # add some bells and whistles to the anova table, useful for printing
   attr(statReturn, "heading") = attr(statObs,"heading")
   class(statReturn)=c("anovaPB",class(statObs))
   return(statReturn)
 }
 
+#' @export
 print.anovaPB=function(x, digits = max(getOption("digits") - 3, 3),
                        signif.stars = getOption("show.signif.stars"),
                        dig.tst = max(1, min(5, digits - 1)), ...) 

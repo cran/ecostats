@@ -1,7 +1,7 @@
 Package: ecostats
 Title: Code and Data Accompanying the Eco-Stats Text (Warton 2022)
-Version: 1.1.11
-Date: 2022-08-23
+Version: 1.2.1
+Date: 2024-07-02
 Authors@R: c(person("David", "Warton", email = "david.warton@unsw.edu.au", role = c("aut", "cre")),
             person("Christopher", "Chung", role = "ctb"),
             person("Mark", "Donoghoe", role = "ctb"),
@@ -9,11 +9,11 @@ Authors@R: c(person("David", "Warton", email = "david.warton@unsw.edu.au", role 
             )
 Description: Functions and data supporting the Eco-Stats text (Warton, 2022, Springer), and solutions to exercises. Functions include tools for using simulation envelopes in diagnostic plots, and a function for diagnostic plots of multivariate linear models. Datasets mentioned in the package are included here (where not available elsewhere) and there is a vignette for each chapter of the text with solutions to exercises.
 License: LGPL (>= 2.1)
-Imports: ecoCopula, GET, graphics, grDevices, MASS, mgcv, mvtnorm,
-        stats
+Imports: ecoCopula, GET, graphics, grDevices, MASS, methods, mgcv,
+        mvtnorm, parallel, stats
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
 Depends: R (>= 3.5.0), mvabund (>= 4.2)
 Suggests: knitr, rmarkdown, ade4, caper, car, corrplot, DAAG, DHARMa,
         dplyr, gclus, GGally, ggplot2, ggthemes, glmnet, gllvm,
@@ -22,12 +22,13 @@ Suggests: knitr, rmarkdown, ade4, caper, car, corrplot, DAAG, DHARMa,
         phylosignal, psych, reshape2, smatr, testthat, vegan, VGAM,
         covr
 VignetteBuilder: knitr
+URL: https://dwarton.github.io/ecostats/
 NeedsCompilation: no
-Packaged: 2022-08-24 02:14:32 UTC; z3103495
+Packaged: 2024-07-04 06:26:18 UTC; z3103495
 Author: David Warton [aut, cre],
   Christopher Chung [ctb],
   Mark Donoghoe [ctb],
   Eve Slavich [ctb]
 Maintainer: David Warton <david.warton@unsw.edu.au>
 Repository: CRAN
-Date/Publication: 2022-08-24 06:50:02 UTC
+Date/Publication: 2024-07-04 07:10:02 UTC

@@ -204,10 +204,11 @@ we see the estimated standard error is `r summary(ft_estu)$coef[2,2]`, which is 
 ```{r box67, message=FALSE}
 ft_noestu = lm(Total~Mod,data=estuaries)
 library(ecostats)
-anovaPB(ft_noestu,ft_estu,n.sim=99)
+anovaPB(ft_noestu,ft_estu,n.sim=99, ncpus=1)
 ```
 
 So we have no evidence of an `Estuary` effect.
+(The `ncpus` argument was specified here to avoid parallel processing. This was only done to avoid errors when compiling this file on computers set to use just one cpu for `R`.)
 
 
 ## Exercise 6.6: Accurate inferences about the estuary data
@@ -219,7 +220,7 @@ We can just run the old analysis and change from `anova` to `anovaPB`:
 ```{r ex66 interaction, message=FALSE}
 lme_MZ = lmer(Total~Zone*Mod + (Zone|Estuary), data=estuaryZone, REML=FALSE )
 lme_MplusZ = lmer(Total~Zone+Mod + (Zone|Estuary), data=estuaryZone, REML=FALSE )
-anovaPB(lme_MplusZ,lme_MZ,n.sim=99)
+anovaPB(lme_MplusZ,lme_MZ,n.sim=99,ncpus=1)
 ```
 
 There is no evidence of an interaction.
@@ -235,7 +236,7 @@ _This would all have been so much easier if there wasn't a random effect in the 
 ```{r ex66 estuary, message=FALSE}
 lme_MZ = lmer(Total~Zone*Mod + (Zone|Estuary), data=estuaryZone, REML=FALSE )
 lme_MZnoest = lm(Total~Zone+Mod, data=estuaryZone)
-anovaPB(lme_MZnoest,lme_MZ,n.sim=99)
+anovaPB(lme_MZnoest,lme_MZ,n.sim=99,ncpus=1)
 ```
 
 We have no evidence of an `Estuary` effect either!

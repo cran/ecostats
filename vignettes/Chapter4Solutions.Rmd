@@ -1,7 +1,7 @@
 ---
 title: "Chapter 4 -- Linear models -- anything goes -- Exercise solutions and Code Boxes"
 author: "David Warton"
-date: "2022-08-24"
+date: "2024-07-03"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Chapter 4 -- Linear models -- anything goes -- Exercise solutions and Code Boxes}
@@ -18,7 +18,7 @@ vignette: >
 We assume:
 
 * that we have a random sample of paired differences (most importantly, paired differences are independent of each other)
-* the paired differences are approixmately normal.
+* the paired differences are approximately normal.
 
 
 
@@ -95,15 +95,16 @@ To analyse, we first subset to the three treatments of interest (1=gunshot, 2=ai
 
 ```r
 crowAfter = ravens[ravens$treatment <=3,]
+crowAfter$treatment = factor(crowAfter$treatment)
 ft_crowAfter = lm(After~site+treatment,data=crowAfter)
 anova(ft_crowAfter)
 #> Analysis of Variance Table
 #> 
 #> Response: After
 #>           Df Sum Sq Mean Sq F value Pr(>F)
-#> site      11 28.667  2.6061  0.9269 0.5327
-#> treatment  1  2.667  2.6667  0.9485 0.3402
-#> Residuals 23 64.667  2.8116
+#> site      11 28.667  2.6061  1.0118 0.4679
+#> treatment  2 10.667  5.3333  2.0706 0.1500
+#> Residuals 22 56.667  2.5758
 ```
 To check assumptions we could look at diagnostic plots:
 
@@ -294,7 +295,6 @@ Note we used `Time*Dist` because `Time` is not the variable of primary interest,
  seaweed$Time = as.factor(seaweed$Time) 
  by_DistTime = group_by(seaweed,Dist,Time)
  distTimeMeans = summarise(by_DistTime, logTotal=mean(log(Total)))
-#> `summarise()` has grouped output by 'Dist'. You can override using the `.groups` argument.
  distTimeMeans
 #> # A tibble: 6 × 3
 #> # Groups:   Dist [3]
@@ -354,8 +354,8 @@ anova(ft_nofactor)
  library(multcomp)
  contFact = mcp(Dist="Tukey") # telling R to compare on the Dist factor
  compFact = glht(ft_seaweedFact, linfct=contFact) # run multiple comparisions
-#> Warning in mcp2matrix(model, linfct = linfct): covariate interactions found -- default
-#> contrast might be inappropriate
+#> Warning in mcp2matrix(model, linfct = linfct): covariate interactions found -- default contrast might be
+#> inappropriate
 ```
 
 ## Code Box 4.13: Tukey's comparisons for a main eect of Dist for Exercise 4.6, assuming no interaction.
@@ -373,15 +373,15 @@ anova(ft_nofactor)
 #> 
 #> Fit: lm(formula = logTot ~ Time + Dist, data = seaweed)
 #> 
-#> Quantile = 2.4107
+#> Quantile = 2.4109
 #> 95% family-wise confidence level
 #>  
 #> 
 #> Linear Hypotheses:
 #>             Estimate lwr      upr     
-#> 2 - 0 == 0   0.72650  0.28783  1.16516
-#> 10 - 0 == 0  0.45838  0.03893  0.87783
-#> 10 - 2 == 0 -0.26812 -0.70678  0.17055
+#> 2 - 0 == 0   0.72650  0.28778  1.16521
+#> 10 - 0 == 0  0.45838  0.03889  0.87787
+#> 10 - 2 == 0 -0.26812 -0.70683  0.17060
 ```
 
 ## Code Box 4.14: Tukey's comparisons for all possible treatment combinations for Exercise 4.6.
@@ -404,21 +404,21 @@ vs 0.5).
 #> 
 #> Linear Hypotheses:
 #>                   Estimate Std. Error t value Pr(>|t|)   
-#> 2.5 - 0.5 == 0      0.4356     0.2391   1.822  0.46054   
-#> 10.5 - 0.5 == 0     0.1013     0.2391   0.424  0.99815   
-#> 0.10 - 0.5 == 0    -0.2643     0.2391  -1.105  0.87656   
-#> 2.10 - 0.5 == 0     0.7852     0.2635   2.980  0.04749 * 
-#> 10.10 - 0.5 == 0    0.5512     0.2391   2.305  0.21028   
-#> 10.5 - 2.5 == 0    -0.3343     0.2391  -1.398  0.72723   
-#> 0.10 - 2.5 == 0    -0.6999     0.2391  -2.927  0.05396 . 
-#> 2.10 - 2.5 == 0     0.3496     0.2635   1.327  0.76838   
-#> 10.10 - 2.5 == 0    0.1156     0.2391   0.483  0.99654   
-#> 0.10 - 10.5 == 0   -0.3656     0.2391  -1.529  0.64681   
-#> 2.10 - 10.5 == 0    0.6839     0.2635   2.596  0.11661   
-#> 10.10 - 10.5 == 0   0.4499     0.2391   1.882  0.42417   
-#> 2.10 - 0.10 == 0    1.0495     0.2635   3.983  0.00279 **
-#> 10.10 - 0.10 == 0   0.8155     0.2391   3.411  0.01532 * 
-#> 10.10 - 2.10 == 0  -0.2340     0.2635  -0.888  0.94749   
+#> 2.5 - 0.5 == 0      0.4356     0.2391   1.822   0.4605   
+#> 10.5 - 0.5 == 0     0.1013     0.2391   0.424   0.9982   
+#> 0.10 - 0.5 == 0    -0.2643     0.2391  -1.105   0.8766   
+#> 2.10 - 0.5 == 0     0.7852     0.2635   2.980   0.0476 * 
+#> 10.10 - 0.5 == 0    0.5512     0.2391   2.305   0.2104   
+#> 10.5 - 2.5 == 0    -0.3343     0.2391  -1.398   0.7272   
+#> 0.10 - 2.5 == 0    -0.6999     0.2391  -2.927   0.0541 . 
+#> 2.10 - 2.5 == 0     0.3496     0.2635   1.327   0.7684   
+#> 10.10 - 2.5 == 0    0.1156     0.2391   0.483   0.9965   
+#> 0.10 - 10.5 == 0   -0.3656     0.2391  -1.529   0.6468   
+#> 2.10 - 10.5 == 0    0.6839     0.2635   2.596   0.1168   
+#> 10.10 - 10.5 == 0   0.4499     0.2391   1.882   0.4240   
+#> 2.10 - 0.10 == 0    1.0495     0.2635   3.983   0.0029 **
+#> 10.10 - 0.10 == 0   0.8155     0.2391   3.411   0.0151 * 
+#> 10.10 - 2.10 == 0  -0.2340     0.2635  -0.888   0.9475   
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> (Adjusted p values reported -- single-step method)
@@ -452,12 +452,12 @@ interested in Dist.
 #> 
 #> Linear Hypotheses:
 #>                           Estimate Std. Error t value Pr(>|t|)   
-#> Two.five - Zero.five == 0   0.4356     0.2391   1.822  0.31175   
+#> Two.five - Zero.five == 0   0.4356     0.2391   1.822  0.31173   
 #> Ten.five - Zero.five == 0   0.1013     0.2391   0.424  0.99083   
-#> Ten.five - Two.five == 0   -0.3343     0.2391  -1.398  0.57118   
-#> Two.ten - Zero.ten == 0     1.0495     0.2635   3.983  0.00125 **
-#> Ten.ten - Zero.ten == 0     0.8155     0.2391   3.411  0.00710 **
-#> Ten.ten - Two.ten == 0     -0.2340     0.2635  -0.888  0.87446   
+#> Ten.five - Two.five == 0   -0.3343     0.2391  -1.398  0.57120   
+#> Two.ten - Zero.ten == 0     1.0495     0.2635   3.983  0.00127 **
+#> Ten.ten - Zero.ten == 0     0.8155     0.2391   3.411  0.00714 **
+#> Ten.ten - Two.ten == 0     -0.2340     0.2635  -0.888  0.87445   
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> (Adjusted p values reported -- single-step method)
@@ -530,13 +530,15 @@ appropriate linear model, being sure to check your assumptions.
 
 ![plot of chunk ex4.9snowmelt](../man/figures/ex4.9snowmelt-1.png)
 
+
 ```r
  snowReduced = na.omit(snowmelt[,c("flow","snow","elev")]) #this line not normally needed, lm can handle NA's, but seems needed because of a weird conflict with MCMCglmm
  ft_snow = lm(flow~elev+snow, data=snowReduced)
+ par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
  plotenvelope(ft_snow, n.sim=99)
 ```
 
-![plot of chunk ex4.9snowmelt](../man/figures/ex4.9snowmelt-2.png)![plot of chunk ex4.9snowmelt](../man/figures/ex4.9snowmelt-3.png)
+![plot of chunk ex4.9snowmeltenv](../man/figures/ex4.9snowmeltenv-1.png)
 
 (Note that `plotenvelope` was run with just `99` iterations, to speed up computation time.)
 
@@ -550,14 +552,16 @@ This doesn't look great, there is the occasional large value for flowering time,
 
 ![plot of chunk ex4.9snowmeltlog](../man/figures/ex4.9snowmeltlog-1.png)
 
+
 ```r
  snowReduced$logFlow = log(snowReduced$flow)
  snowReduced2 = snowReduced[snowReduced$logFlow>-Inf,] # look it's a bit naughty, removing the infinite value, but no biggie as only one value
  ft_logsnow = lm(logFlow~elev+snow, data=snowReduced2)
+ par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
  plotenvelope(ft_logsnow, n.sim=99)
 ```
 
-![plot of chunk ex4.9snowmeltlog](../man/figures/ex4.9snowmeltlog-2.png)![plot of chunk ex4.9snowmeltlog](../man/figures/ex4.9snowmeltlog-3.png)
+![plot of chunk ex4.9snowmeltlogEnv](../man/figures/ex4.9snowmeltlogEnv-1.png)
 
 ```r
  summary(ft_logsnow)

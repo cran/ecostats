@@ -295,62 +295,6 @@ library(MCMCglmm)
 set.seed(1)
 ft_MCMC = MCMCglmm(cbind(Alop,Pard,Troc)~trait+soil.dry:trait+moss:trait,
    rcov=~us(trait):units,data=spidGeneraWide, family=rep("poisson",3))
-#> 
-#>                        MCMC iteration = 0
-#> 
-#>  Acceptance ratio for liability set 1 = 0.000214
-#> 
-#>                        MCMC iteration = 1000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.186036
-#> 
-#>                        MCMC iteration = 2000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.207750
-#> 
-#>                        MCMC iteration = 3000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.214000
-#> 
-#>                        MCMC iteration = 4000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.214607
-#> 
-#>                        MCMC iteration = 5000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.219536
-#> 
-#>                        MCMC iteration = 6000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.220250
-#> 
-#>                        MCMC iteration = 7000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.222143
-#> 
-#>                        MCMC iteration = 8000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.221500
-#> 
-#>                        MCMC iteration = 9000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.221071
-#> 
-#>                        MCMC iteration = 10000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.222321
-#> 
-#>                        MCMC iteration = 11000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.219536
-#> 
-#>                        MCMC iteration = 12000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.217964
-#> 
-#>                        MCMC iteration = 13000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.218321
 summary(ft_MCMC)
 #> 
 #>  Iterations = 3001:12991
@@ -520,128 +464,17 @@ There is no evidence in these plots of violations of model assumptions.
 set.seed(2)
 ft_MCMC2=MCMCglmm(cbind(Alop,Pard,Troc)~trait+soil.dry:trait+moss:trait,
 rcov=~us(trait):units,data=spidGeneraWide, family=rep("poisson",3))
-#> 
-#>                        MCMC iteration = 0
-#> 
-#>  Acceptance ratio for liability set 1 = 0.000286
-#> 
-#>                        MCMC iteration = 1000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.185036
-#> 
-#>                        MCMC iteration = 2000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.205036
-#> 
-#>                        MCMC iteration = 3000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.213000
-#> 
-#>                        MCMC iteration = 4000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.229357
-#> 
-#>                        MCMC iteration = 5000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.230929
-#> 
-#>                        MCMC iteration = 6000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.236750
-#> 
-#>                        MCMC iteration = 7000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.238821
-#> 
-#>                        MCMC iteration = 8000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.231536
-#> 
-#>                        MCMC iteration = 9000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.233607
-#> 
-#>                        MCMC iteration = 10000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.229786
-#> 
-#>                        MCMC iteration = 11000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.237571
-#> 
-#>                        MCMC iteration = 12000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.237393
-#> 
-#>                        MCMC iteration = 13000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.233786
 set.seed(3)
 ft_MCMC3=MCMCglmm(cbind(Alop,Pard,Troc)~trait+soil.dry:trait+moss:trait,
 rcov=~us(trait):units,data=spidGeneraWide, family=rep("poisson",3))
-#> 
-#>                        MCMC iteration = 0
-#> 
-#>  Acceptance ratio for liability set 1 = 0.000321
-#> 
-#>                        MCMC iteration = 1000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.181964
-#> 
-#>                        MCMC iteration = 2000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.210643
-#> 
-#>                        MCMC iteration = 3000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.214429
-#> 
-#>                        MCMC iteration = 4000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.236429
-#> 
-#>                        MCMC iteration = 5000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.243071
-#> 
-#>                        MCMC iteration = 6000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.238143
-#> 
-#>                        MCMC iteration = 7000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.238464
-#> 
-#>                        MCMC iteration = 8000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.244143
-#> 
-#>                        MCMC iteration = 9000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.242000
-#> 
-#>                        MCMC iteration = 10000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.235464
-#> 
-#>                        MCMC iteration = 11000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.238321
-#> 
-#>                        MCMC iteration = 12000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.245214
-#> 
-#>                        MCMC iteration = 13000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.238143
 whichPlot=c(1:3,5:6,9) # indices of unique variance-covariance parameters
+whichIter = 501:1000 # choosing which rows to plot, just done to lower filesize 
 par(mfrow=c(length(whichPlot),1),mar=c(2,0.5,1.5,0))
 for(iPlot in whichPlot)
 {
-plot.default(ft_MCMC$VCV[,iPlot],type="l",lwd=0.3,yaxt="n")
-lines(ft_MCMC2$VCV[,iPlot],col=2,lwd=0.3)
-lines(ft_MCMC3$VCV[,iPlot],col=3,lwd=0.3)
+plot.default(ft_MCMC$VCV[whichIter,iPlot],type="l",lwd=0.3,yaxt="n")
+lines(ft_MCMC2$VCV[whichIter,iPlot],col=2,lwd=0.3)
+lines(ft_MCMC3$VCV[whichIter,iPlot],col=3,lwd=0.3)
 mtext(colnames(ft_MCMC$VCV)[iPlot])
 }
 ```
@@ -700,236 +533,25 @@ Uh oh, non-convergence.  Try using `MCMCglmm`:
 set.seed(1)
 ft_MCMC2=try(MCMCglmm(cbind(Alopacce,Alopcune,Alopfabr)~trait+soil.dry:trait+moss:trait,
 rcov=~us(trait):units,data=spider3Wide, family=rep("poisson",3))) #this one returns an error
-#> 
-#>                        MCMC iteration = 0
-#> 
-#>  Acceptance ratio for liability set 1 = 0.000214
-#> 
-#>                        MCMC iteration = 1000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.182714
-#> 
-#>                        MCMC iteration = 2000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.018536
-#> 
-#>                        MCMC iteration = 3000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.009429
-#> 
-#>                        MCMC iteration = 4000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.014821
-#> 
-#>                        MCMC iteration = 5000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.013643
-#> 
-#>                        MCMC iteration = 6000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.008107
-#> 
-#>                        MCMC iteration = 7000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.005179
-#> 
-#>                        MCMC iteration = 8000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.007893
-#> 
-#>                        MCMC iteration = 9000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.003679
-#> 
-#>                        MCMC iteration = 10000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002143
 #> Error in MCMCglmm(cbind(Alopacce, Alopcune, Alopfabr) ~ trait + soil.dry:trait +  : 
 #>   ill-conditioned G/R structure (CN = 35410684926832716.000000): use proper priors if you haven't or rescale data if you have
 set.seed(3)
 ft_MCMC=MCMCglmm(cbind(Alopacce,Alopcune,Alopfabr)~trait+soil.dry:trait+moss:trait,
 rcov=~us(trait):units,data=spider3Wide, family=rep("poisson",3))
-#> 
-#>                        MCMC iteration = 0
-#> 
-#>  Acceptance ratio for liability set 1 = 0.000250
-#> 
-#>                        MCMC iteration = 1000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.182607
-#> 
-#>                        MCMC iteration = 2000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.062679
-#> 
-#>                        MCMC iteration = 3000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.035679
-#> 
-#>                        MCMC iteration = 4000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.018500
-#> 
-#>                        MCMC iteration = 5000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.011643
-#> 
-#>                        MCMC iteration = 6000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.009071
-#> 
-#>                        MCMC iteration = 7000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.004071
-#> 
-#>                        MCMC iteration = 8000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002714
-#> 
-#>                        MCMC iteration = 9000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.001750
-#> 
-#>                        MCMC iteration = 10000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002179
-#> 
-#>                        MCMC iteration = 11000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.001571
-#> 
-#>                        MCMC iteration = 12000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002036
-#> 
-#>                        MCMC iteration = 13000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002321
 set.seed(5)
 ft_MCMC2=MCMCglmm(cbind(Alopacce,Alopcune,Alopfabr)~trait+soil.dry:trait+moss:trait,
 rcov=~us(trait):units,data=spider3Wide, family=rep("poisson",3))
-#> 
-#>                        MCMC iteration = 0
-#> 
-#>  Acceptance ratio for liability set 1 = 0.000143
-#> 
-#>                        MCMC iteration = 1000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.237036
-#> 
-#>                        MCMC iteration = 2000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.054286
-#> 
-#>                        MCMC iteration = 3000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.045607
-#> 
-#>                        MCMC iteration = 4000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.013393
-#> 
-#>                        MCMC iteration = 5000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.012286
-#> 
-#>                        MCMC iteration = 6000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.010893
-#> 
-#>                        MCMC iteration = 7000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.005464
-#> 
-#>                        MCMC iteration = 8000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.004714
-#> 
-#>                        MCMC iteration = 9000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.003929
-#> 
-#>                        MCMC iteration = 10000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002464
-#> 
-#>                        MCMC iteration = 11000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002179
-#> 
-#>                        MCMC iteration = 12000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.003607
-#> 
-#>                        MCMC iteration = 13000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002357
 set.seed(6)
 ft_MCMC3=MCMCglmm(cbind(Alopacce,Alopcune,Alopfabr)~trait+soil.dry:trait+moss:trait,
 rcov=~us(trait):units,data=spider3Wide, family=rep("poisson",3))
-#> 
-#>                        MCMC iteration = 0
-#> 
-#>  Acceptance ratio for liability set 1 = 0.000250
-#> 
-#>                        MCMC iteration = 1000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.145679
-#> 
-#>                        MCMC iteration = 2000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.029393
-#> 
-#>                        MCMC iteration = 3000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.039321
-#> 
-#>                        MCMC iteration = 4000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.022536
-#> 
-#>                        MCMC iteration = 5000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.004929
-#> 
-#>                        MCMC iteration = 6000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.004786
-#> 
-#>                        MCMC iteration = 7000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.006286
-#> 
-#>                        MCMC iteration = 8000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.006536
-#> 
-#>                        MCMC iteration = 9000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.004929
-#> 
-#>                        MCMC iteration = 10000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.002000
-#> 
-#>                        MCMC iteration = 11000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.001393
-#> 
-#>                        MCMC iteration = 12000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.001893
-#> 
-#>                        MCMC iteration = 13000
-#> 
-#>  Acceptance ratio for liability set 1 = 0.000964
 whichPlot=c(1:3,5:6,9) # indices of unique variance-covariance parameters
+whichIter = 501:1000 # choosing which rows to plot, just done to lower filesize 
 par(mfrow=c(length(whichPlot),1),mar=c(2,0.5,1.5,0))
 for(iPlot in whichPlot)
 {
-plot.default(ft_MCMC$VCV[,iPlot],type="l",lwd=0.3,yaxt="n")
-lines(ft_MCMC2$VCV[,iPlot],col=2,lwd=0.3)
-lines(ft_MCMC3$VCV[,iPlot],col=3,lwd=0.3)
+plot.default(ft_MCMC$VCV[whichIter,iPlot],type="l",lwd=0.3,yaxt="n")
+lines(ft_MCMC2$VCV[whichIter,iPlot],col=2,lwd=0.3)
+lines(ft_MCMC3$VCV[whichIter,iPlot],col=3,lwd=0.3)
 mtext(colnames(ft_MCMC$VCV)[iPlot])
 }
 ```

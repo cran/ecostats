@@ -26,7 +26,7 @@ He is clearly after methods for studying co-occurrence, so he wants to do covari
 
 
 ## Code Box 17.1: Estimating co-occurrence patterns using a copula model
-```{r code17.1, fig.width=8, fig.height=4}
+```{r code17.1, fig.width=7, fig.height=3.5}
 library(mvabund)
 data(spider)
 library(ecoCopula)
@@ -43,7 +43,7 @@ corrplot(ord_spiderInt$sigma[sortVars, sortVars], type="lower", diag=FALSE, meth
 ```
 
 ## Code Box 17.2: Co-occurrence patterns explained by environmental variables
-```{r code17.2, fig.width=8, fig.height=4}
+```{r code17.2, fig.width=7, fig.height=3.5}
 par(mfrow=c(1,2), mgp=c(1.75,0.75,0), mar=c(3,3,1,1))
 spider_glmX = manyglm(spiderAbund~.,data=spider$x)
 ord_spiderX=cord(spider_glmX)
@@ -59,7 +59,7 @@ c(absCor, 1-absCor[2]/absCor[1])
 ## Exercise 17.2: Spider presence-absence
 *Repeat the analyses of Code Box 17.1 on presence-absence data, which you can construct using `spiderPA=pmin(spiderAbund,1)`. Estimate the correlation matrix.*
 
-```{r ex17.2, fig.width=8, fig.height=4}
+```{r ex17.2, fig.width=7, fig.height=3.5}
 par(mfrow=c(1,2), mgp=c(1.75,0.75,0), mar=c(3,3,1,1))
 spiderPA=pmin(spiderAbund,1)
 spiderPA_glmInt = manyglm(spiderPA~1,data=spider$x, family="cloglog")
@@ -77,7 +77,7 @@ Correlations tend to be smaller, they range from about -0.4 up to 0.4.
 
 *Calculate the sum of squared loadings, with and without predictors, as in Code Box 17.2. Are the values smaller for the presence/absence data?*
 
-```{r code17.2variation, fig.width=8, fig.height=4}
+```{r code17.2variation, fig.width=7, fig.height=3.5}
 par(mfrow=c(1,2), mgp=c(1.75,0.75,0), mar=c(3,3,1,1))
 spiderPA_glmX = manyglm(spiderPA~.,data=spider$x, family="cloglog")
 ord_spiderPAX = cord(spiderPA_glmX)
@@ -111,7 +111,7 @@ ft_birdsInt=manyany(abund~1, "clm", family="ordinal", data=aviurba$mil)
 
 *Use cord to fit a latent variable model and estimate the correlation matrix.*
 
-```{r ex17.3cord, fig.width=8, fig.height=4}
+```{r ex17.3cord, fig.width=7, fig.height=3.5}
 par(mfrow=c(1,2),mgp=c(1.75,0.75,0),mar=c(3,3,1,1))
 ord_birdsInt=cord(ft_birdsInt)
 plot(ord_birdsInt, biplot=TRUE)
@@ -123,7 +123,7 @@ Looks like nothing much is happening here!
 
 *Add fields to the model, to study the extent to which presence or absence of fields explains co-occurrence patterns. Calculate the sum of squared loadings, for latent variable models with and without fields as a predictor.*
 
-```{r ex17.3X, fig.width=8, fig.height=4, warning=FALSE}
+```{r ex17.3X, fig.width=7, fig.height=3.5, warning=FALSE}
 par(mfrow=c(1,2), mgp=c(1.75,0.75,0), mar=c(3,3,1,1))
 ft_birdsX=manyany(abund~fields, "clm", family="ordinal", data=aviurba$mil)
 ord_birdsX=cord(ft_birdsX)
@@ -147,7 +147,7 @@ detach("package:ordinal", unload=TRUE)
 
 
 ## Code Box 17.3: A copula graphical model for Petrus’s spider data
-```{r code17.3, fig.width=8,fig.height=4}
+```{r code17.3, fig.width=7, fig.height=3.5}
 par(mfrow=c(1,2),mgp=c(1.75,0.75,0),mar=c(3,3,1,1))
 graph_spiderInt = cgr(spider_glmInt)
 plot(graph_spiderInt, vary.edge.lwd=TRUE)
@@ -162,7 +162,7 @@ c(absCor, 1-absCor[2]/absCor[1])
 *Recall that in Figure 16.1a, _Alopecosa accentuata_, _Alopecosa fabrilis_ and _Arctosa perita_ decreased in response to soil dryness, while all other species increased. Note that the "unconstrained" correlation matrix of Figure 17.2b found negative correlation patterns between these species and most others. To what extent do contrasting responses to soil dryness explain the negative correlations of Figure 17.2b? Answer this question by fitting a covariance model of your choice to the spider data with and without soil dryness as a predictor.*
 
 
-```{r ex17.4, fig.width=8,fig.height=4}
+```{r ex17.4, fig.width=7, fig.height=3.5}
 par(mfrow=c(1,2),mgp=c(1.75,0.75,0),mar=c(3,3,1,1))
 spider_glmSoil = manyglm(spiderAbund~soil.dry,data=spider$x)
 ord_spiderSoil=cord(spider_glmSoil)

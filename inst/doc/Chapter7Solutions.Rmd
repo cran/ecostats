@@ -1,7 +1,7 @@
 ---
 title: "Chapter 7 -- Correlated samples in times, space, phylogeny... -- Exercise solutions and Code Boxes"
 author: "David Warton"
-date: "2022-08-24"
+date: "2024-07-04"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Chapter 7 -- Correlated samples in times, space, phylogeny... -- Exercise solutions and Code Boxes}
@@ -50,8 +50,8 @@ aphid_int = lmer(logcount~Treatment*Time+Treatment*I(Time^2)+(1|Plot),
     data=aphids$oat,REML=FALSE) # random intercepts model
 aphid_slope = lmer(logcount~Treatment*Time+Treatment*I(Time^2)+(Time|Plot),
     data=aphids$oat, REML=FALSE) # random slopes model
-#> Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to
-#> converge with max|grad| = 0.00715391 (tol = 0.002, component 1)
+#> Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with
+#> max|grad| = 0.00715391 (tol = 0.002, component 1)
 library(nlme) # refit random intercepts model in nlme to get a ACF:
 aphid_int2 = lme(logcount~Treatment*Time+Treatment*I(Time^2),
     random=~1|Plot, data=aphids$oat, method="ML")
@@ -88,10 +88,10 @@ print(aphid_int)
 #>  Residual             0.635   
 #> Number of obs: 56, groups:  Plot, 8
 #> Fixed Effects:
-#>                (Intercept)            Treatmentpresent                        Time  
-#>                  6.5703718                  -0.2379806                  -0.1943256  
-#>                  I(Time^2)       Treatmentpresent:Time  Treatmentpresent:I(Time^2)  
-#>                  0.0028708                   0.0495183                  -0.0004498
+#>                (Intercept)            Treatmentpresent                        Time                   I(Time^2)  
+#>                  6.5703718                  -0.2379806                  -0.1943256                   0.0028708  
+#>      Treatmentpresent:Time  Treatmentpresent:I(Time^2)  
+#>                  0.0495183                  -0.0004498
 anova(aphid_int)
 #> Analysis of Variance Table
 #>                     npar  Sum Sq Mean Sq F value
@@ -131,10 +131,10 @@ print(aphid_slope)
 #>  Residual             0.57877       
 #> Number of obs: 56, groups:  Plot, 8
 #> Fixed Effects:
-#>                (Intercept)            Treatmentpresent                        Time  
-#>                  6.5703718                  -0.2379806                  -0.1943256  
-#>                  I(Time^2)       Treatmentpresent:Time  Treatmentpresent:I(Time^2)  
-#>                  0.0028708                   0.0495183                  -0.0004498  
+#>                (Intercept)            Treatmentpresent                        Time                   I(Time^2)  
+#>                  6.5703718                  -0.2379806                  -0.1943256                   0.0028708  
+#>      Treatmentpresent:Time  Treatmentpresent:I(Time^2)  
+#>                  0.0495183                  -0.0004498  
 #> optimizer (nloptwrap) convergence code: 0 (OK) ; 0 optimizer warnings; 1 lme4 warnings
 anova(aphid_slope)
 #> Analysis of Variance Table
@@ -177,6 +177,7 @@ As before we don't see a lot of lines crossing over so expect some correlation. 
 
 
 ```r
+
 library(lme4)
 aphidw_int = lmer(logcount~Treatment*Time+Treatment*I(Time^2)+(1|Plot),
     data=aphids$wheat,REML=FALSE) # random intercepts model
@@ -398,7 +399,7 @@ summary(pgls_egg)
 #> 
 #> Residuals:
 #>       Min        1Q    Median        3Q       Max 
-#> -0.097840 -0.027594  0.000748  0.018561  0.063632 
+#> -0.104398 -0.016758  0.005613  0.021228  0.077149 
 #> 
 #> Branch length transformations:
 #> 
@@ -450,7 +451,7 @@ summary(pgls_eggL)
 #> 
 #> Residuals:
 #>       Min        1Q    Median        3Q       Max 
-#> -0.072175 -0.015738  0.001073  0.017126  0.057342 
+#> -0.076434 -0.014243  0.003655  0.020831  0.064695 
 #> 
 #> Branch length transformations:
 #> 

@@ -12,7 +12,7 @@ maunaJan = maunaloa[maunaloa$month==1,]
 ft_maunagam=gam(co2~s(year), data=maunaJan)
 summary(ft_maunagam)
 
-## ----box82--------------------------------------------------------------------
+## ----box82, fig.width=4, fig.height=4-----------------------------------------
 plotenvelope(ft_maunagam)
 
 ## ----box83 bic----------------------------------------------------------------
@@ -36,7 +36,7 @@ preds = cbind( predict(ft_piece,newdata=datTest),
     predict(ft_gam,newdata=datTest), predict(ft_gam20,newdata=datTest) )
 print( apply((datTest$co2-preds)^2,2,sum)) # getting SS by column
 
-## ----box84, fig.width=6,fig.height=6------------------------------------------
+## ----box84, fig.width=5,fig.height=5------------------------------------------
 data(Myrtaceae)
 ft_tmprain=gam(log(richness+1)~te(TMP_MIN,RAIN_ANN),data=Myrtaceae)
 vis.gam(ft_tmprain,theta=-135) #rotating the plot to find a nice view
@@ -57,7 +57,7 @@ ft_stempPlusrain = gam(log(height)~s(temp)+s(rain), dat=globalPlants) #smoother+
 ft_stemprain = gam(log(height)~s(temp)+s(rain)+rain:temp, dat=globalPlants) #smoother+interaction
 BIC(ft_1temprain,ft_2tempPlusrain,ft_2temprain,ft_stempPlusrain,ft_stemprain)
 
-## ----box85, fig.width=5-------------------------------------------------------
+## ----box85, fig.width=4, fig.height=4-----------------------------------------
 data(globalPlants)
 globalPlants$logHt = log(globalPlants$height)
 ft_heightlm = lm(logHt~lat,dat=globalPlants)
@@ -74,7 +74,7 @@ ft_richSmooth = gam(logrich~soil+s(TMP_MAX)+s(TMP_MIN)+s(RAIN_ANN),
                     data=Myrtaceae)
 BIC(ft_richAdd,ft_richSmooth)
 
-## ----box86, fig.width=7-------------------------------------------------------
+## ----box86, fig.width=7, fig.height=4-----------------------------------------
 data(maunaloa)
 library(mgcv)
 ft_cyclic=gam(co2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi),
@@ -83,13 +83,13 @@ plot(maunaloa$co2~maunaloa$Date,type="l",
   ylab=expression(CO[2]),xlab="Time")
 points(predict(ft_cyclic)~maunaloa$Date,type="l",col="red",lwd=0.5)
 
-## ----box87, fig.width=9-------------------------------------------------------
+## ----box87, fig.width=7, fig.height=3.5---------------------------------------
 par(mfrow=c(1,2))
 plot(residuals(ft_cyclic)~maunaloa$Date,type="l", xlab="Time")
 plot(residuals(ft_cyclic)~sin(maunaloa$month/12*2*pi),
        type="l",xlab="Season")
 
-## ----box87 sim, fig.width=9---------------------------------------------------
+## ----box87 sim, fig.width=7, fig.height=3.5-----------------------------------
 maunaloa$simCO2 = unlist(simulate(ft_cyclic))
 ft_simCyclic=gam(simCO2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi),
   data=maunaloa)
@@ -98,7 +98,7 @@ plot(residuals(ft_simCyclic)~maunaloa$Date,type="l", xlab="Time")
 plot(residuals(ft_simCyclic)~sin(maunaloa$month/12*2*pi),
        type="l",xlab="Season")
 
-## ----box88, fig.width=9-------------------------------------------------------
+## ----box88, fig.width=7, fig.height=3.5---------------------------------------
 ft_cyclic2=gam(co2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi)+
        sin(month/12*4*pi)+cos(month/12*4*pi),data=maunaloa)
 par(mfrow=c(1,2))
@@ -106,14 +106,14 @@ plot(residuals(ft_cyclic2)~maunaloa$Date,type="l", xlab="Time")
 plot(residuals(ft_cyclic2)~sin(maunaloa$month/12*2*pi),
        type="l",xlab="Season")
 
-## ----box89--------------------------------------------------------------------
+## ----box89, fig.width=5, fig.height=4-----------------------------------------
 ft_gamm = gamm(co2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi)+
                 sin(month/12*4*pi)+cos(month/12*4*pi),correlation=corAR1(),
                 data=maunaloa)
 acf(residuals(ft_gamm$gam))
 acf(residuals(ft_gamm$lme,type="normalized"))
 
-## ----ex86, fig.width=9--------------------------------------------------------
+## ----ex86, fig.width=7, fig.height=3.5----------------------------------------
 ft_cyclic3=gam(co2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi)+
        sin(month/12*4*pi)+cos(month/12*4*pi) +
        + sin(month/12*6*pi)+cos(month/12*6*pi), data=maunaloa)
@@ -127,7 +127,7 @@ plot(residuals(ft_cyclic4)~sin(maunaloa$month/12*2*pi),
        type="l",xlab="Season")
 BIC(ft_cyclic,ft_cyclic2,ft_cyclic3,ft_cyclic4)
 
-## ----ex87---------------------------------------------------------------------
+## ----ex87, fig.width=5, fig.height=4------------------------------------------
 maunaJan = maunaloa[maunaloa$month==1,]
 ft_gammJan = gamm(co2~s(year),correlation=corAR1(), data=maunaJan)
 acf(residuals(ft_gammJan$gam))

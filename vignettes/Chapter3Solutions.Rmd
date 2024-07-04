@@ -1,7 +1,7 @@
 ---
 title: "Chapter 3 -- Regression with multiple predictor variables -- Exercise solutions and Code Boxes"
 author: "David Warton"
-date: "2022-08-24"
+date: "2024-07-04"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Chapter 3 -- Regression with multiple predictor variables -- Exercise solutions and Code Boxes}
@@ -28,6 +28,7 @@ height as a function of latitude only.
 
 ```r
  library(ecostats)
+#> Loading required package: mvabund
  data(globalPlants)
  ft_heightLat=lm(height~lat, data=globalPlants)
  summary(ft_heightLat)
@@ -86,6 +87,7 @@ Note the code is almost the same as for simple linear regression -- just add an 
 
 ```r
 library(car)
+#> Loading required package: carData
 avPlots(ft_heightLat, terms = ~lat, xlab="Latitude", ylab="Height",
 grid=FALSE) ##left plot
 ```
@@ -154,9 +156,6 @@ Note that standard errors are larger and suddenly everything is non-significant.
  globalPlants$loght = log(globalPlants$height)
  ft_logheightRainLat=lm(loght~rain+lat, data=globalPlants)
  plotenvelope(ft_logheightRainLat)
-#> Registered S3 method overwritten by 'GET':
-#>   method       from 
-#>   print.fclust e1071
 ```
 
 ![plot of chunk ex3.2heightRainLat](../man/figures/ex3.2heightRainLat-1.png)
@@ -241,11 +240,11 @@ Reanalysing data we still get pretty good-loking diagnostic plots and results lo
 ```r
  require(car)
  vif(ft_heightRainLat)
-#>   rain    lat 
-#> 1.4942 1.4942
+#>     rain      lat 
+#> 1.494158 1.494158
  vif(ft_climproblems)
 #>      rain rain.wetm       lat 
-#>    6.2878    7.0311    1.6714
+#>  6.287835  7.031092  1.671396
 ```
 Clearly adding rain.wetm to the model has done some damage (but to rain only,
 not so much to lat).
@@ -311,6 +310,17 @@ want.
 
 ```r
  library(multcomp)
+#> Warning: package 'multcomp' was built under R version 4.3.3
+#> Loading required package: mvtnorm
+#> Loading required package: survival
+#> Loading required package: TH.data
+#> Warning: package 'TH.data' was built under R version 4.3.3
+#> Loading required package: MASS
+#> 
+#> Attaching package: 'TH.data'
+#> The following object is masked from 'package:MASS':
+#> 
+#>     geyser
  contDist = mcp(Dist="Tukey") # telling R to compare on the Dist factor
  compDist = glht(ft_seaweed, linfct=contDist) # run multiple comparisions
  summary(compDist)
@@ -325,8 +335,8 @@ want.
 #> Linear Hypotheses:
 #>             Estimate Std. Error t value Pr(>|t|)    
 #> 2 - 0 == 0     5.691      1.382   4.119   <0.001 ***
-#> 10 - 0 == 0    3.066      1.324   2.315   0.0622 .  
-#> 10 - 2 == 0   -2.625      1.382  -1.900   0.1483    
+#> 10 - 0 == 0    3.066      1.324   2.315   0.0621 .  
+#> 10 - 2 == 0   -2.625      1.382  -1.900   0.1484    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> (Adjusted p values reported -- single-step method)
@@ -416,10 +426,10 @@ pairs(X)
  by(seaweed$Total,seaweed$Dist,sd)
 #> seaweed$Dist: 0
 #> [1] 2.108063
-#> ---------------------------------------------------------------------- 
+#> ------------------------------------------------------------------------------------ 
 #> seaweed$Dist: 2
 #> [1] 5.507271
-#> ---------------------------------------------------------------------- 
+#> ------------------------------------------------------------------------------------ 
 #> seaweed$Dist: 10
 #> [1] 4.456622
 ```
@@ -452,10 +462,10 @@ We can try to address the suggestion of skew this using log-transformation:
  by(seaweed$logTot,seaweed$Dist,sd)
 #> seaweed$Dist: 0
 #> [1] 0.4423775
-#> ---------------------------------------------------------------------- 
+#> ------------------------------------------------------------------------------------ 
 #> seaweed$Dist: 2
 #> [1] 0.667999
-#> ---------------------------------------------------------------------- 
+#> ------------------------------------------------------------------------------------ 
 #> seaweed$Dist: 10
 #> [1] 0.5421633
 ```
@@ -495,9 +505,9 @@ This is looking pretty good now, let's run with that.
 #> 
 #> Linear Hypotheses:
 #>             Estimate Std. Error t value Pr(>|t|)    
-#> 2 - 0 == 0    0.7117     0.1820   3.910 0.000796 ***
-#> 10 - 0 == 0   0.4584     0.1745   2.627 0.029531 *  
-#> 10 - 2 == 0  -0.2533     0.1820  -1.392 0.352272    
+#> 2 - 0 == 0    0.7117     0.1820   3.910   <0.001 ***
+#> 10 - 0 == 0   0.4584     0.1745   2.627   0.0298 *  
+#> 10 - 2 == 0  -0.2533     0.1820  -1.392   0.3523    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> (Adjusted p values reported -- single-step method)
@@ -509,16 +519,18 @@ This is looking pretty good now, let's run with that.
 And the main change in results here is that there is now evidence that mean `logTot` is different between `Dist==0` and `Dist==10` now as well as between `Dist==0` and `Dist==2`. Again this is an example of being able to better see patterns when assumptions are closer to being satisfied (in particular, removing right-skew from response when fitting a linear model).
 
 
-## Exercise 3.7: Habitat conguration study { small plots
+## Exercise 3.7: Habitat configuration study - small plots
 
 
 ```r
  habSmall=seaweed[seaweed$Size=="SMALL",]
  ft_smhabconf=lm(logTot~Dist,data=habSmall)
+ par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,0.75,0))
  plotenvelope(ft_smhabconf,which=1:2)
 ```
 
-![plot of chunk ex3.7seaweedSMALL](../man/figures/ex3.7seaweedSMALL-1.png)![plot of chunk ex3.7seaweedSMALL](../man/figures/ex3.7seaweedSMALL-2.png)
+![plot of chunk ex3.7seaweedSMALL](../man/figures/ex3.7seaweedSMALL-1.png)
+
 
 ```r
  anova(ft_smhabconf)
@@ -544,16 +556,16 @@ And the main change in results here is that there is now evidence that mean `log
 #> 
 #> Linear Hypotheses:
 #>             Estimate Std. Error t value Pr(>|t|)  
-#> 2 - 0 == 0    0.7165     0.2423   2.957   0.0168 *
-#> 10 - 0 == 0   0.5808     0.2423   2.397   0.0594 .
-#> 10 - 2 == 0  -0.1357     0.2423  -0.560   0.8422  
+#> 2 - 0 == 0    0.7165     0.2423   2.957   0.0169 *
+#> 10 - 0 == 0   0.5808     0.2423   2.397   0.0595 .
+#> 10 - 2 == 0  -0.1357     0.2423  -0.560   0.8423  
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> (Adjusted p values reported -- single-step method)
  plot(compDistsm)
 ```
 
-![plot of chunk ex3.7seaweedSMALL](../man/figures/ex3.7seaweedSMALL-3.png)
+![plot of chunk ex3.7seaweedSMALLanova](../man/figures/ex3.7seaweedSMALLanova-1.png)
 
 Results are now less significant, with only marginal evidence of a difference in mean `logTot` between `Dist==0` and `Dist==10`. This is expected because we have almost halved our sample size:
 

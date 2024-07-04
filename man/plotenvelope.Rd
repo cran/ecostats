@@ -210,12 +210,12 @@ iris_mlm=lm(Y~Species,data=iris)
 plotenvelope(iris_mlm,n.sim=59,which=2)
 
 # A few more plots, with envelopes around data not smoothers:
-\donttest{plotenvelope(iris_mlm, which=1:3, add.smooth=FALSE)
+\dontrun{plotenvelope(iris_mlm, which=1:3, add.smooth=FALSE)
 # Note minor violation on the scale/location plot.}
 
 # Repeat but with smoothers and with separate plots for each response and 
 # a multiple testing adjustment to sim envelopes:
-\donttest{plotenvelope(iris_mlm, which=1:3, overlay=FALSE, conf.level=1-0.05/4)}
+\dontrun{plotenvelope(iris_mlm, which=1:3, overlay=FALSE, conf.level=1-0.05/4)}
 
 }
 \references{

@@ -315,43 +315,9 @@ Wow this does not look good! There is a clear fan-shape in the residual vs fits 
 
 ```r
 library(vegan)
-ord_mds=metaMDS(reveg$abund)
+ord_mds=metaMDS(reveg$abund,trace=0)
 #> Square root transformation
 #> Wisconsin double standardization
-#> Run 0 stress 0.1611237 
-#> Run 1 stress 0.1687788 
-#> Run 2 stress 0.2684195 
-#> Run 3 stress 0.1611236 
-#> ... New best solution
-#> ... Procrustes: rmse 0.0004585684  max resid 0.0008197316 
-#> ... Similar to previous best
-#> Run 4 stress 0.2062042 
-#> Run 5 stress 0.3314815 
-#> Run 6 stress 0.1611239 
-#> ... Procrustes: rmse 0.0005366897  max resid 0.0009748253 
-#> ... Similar to previous best
-#> Run 7 stress 0.1680773 
-#> Run 8 stress 0.1680773 
-#> Run 9 stress 0.1641165 
-#> Run 10 stress 0.2022877 
-#> Run 11 stress 0.1641165 
-#> Run 12 stress 0.1680773 
-#> Run 13 stress 0.1680773 
-#> Run 14 stress 0.1687788 
-#> Run 15 stress 0.1611236 
-#> ... Procrustes: rmse 0.0001032944  max resid 0.0001868105 
-#> ... Similar to previous best
-#> Run 16 stress 0.1880315 
-#> Run 17 stress 0.1880316 
-#> Run 18 stress 0.1611238 
-#> ... Procrustes: rmse 0.0006247713  max resid 0.001114103 
-#> ... Similar to previous best
-#> Run 19 stress 0.1880315 
-#> Run 20 stress 0.1611236 
-#> ... New best solution
-#> ... Procrustes: rmse 0.0002105525  max resid 0.0003734638 
-#> ... Similar to previous best
-#> *** Solution reached
 plot(ord_mds$points,pch=as.numeric(reveg$treatment),col=reveg$treatment)
 ```
 
@@ -370,36 +336,9 @@ tikusAbund = tikusAbund[,apply(tikusAbund,2,sum)>0] # remove zerotons
 *Construct an MDS plot of the data, using the Bray-Curtis distance (default), and colour-code symbols by year of sampling.*
 
 ```r
-tikus_mds=metaMDS(tikusAbund)
+tikus_mds=metaMDS(tikusAbund, trace=0)
 #> Square root transformation
 #> Wisconsin double standardization
-#> Run 0 stress 0.09863027 
-#> Run 1 stress 0.1096412 
-#> Run 2 stress 0.1144806 
-#> Run 3 stress 0.111816 
-#> Run 4 stress 0.09970471 
-#> Run 5 stress 0.1479043 
-#> Run 6 stress 0.1275178 
-#> Run 7 stress 0.1093704 
-#> Run 8 stress 0.09954172 
-#> Run 9 stress 0.1158263 
-#> Run 10 stress 0.1165909 
-#> Run 11 stress 0.10266 
-#> Run 12 stress 0.1054471 
-#> Run 13 stress 0.09954171 
-#> Run 14 stress 0.09954136 
-#> Run 15 stress 0.1010792 
-#> Run 16 stress 0.09863103 
-#> ... Procrustes: rmse 0.000412243  max resid 0.0009883379 
-#> ... Similar to previous best
-#> Run 17 stress 0.1078694 
-#> Run 18 stress 0.09863022 
-#> ... New best solution
-#> ... Procrustes: rmse 0.002205194  max resid 0.005495785 
-#> ... Similar to previous best
-#> Run 19 stress 0.1078696 
-#> Run 20 stress 0.1475714 
-#> *** Solution reached
 plot(tikus_mds$points,pch=as.numeric(tikus$x$time),col=tikus$x$time)
 ```
 
@@ -413,63 +352,7 @@ Yes it does, 1981 (before El Niño disturbance) the points are close together in
 
 
 ```r
-tikus_mdsEuc=metaMDS(log(tikusAbund+1),distance="euclidean")
-#> Run 0 stress 0.05741195 
-#> Run 1 stress 0.0574117 
-#> ... New best solution
-#> ... Procrustes: rmse 0.0006040334  max resid 0.001755331 
-#> ... Similar to previous best
-#> Run 2 stress 0.05741207 
-#> ... Procrustes: rmse 0.0002360083  max resid 0.0007165394 
-#> ... Similar to previous best
-#> Run 3 stress 0.0574119 
-#> ... Procrustes: rmse 0.0005762837  max resid 0.001677264 
-#> ... Similar to previous best
-#> Run 4 stress 0.07425327 
-#> Run 5 stress 0.05741188 
-#> ... Procrustes: rmse 0.0005713984  max resid 0.00166317 
-#> ... Similar to previous best
-#> Run 6 stress 0.05741211 
-#> ... Procrustes: rmse 0.0002562405  max resid 0.0007773331 
-#> ... Similar to previous best
-#> Run 7 stress 0.05741165 
-#> ... New best solution
-#> ... Procrustes: rmse 7.397262e-05  max resid 0.0002236007 
-#> ... Similar to previous best
-#> Run 8 stress 0.05741203 
-#> ... Procrustes: rmse 0.000571415  max resid 0.001643115 
-#> ... Similar to previous best
-#> Run 9 stress 0.07425304 
-#> Run 10 stress 0.05741166 
-#> ... Procrustes: rmse 4.266406e-05  max resid 0.000132459 
-#> ... Similar to previous best
-#> Run 11 stress 0.07425298 
-#> Run 12 stress 0.05741199 
-#> ... Procrustes: rmse 0.0005544893  max resid 0.001591259 
-#> ... Similar to previous best
-#> Run 13 stress 0.05741213 
-#> ... Procrustes: rmse 0.0003408697  max resid 0.001033423 
-#> ... Similar to previous best
-#> Run 14 stress 0.05741181 
-#> ... Procrustes: rmse 0.0001640364  max resid 0.0004996793 
-#> ... Similar to previous best
-#> Run 15 stress 0.05741166 
-#> ... Procrustes: rmse 0.0003297201  max resid 0.0009738707 
-#> ... Similar to previous best
-#> Run 16 stress 0.05741166 
-#> ... Procrustes: rmse 3.541119e-05  max resid 0.0001048059 
-#> ... Similar to previous best
-#> Run 17 stress 0.05741194 
-#> ... Procrustes: rmse 0.0005278599  max resid 0.001523223 
-#> ... Similar to previous best
-#> Run 18 stress 0.05741206 
-#> ... Procrustes: rmse 0.0005868747  max resid 0.00168278 
-#> ... Similar to previous best
-#> Run 19 stress 0.07425299 
-#> Run 20 stress 0.05741184 
-#> ... Procrustes: rmse 0.0001881958  max resid 0.0005719071 
-#> ... Similar to previous best
-#> *** Solution reached
+tikus_mdsEuc=metaMDS(log(tikusAbund+1), distance="euclidean", trace=0)
 plot(tikus_mdsEuc$points,pch=as.numeric(tikus$x$time),col=tikus$x$time)
 ```
 

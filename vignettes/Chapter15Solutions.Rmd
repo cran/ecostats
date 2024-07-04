@@ -1,7 +1,7 @@
 ---
 title: "Chapter 15 -- Predicting multivariate abundances -- Exercise solutions and Code Boxes"
 author: "David Warton"
-date: "2022-08-24"
+date: "2024-07-04"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Chapter 15 -- Predicting multivariate abundances -- Exercise solutions and Code Boxes}
@@ -329,7 +329,7 @@ library(VGAM)
 wind_RR2=rrvglm(as.matrix(windFarms$abund)~Year*Zone, family=poissonff, data=windFarms$X, Rank=2)
 wind_manyglm = manyglm(windMV~Year*Zone, data=windFarms$X, family=poisson())
 c( BIC(wind_RR2), sum(BIC(wind_manyglm)))
-#> [1] 3318.548 3471.901
+#> [1] 3317.985 3471.901
 zoneyear = interaction(windFarms$X$Zone,windFarms$X$Year)
 matplot(as.numeric(zoneyear),latvar(wind_RR2),pch=c(1,19))
 ```
@@ -352,6 +352,7 @@ spid.trait = traitglm(spider$abund,spider$x,method="cv.glm1path")
 
 ![plot of chunk code15.6](../man/figures/code15.6-1.png)
 
+
 ```r
 library(lattice)
 a = max( abs(spid.trait$fourth.corner) )
@@ -363,7 +364,7 @@ scales = list( x= list(rot = 45)) )
 print(plot.4th)
 ```
 
-![plot of chunk code15.6](../man/figures/code15.6-2.png)
+![plot of chunk code15.6lattice](../man/figures/code15.6lattice-1.png)
 
 *Which environmental variables seem to have the strongest effect on spider abundances?*
 
@@ -380,10 +381,10 @@ Xformula = paste(colnames(spider$x),collapse="+")
 fullFormula = formula(paste0("value~cols+",Xformula,"+(",Xformula,"|cols)"))
 library(glmmTMB)
 spid_glmm = glmmTMB(fullFormula,family=nbinom2(),data=spiderLong)
-#> Warning in fitTMB(TMBStruc): Model convergence problem; non-positive-definite Hessian matrix.
-#> See vignette('troubleshooting')
-#> Warning in fitTMB(TMBStruc): Model convergence problem; false convergence (8). See
-#> vignette('troubleshooting')
+#> Warning in finalizeTMB(TMBStruc, obj, fit, h, data.tmb.old): Model convergence problem; non-positive-definite
+#> Hessian matrix. See vignette('troubleshooting')
+#> Warning in finalizeTMB(TMBStruc, obj, fit, h, data.tmb.old): Model convergence problem; false convergence (8).
+#> See vignette('troubleshooting'), help('diagnose')
 summary(spid_glmm)
 #>  Family: nbinom2  ( log )
 #> Formula:          value ~ cols + soil.dry + bare.sand + fallen.leaves + moss +  
@@ -398,37 +399,37 @@ summary(spid_glmm)
 #> 
 #> Conditional model:
 #>  Groups Name          Variance Std.Dev. Corr                                
-#>  cols   (Intercept)   0.6198   0.7873                                       
-#>         soil.dry      1.8397   1.3564   -0.88                               
-#>         bare.sand     0.1567   0.3959   -0.10 -0.08                         
-#>         fallen.leaves 0.4022   0.6342    0.67 -0.67 -0.68                   
-#>         moss          0.2354   0.4852   -0.70  0.40  0.51 -0.59             
-#>         herb.layer    0.6003   0.7748   -0.91  0.82 -0.20 -0.40  0.47       
-#>         reflection    0.6677   0.8172    0.15 -0.52  0.33  0.20  0.40 -0.33 
+#>  cols   (Intercept)   0.6278   0.7923                                       
+#>         soil.dry      1.8414   1.3570   -0.87                               
+#>         bare.sand     0.1583   0.3979   -0.13 -0.06                         
+#>         fallen.leaves 0.4065   0.6376    0.66 -0.66 -0.71                   
+#>         moss          0.2394   0.4893   -0.68  0.38  0.53 -0.60             
+#>         herb.layer    0.6218   0.7885   -0.91  0.80 -0.18 -0.37  0.44       
+#>         reflection    0.6865   0.8286    0.18 -0.55  0.32  0.21  0.37 -0.36 
 #> Number of obs: 336, groups:  cols, 12
 #> 
-#> Dispersion parameter for nbinom2 family ():  1.5 
+#> Dispersion parameter for nbinom2 family (): 1.51 
 #> 
 #> Conditional model:
 #>               Estimate Std. Error z value Pr(>|z|)    
-#> (Intercept)    0.16776    0.47850   0.351 0.725894    
-#> colsAlopcune   0.54986    0.33996   1.617 0.105785    
-#> colsAlopfabr  -1.63899    0.58105  -2.821 0.004792 ** 
-#> colsArctlute  -1.97278    0.82953  -2.378 0.017398 *  
-#> colsArctperi  -4.54237    1.35504  -3.352 0.000802 ***
-#> colsAuloalbi   0.07721    0.53723   0.144 0.885718    
-#> colsPardlugu  -1.36175    0.81877  -1.663 0.096279 .  
-#> colsPardmont   1.70514    0.42854   3.979 6.92e-05 ***
-#> colsPardnigr   0.92672    0.65593   1.413 0.157703    
-#> colsPardpull   1.12798    0.72752   1.550 0.121034    
-#> colsTrocterr   2.26516    0.54456   4.160 3.19e-05 ***
-#> colsZoraspin   0.34212    0.69131   0.495 0.620682    
-#> soil.dry       0.65262    0.42430   1.538 0.124020    
-#> bare.sand      0.06150    0.15994   0.385 0.700601    
-#> fallen.leaves -0.35286    0.26457  -1.334 0.182309    
-#> moss           0.13402    0.18688   0.717 0.473289    
-#> herb.layer     1.10662    0.27995   3.953 7.72e-05 ***
-#> reflection    -0.03521    0.29688  -0.119 0.905585    
+#> (Intercept)    0.14046    0.38463   0.365 0.714972    
+#> colsAlopcune   0.57040    0.35671   1.599 0.109811    
+#> colsAlopfabr  -1.63338    0.58814  -2.777 0.005483 ** 
+#> colsArctlute  -1.95026    0.73851  -2.641 0.008270 ** 
+#> colsArctperi  -4.59785    1.36464  -3.369 0.000754 ***
+#> colsAuloalbi   0.08365    0.45974   0.182 0.855622    
+#> colsPardlugu  -1.35449    0.69980  -1.936 0.052924 .  
+#> colsPardmont   1.72206    0.42390   4.062 4.86e-05 ***
+#> colsPardnigr   0.96816    0.47566   2.035 0.041808 *  
+#> colsPardpull   1.18339    0.67418   1.755 0.079205 .  
+#> colsTrocterr   2.28614    0.37644   6.073 1.26e-09 ***
+#> colsZoraspin   0.37109    0.43828   0.847 0.397160    
+#> soil.dry       0.63734    0.42406   1.503 0.132855    
+#> bare.sand      0.06513    0.15932   0.409 0.682691    
+#> fallen.leaves -0.35355    0.26504  -1.334 0.182218    
+#> moss           0.13821    0.18615   0.743 0.457782    
+#> herb.layer     1.11253    0.27857   3.994 6.50e-05 ***
+#> reflection    -0.01724    0.29874  -0.058 0.953983    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```

@@ -27,7 +27,7 @@ summary(ft_maunagam)
 ```
 
 ## Code Box 8.2: Residual plot from a GAM of the annual Mauna Loa data of Exercise 8.1
-```{r box82}
+```{r box82, fig.width=4, fig.height=4}
 plotenvelope(ft_maunagam)
 ```
 
@@ -70,7 +70,7 @@ He could try a GAM, as in Code Box 8.4. Note that this doesn't allow him to acco
 
 ## Code Box 8.4: Handling interactions in a GAM, when modelling Ian's richness data as a function of minimum temperature and rainfall, for Exercise 8.2
 
-```{r box84, fig.width=6,fig.height=6}
+```{r box84, fig.width=5,fig.height=5}
 data(Myrtaceae)
 ft_tmprain=gam(log(richness+1)~te(TMP_MIN,RAIN_ANN),data=Myrtaceae)
 vis.gam(ft_tmprain,theta=-135) #rotating the plot to find a nice view
@@ -101,7 +101,7 @@ And the winner is a linear model.
 
 
 ## Code Box 8.5: Residual plot with a smoother to diagnose a model.
-```{r box85, fig.width=5}
+```{r box85, fig.width=4, fig.height=4}
 data(globalPlants)
 globalPlants$logHt = log(globalPlants$height)
 ft_heightlm = lm(logHt~lat,dat=globalPlants)
@@ -138,7 +138,7 @@ We can fit an additive model with a smoother for the long-term trend, and harmon
 
 
 ## Code Box 8.6: A simple model for the Mauna Loa monthly data with a cyclical predictor
-```{r box86, fig.width=7}
+```{r box86, fig.width=7, fig.height=4}
 data(maunaloa)
 library(mgcv)
 ft_cyclic=gam(co2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi),
@@ -151,7 +151,7 @@ points(predict(ft_cyclic)~maunaloa$Date,type="l",col="red",lwd=0.5)
 
 ## Code Box 8.7: Residual plots across time and season for the Mauna Loa monthly data
 
-```{r box87, fig.width=9}
+```{r box87, fig.width=7, fig.height=3.5}
 par(mfrow=c(1,2))
 plot(residuals(ft_cyclic)~maunaloa$Date,type="l", xlab="Time")
 plot(residuals(ft_cyclic)~sin(maunaloa$month/12*2*pi),
@@ -160,7 +160,7 @@ plot(residuals(ft_cyclic)~sin(maunaloa$month/12*2*pi),
 
 
 Here is some code to produce a simulated dataset from this model, for comparison:
-```{r box87 sim, fig.width=9}
+```{r box87 sim, fig.width=7, fig.height=3.5}
 maunaloa$simCO2 = unlist(simulate(ft_cyclic))
 ft_simCyclic=gam(simCO2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi),
   data=maunaloa)
@@ -173,7 +173,7 @@ plot(residuals(ft_simCyclic)~sin(maunaloa$month/12*2*pi),
 
 ## Code Box 8.8: Another model for the Mauna Loa monthly data, with an extra sine curve in there to better handle irregularities in the seasonal effect}\label{code:maunaAnotherModel}
 
-```{r box88, fig.width=9}
+```{r box88, fig.width=7, fig.height=3.5}
 ft_cyclic2=gam(co2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi)+
        sin(month/12*4*pi)+cos(month/12*4*pi),data=maunaloa)
 par(mfrow=c(1,2))
@@ -185,7 +185,7 @@ plot(residuals(ft_cyclic2)~sin(maunaloa$month/12*2*pi),
 
 ## Code Box 8.9: Mauna Loa model with autocorrelation}\label{code:maunaAutoModel}
 
-```{r box89}
+```{r box89, fig.width=5, fig.height=4}
 ft_gamm = gamm(co2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi)+
                 sin(month/12*4*pi)+cos(month/12*4*pi),correlation=corAR1(),
                 data=maunaloa)
@@ -196,7 +196,7 @@ acf(residuals(ft_gamm$lme,type="normalized"))
 ## Exercise 8.6: Mauna Loa monthly data -- an extra term in seasonal trend?
 *We tried modelling the trend by fitting sine curves with two frequencies... Is this sufficient, or should we add another frequency too, like `month/12*6*pi` (for curves with three cycles a year)?*
 
-```{r ex86, fig.width=9}
+```{r ex86, fig.width=7, fig.height=3.5}
 ft_cyclic3=gam(co2~s(DateNum)+sin(month/12*2*pi)+cos(month/12*2*pi)+
        sin(month/12*4*pi)+cos(month/12*4*pi) +
        + sin(month/12*6*pi)+cos(month/12*6*pi), data=maunaloa)
@@ -217,7 +217,7 @@ According to BIC, 2 harmonics is the winner, there isn't much to gain from addin
 ## Exercise 8.7: Mauna Loa annual data -- temporal autocorrelation?}
 *Consider the annual Mauna Loa monthly data of Code Box 8.1, which uses the measurements from January only... Is there evidence of temporal autocorrelation in this dataset?*
 
-```{r ex87}
+```{r ex87, fig.width=5, fig.height=4}
 maunaJan = maunaloa[maunaloa$month==1,]
 ft_gammJan = gamm(co2~s(year),correlation=corAR1(), data=maunaJan)
 acf(residuals(ft_gammJan$gam))

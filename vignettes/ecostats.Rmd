@@ -57,7 +57,7 @@ x = 1:50
 rpois_glm = glm(y~x,family=poisson())
 rpois_int = glm(y~1,family=poisson())
 # use the parametric bootstrap to test for an effect of x (will usually be non-significant)
-anovaPB(rpois_int,rpois_glm,n.sim=99)
+anovaPB(rpois_int,rpois_glm,n.sim=99, ncpus=1)
 ```
 
 ## Datasets
