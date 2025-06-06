@@ -1,7 +1,7 @@
 Package: ecostats
 Title: Code and Data Accompanying the Eco-Stats Text (Warton 2022)
-Version: 1.2.1
-Date: 2024-07-02
+Version: 1.2.2
+Date: 2025-06-06
 Authors@R: c(person("David", "Warton", email = "david.warton@unsw.edu.au", role = c("aut", "cre")),
             person("Christopher", "Chung", role = "ctb"),
             person("Mark", "Donoghoe", role = "ctb"),
@@ -13,7 +13,7 @@ Imports: ecoCopula, GET, graphics, grDevices, MASS, methods, mgcv,
         mvtnorm, parallel, stats
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends: R (>= 3.5.0), mvabund (>= 4.2)
 Suggests: knitr, rmarkdown, ade4, caper, car, corrplot, DAAG, DHARMa,
         dplyr, gclus, GGally, ggplot2, ggthemes, glmnet, gllvm,
@@ -24,11 +24,11 @@ Suggests: knitr, rmarkdown, ade4, caper, car, corrplot, DAAG, DHARMa,
 VignetteBuilder: knitr
 URL: https://dwarton.github.io/ecostats/
 NeedsCompilation: no
-Packaged: 2024-07-04 06:26:18 UTC; z3103495
+Packaged: 2025-06-06 04:48:01 UTC; z3103495
 Author: David Warton [aut, cre],
   Christopher Chung [ctb],
   Mark Donoghoe [ctb],
   Eve Slavich [ctb]
 Maintainer: David Warton <david.warton@unsw.edu.au>
 Repository: CRAN
-Date/Publication: 2024-07-04 07:10:02 UTC
+Date/Publication: 2025-06-06 05:10:02 UTC

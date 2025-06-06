@@ -12,7 +12,7 @@
 
 <meta name="author" content="David Warton" />
 
-<meta name="date" content="2024-07-04" />
+<meta name="date" content="2025-06-06" />
 
 <title>Chapter 6 – Mixed effect models – Exercise solutions and Code Boxes</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Chapter 6 – Mixed effect models – Exercise
 solutions and Code Boxes</h1>
 <h4 class="author">David Warton</h4>
-<h4 class="date">2024-07-04</h4>
+<h4 class="date">2025-06-06</h4>
 
 
 
@@ -430,9 +430,9 @@ models for the estuary data</h2>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; ft_estuInt: Total ~ (1 | Estuary)</span></span>
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; ft_estu: Total ~ Mod + (1 | Estuary)</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)  </span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; ft_estuInt    3 334.18 339.39 -164.09   328.18                       </span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; ft_estu       4 330.14 337.09 -161.07   322.14 6.0396  1    0.01399 *</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)  </span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; ft_estuInt    3 334.18 339.39 -164.09    328.18                       </span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; ft_estu       4 330.14 337.09 -161.07    322.14 6.0396  1    0.01399 *</span></span>
 <span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
 <p>There is some evidence of an effect of modification.</p>
@@ -468,8 +468,8 @@ mixed effects model</h2>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; Formula: Total ~ Mod + (0 + isMod | Estuary) + (0 + isPri | Estuary)</span></span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt;    Data: estuaries</span></span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt;      AIC      BIC   logLik deviance df.resid </span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt;    331.7    340.4   -160.8    321.7       37 </span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt;       AIC       BIC    logLik -2*log(L)  df.resid </span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt;     331.7     340.4    -160.8     321.7        37 </span></span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
 <span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
@@ -524,9 +524,9 @@ effect for <code>Plot</code> in the model.</p>
 <span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
 <span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; ft_aphidNull: logcount ~ Time + (1 | Plot)</span></span>
 <span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; ft_aphids: logcount ~ Treatment * Time + (1 | Plot)</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;              npar    AIC    BIC   logLik deviance  Chisq Df Pr(&gt;Chisq)  </span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; ft_aphidNull    4 28.204 31.294 -10.1020   20.204                       </span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; ft_aphids       6 26.974 31.609  -7.4868   14.973 5.2304  2    0.07315 .</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;              npar    AIC    BIC   logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)  </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; ft_aphidNull    4 28.204 31.294 -10.1020    20.204                       </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; ft_aphids       6 26.974 31.609  -7.4868    14.973 5.2304  2    0.07315 .</span></span>
 <span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
 <p>Which gives us marginal evidence of an effect of bird exclusion of
@@ -642,9 +642,9 @@ increase, which is super-weird. But it’s not too alarming…</p>
 <span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
 <span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ: Total ~ Zone + Mod + (Zone | Estuary)</span></span>
 <span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#&gt; lme_MZ: Total ~ Zone * Mod + (Zone | Estuary)</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)</span></span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ    7 595.91 612.31 -290.95   581.91                     </span></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; lme_MZ        8 597.14 615.89 -290.57   581.14 0.7618  1     0.3828</span></span></code></pre></div>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ    7 595.91 612.31 -290.95    581.91                     </span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; lme_MZ        8 597.14 615.89 -290.57    581.14 0.7618  1     0.3828</span></span></code></pre></div>
 <p>No evidence of an interaction between Zone and Modification. Testing
 for a <code>Mod</code> main effect:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>lme_Z <span class="ot">=</span> <span class="fu">lmer</span>(Total<span class="sc">~</span>Zone <span class="sc">+</span> (Zone<span class="sc">|</span>Estuary), <span class="at">data=</span>estuaryZone )</span>
@@ -654,9 +654,9 @@ for a <code>Mod</code> main effect:</p>
 <span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
 <span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; lme_Z: Total ~ Zone + (Zone | Estuary)</span></span>
 <span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ: Total ~ Zone + Mod + (Zone | Estuary)</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    </span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; lme_Z         6 608.43 622.50 -298.22   596.43                         </span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ    7 595.91 612.31 -290.95   581.91 14.529  1   0.000138 ***</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt;            npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)    </span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; lme_Z         6 608.43 622.50 -298.22    596.43                         </span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; lme_MplusZ    7 595.91 612.31 -290.95    581.91 14.529  1   0.000138 ***</span></span>
 <span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
 <span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
 <p>There is strong evidence that total abundance is different between
@@ -678,7 +678,7 @@ error of the <code>Mod</code> fixed effect in Exercise 6.1.</h2>
 <span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>   bStat[iBoot] <span class="ot">=</span> <span class="fu">fixef</span>(ft_i)[<span class="dv">2</span>]</span>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>}</span>
 <span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="fu">sd</span>(bStat) <span class="co">#standard error of Mod effect</span></span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; [1] 4.395154</span></span></code></pre></div>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; [1] 4.260999</span></span></code></pre></div>
 <p>And if we compare this to the standard error from
 <code>summary</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">summary</span>(ft_estu)</span>
@@ -724,7 +724,7 @@ Estuary in Exercise 6.1.</h2>
 <span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt; ft_estu: Total ~ Mod + (1 | Estuary)</span></span>
 <span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt;           df deviance   LRT Pr(&gt;LRT)</span></span>
 <span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co">#&gt; ft_noestu  3    322.2               </span></span>
-<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#&gt; ft_estu    4    314.4 7.832     0.24</span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#&gt; ft_estu    4    314.4 7.832     0.26</span></span>
 <span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#&gt; P-value calculated by simulating 99 samples from ft_noestu.</span></span></code></pre></div>
 <p>So we have no evidence of an <code>Estuary</code> effect. (The
@@ -743,19 +743,17 @@ to <code>anovaPB</code>:</p>
 <span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="fu">anovaPB</span>(lme_MplusZ,lme_MZ,<span class="at">n.sim=</span><span class="dv">99</span>,<span class="at">ncpus=</span><span class="dv">1</span>)</span>
 <span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#&gt; Warning in Ops.factor(Zone, Estuary): &#39;|&#39; not meaningful for factors</span></span>
 <span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#&gt; Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :</span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#&gt; unable to evaluate scaled gradient</span></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#&gt; Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :</span></span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#&gt; Model failed to converge: degenerate Hessian with 1 negative eigenvalues</span></span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co">#&gt; Data: estuaryZone</span></span>
-<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
-<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt; objectNull: Total ~ Zone + Mod + (Zone | Estuary)</span></span>
-<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#&gt; object: Total ~ Zone * Mod + (Zone | Estuary)</span></span>
-<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="co">#&gt;            npar   AIC   BIC logLik deviance Chisq Pr(&gt;Chisq)</span></span>
-<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="co">#&gt; objectNull    7 595.9 612.3 -291.0    581.9                 </span></span>
-<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a><span class="co">#&gt; object        8 597.1 615.9 -290.6    581.1 0.762       0.35</span></span>
-<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a><span class="co">#&gt; P-value calculated by simulating 99 samples from objectNull.</span></span></code></pre></div>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#&gt; Model failed to converge with max|grad| = 0.00848004 (tol = 0.002, component 1)</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#&gt; Data: estuaryZone</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#&gt; Models:</span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co">#&gt; objectNull: Total ~ Zone + Mod + (Zone | Estuary)</span></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#&gt; object: Total ~ Zone * Mod + (Zone | Estuary)</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt;            npar   AIC   BIC logLik -2*log(L) Chisq Pr(&gt;Chisq)</span></span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#&gt; objectNull    7 595.9 612.3 -291.0     581.9                 </span></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="co">#&gt; object        8 597.1 615.9 -290.6     581.1 0.762       0.43</span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a><span class="co">#&gt; P-value calculated by simulating 99 samples from objectNull.</span></span></code></pre></div>
 <p>There is no evidence of an interaction.</p>
 <p>(Ignore the warnings in the output – this is random stuff that was
 thrown up in bootstrap resamples that didn’t get a good fit.)</p>
@@ -780,7 +778,7 @@ there?</em></p>
 <span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a><span class="co">#&gt; lme_MZ: Total ~ Zone * Mod + (Zone | Estuary)</span></span>
 <span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a><span class="co">#&gt;             df deviance   LRT Pr(&gt;LRT)</span></span>
 <span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="co">#&gt; lme_MZnoest  4    582.8               </span></span>
-<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co">#&gt; lme_MZ       8    581.1 1.684     0.33</span></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co">#&gt; lme_MZ       8    581.1 1.684     0.29</span></span>
 <span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a><span class="co">#&gt; P-value calculated by simulating 99 samples from lme_MZnoest.</span></span></code></pre></div>
 <p>We have no evidence of an <code>Estuary</code> effect either!</p>

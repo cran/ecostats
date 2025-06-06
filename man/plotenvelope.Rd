@@ -22,6 +22,7 @@ plotenvelope(
   envelope.col = adjustcolor(line.col, 0.1),
   add.smooth = TRUE,
   plot.it = TRUE,
+  do.qq.line = FALSE,
   resFunction = NULL,
   predFunction = NULL,
   fitMin = if (inherits(y, "glm") | inherits(y, "manyglm")) -6 else -Inf,
@@ -92,6 +93,8 @@ within the envelope.}
 scale-location plots, and computes a global envelope around the \emph{smoother} rather than the data (\code{add.smooth=FALSE}). No smoother is added to the normal quantile plot.}
 
 \item{plot.it}{logical. Should the result be plotted? If not, a list of analysis outputs is returned, see \emph{Value}.}
+
+\item{do.qq.line}{logical. Should a line be included on the qq plot? Default is FALSE.}
 
 \item{resFunction}{the function used to compute residuals for all diagnostic plots. Defaults
 to \code{\link{cresiduals}} for multivariate linear models, \code{\link{rstandard}} for linear

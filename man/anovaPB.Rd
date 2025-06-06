@@ -8,7 +8,7 @@ anovaPB(
   objectNull,
   object,
   n.sim = 999,
-  colRef = switch(class(object)[1], lm = 5, lmerMod = 6, 4),
+  colRef = switch(class(object)[1], lm = 5, lmerMod = 6, glmmTMB = 6, 4),
   rowRef = 2,
   ncpus = NULL,
   ...
@@ -29,7 +29,7 @@ bootstrap testing. Defaults to 999.}
 \item{colRef}{the column number where the test statistic of interest can be found
 in the standard \code{anova} output when calling \code{anova(objectNull,object)}.
 Default choices have been set for common models (\code{colRef=5} for \code{lm} objects,
-\code{colRef=6} for \code{lmer} objects and \code{colRef=4} otherwise, which is correct 
+\code{colRef=6} for \code{lmer} and \code{glmmTMB} objects and \code{colRef=4} otherwise, which is correct 
 for \code{glm} and \code{gam} objects).}
 
 \item{rowRef}{the row number where the test statistic of interest can be found

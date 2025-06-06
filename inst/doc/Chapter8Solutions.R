@@ -150,13 +150,13 @@ ft_richAdd = lm(logrich~soil+poly(TMP_MAX,degree=2)+
 BIC(ft_richAsp,ft_richAdd)
 
 ## ----ex88 spatial, eval=FALSE-------------------------------------------------
-#  library(nlme)
-#  ft_richNugg = gls(logrich~soil+poly(TMP_MAX,degree=2)+poly(TMP_MIN,degree=2)+
-#         poly(RAIN_ANN,degree=2),data=Myrtaceae,
-#           correlation=corExp(form=~X+Y,nugget=TRUE))
-#  ft_richAspNugg = gls(logrich~soil+poly(TMP_MAX,degree=2)+poly(TMP_MIN,degree=2)+
-#         poly(RAIN_ANN,degree=2)+ cos(aspect*2*pi/360)+sin(aspect*2*pi/360)+cos(aspect*4*pi/360)+sin(aspect*4*pi/360),data=Myrtaceae,
-#           correlation=corExp(form=~X+Y,nugget=TRUE))
-#  BIC(ft_richNugg)
-#  BIC(ft_richAspNugg)
+# library(nlme)
+# ft_richNugg = gls(logrich~soil+poly(TMP_MAX,degree=2)+poly(TMP_MIN,degree=2)+
+#        poly(RAIN_ANN,degree=2),data=Myrtaceae,
+#          correlation=corExp(form=~X+Y,nugget=TRUE))
+# ft_richAspNugg = gls(logrich~soil+poly(TMP_MAX,degree=2)+poly(TMP_MIN,degree=2)+
+#        poly(RAIN_ANN,degree=2)+ cos(aspect*2*pi/360)+sin(aspect*2*pi/360)+cos(aspect*4*pi/360)+sin(aspect*4*pi/360),data=Myrtaceae,
+#          correlation=corExp(form=~X+Y,nugget=TRUE))
+# BIC(ft_richNugg)
+# BIC(ft_richAspNugg)
 
